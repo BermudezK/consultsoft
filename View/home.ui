@@ -11,120 +11,274 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>ConsultSoft</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#panel, #MainWindow{
-	background-color:#13CE66;
+	background-color:#263238;
 }
-#pb_inicio, #pb_pacientes, #pb_secretarios, #pb_medicos{
-	font-size: 18px;
-	background-color:#1B6C3F;
+#panel{
+	margin: 0px;
+}
+.QPushButton{
+	font-size: 12px;
+	background-color:#263238;
 	border:none;
 	color: white;
+	margin: 0px 0px;
 	text-align: center;
-	height:60px;
-    width: 120px;
+	height:80px;
+    width: 130px;
 }
 
-
+.QPushButton:hover {
+	background-color: #00796b;
+}
+#pd_logOut:hover{
+	background-color:#d32f2f;
+}
+#L_userPhoto{
+	background: url(icon/user.png);
+  	border-radius: 40px;
+}
+#L_userName{
+	font-size: 9px;
+	color: white;
+}
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QWidget" name="panel" native="true">
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <layout class="QGridLayout" name="gridLayout_2">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetDefaultConstraint</enum>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1" alignment="Qt::AlignRight|Qt::AlignTop">
+     <widget class="QWidget" name="w_user" native="true">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="1" alignment="Qt::AlignHCenter|Qt::AlignTop">
+        <widget class="QLabel" name="L_userPhoto">
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
          </property>
-         <property name="topMargin">
-          <number>100</number>
+         <property name="maximumSize">
+          <size>
+           <width>10</width>
+           <height>20</height>
+          </size>
          </property>
-         <property name="bottomMargin">
-          <number>200</number>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
          </property>
-         <property name="spacing">
-          <number>0</number>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
          </property>
-         <item row="4" column="0">
-          <widget class="QPushButton" name="pb_medicos">
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-           <property name="text">
-            <string>Medicos</string>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QPushButton" name="pb_pacientes">
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-           <property name="text">
-            <string>Pacientes</string>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QPushButton" name="pb_inicio">
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-           <property name="text">
-            <string>Inicio</string>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QPushButton" name="pb_secretarios">
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-           <property name="text">
-            <string>Secretarios</string>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">buttonGroup</string>
-           </attribute>
-          </widget>
-         </item>
-        </layout>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>../icons/user.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+         <property name="wordWrap">
+          <bool>false</bool>
+         </property>
+        </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QMdiArea" name="mdiArea">
-         <property name="styleSheet">
-          <string notr="true">QMdiArea{
-background: white;
-}</string>
+       <item row="0" column="0">
+        <widget class="QLabel" name="L_userName">
+         <property name="font">
+          <font>
+           <pointsize>-1</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>User name</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
     </item>
+    <item row="0" column="0" rowspan="2">
+     <widget class="QWidget" name="panel" native="true">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="spacing">
+        <number>1</number>
+       </property>
+       <property name="sizeConstraint">
+        <enum>QLayout::SetMinAndMaxSize</enum>
+       </property>
+       <property name="leftMargin">
+        <number>1</number>
+       </property>
+       <property name="topMargin">
+        <number>1</number>
+       </property>
+       <property name="rightMargin">
+        <number>1</number>
+       </property>
+       <property name="bottomMargin">
+        <number>1</number>
+       </property>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pb_inicio">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Agenda</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../icons/calendar.png</normaloff>../icons/calendar.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pb_pacientes">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Pacientes</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../icons/team-of-workers.png</normaloff>../icons/team-of-workers.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pb_medicos">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Doctores</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../icons/doctor.png</normaloff>../icons/doctor.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pb_secretarios">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Secretarios</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../icons/secretary.png</normaloff>../icons/secretary.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>40</height>
+          </size>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pd_logOut">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../icons/exit.png</normaloff>../icons/exit.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QMdiArea" name="mdiArea">
+      <property name="styleSheet">
+       <string notr="true">QMdiArea{
+background: white;
+}</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>
  <tabstops>
-  <tabstop>pb_inicio</tabstop>
-  <tabstop>pb_secretarios</tabstop>
-  <tabstop>pb_pacientes</tabstop>
   <tabstop>pb_medicos</tabstop>
  </tabstops>
  <resources/>
