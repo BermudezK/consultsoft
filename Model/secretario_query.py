@@ -48,3 +48,10 @@ def existe(dni):
     resultado=cursor.fetchone()
     cursor.close()
     return resultado[0]
+
+def agregar_turno(medico_ID,secretario_ID,fecha_Hora,paciente_DNI):
+    sqlconsulta = "insert into turno (medico_ID,secretario_ID,fecha_Hora,paciente_DNI) values (%s,%s,%s,%s)"
+    cursor= mydb.cursor()
+    cursor.execute(sqlconsulta,(medico_ID,secretario_ID,fecha_Hora,paciente_DNI))
+    mydb.commit()
+    cursor.close()
