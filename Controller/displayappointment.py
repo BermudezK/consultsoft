@@ -7,7 +7,7 @@ from Controller.ventana_paciente import VentanaPaciente
 class Displayappointment(QDialog):
       def __init__(self):
             QDialog.__init__(self)
-            uic.loadUi('./View/ventanaPacientes.ui', self)
+            uic.loadUi('./View/displayappointment.ui', self)
             self.cargarPacientesALaTabla()
             self.pb_cargarPaciente.clicked.connect(self.pb_agregarPaciente_on_click)
       
