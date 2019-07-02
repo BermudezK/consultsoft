@@ -1,23 +1,27 @@
 import sys
+from Model.turno_query import cargar_turnos
 from PyQt5.QtWidgets import (
  QApplication, QTableWidgetItem,
  QTableWidget, QPushButton, QHBoxLayout, QWidget,
  QDialog, QDesktopWidget
  )
 from PyQt5 import uic, QtCore, QtGui
+from Model.turno import Turno
 
 class VistaTurnos(QDialog):
 	def __init__(self):
 		QDialog.__init__(self)
-		uic.loadUi('../View/vistaTurnos.ui',self)
+		uic.loadUi('./View/vistaTurnos.ui',self)
 		#self.center()
-		self.cargarTurnosALaTabla()
+		self.cargarTurnosALaTabla(cargar_turnos)
 		self.botonNuevoTurno.clicked.connect(self.botonNuevoTurno_on_click)
-		#self.comboBoxFiltro.clicked.connect()
+		self.comboBoxFiltro.currentIndexChanged.connect(self.seleccionarFiltro)
+		#self.campoBusqueda.textChanged.connect(self.busqueda)
+		
 
-
-	def cargarTurnosALaTabla(self):
-		turnos = [[1,"30/06/19","Ferreyra Luis","Pablo Barrios"],[2,"30/06/19","Karina Bermudez","Gomez Ignazio"]]
+	def cargarTurnosALaTabla(self,consulta):
+		turnos = consulta()
+		#turnos = cargar_turnos()
 		self.tablaTurnos.setRowCount(len(turnos))
 		self.tablaTurnos.setEditTriggers(QTableWidget.NoEditTriggers)
 
@@ -31,15 +35,33 @@ class VistaTurnos(QDialog):
 				item = QTableWidgetItem(str(x))
 				item.setTextAlignment(QtCore.Qt.AlignCenter)
 				self.tablaTurnos.setItem(i,columna,item)
-				# Crea el boton en la fila i
-				self.crearBoton(i)
+				#Crea el boton en la fila i
+				#self.crearBoton(i)
 				columna = columna + 1
+
+	def seleccionarFiltro(self,i):
+		filtro = self.comboBoxFiltro.itemText(i)
+		if filtro == "Turno":
+			pass
+			#self.botonBuscar.clicked.connect(self.buscar(busqueda(),Turno().filtrarTurno()))
+
+		elif filtro == "Paciente":
+			self.botonBuscar.clicked.connect(self.buscarP())
+
+
+	def buscarP(self):
+		turnosPacientes= Turno().filtrarPaciente(self.campoBusqueda.text())
+
+
+
 
 	def botonNuevoTurno_on_click(self):
 		# Cargar un nuevo turno
 		# Falta modulo de Pablo
 		pass
 
+# Crea los botones de Editar y Eliminar en las columna de Accion.
+"""
 	def crearBoton(self,posicion):
 		# Creo el layout que contendra a los botones
 		caja = QHBoxLayout()
@@ -75,9 +97,10 @@ class VistaTurnos(QDialog):
 	def borrar(self):
 		print("Borrar")
 
+"""
 
-if __name__ == '__main__':
-	app = QApplication(sys.argv)
-	_ventana = VistaTurnos()
-	_ventana.show()
-	app.exec_()
+#if __name__ == '__main__':
+app = QApplication(sys.argv)
+_ventana = VistaTurnos()
+_ventana.show()
+app.exec_()

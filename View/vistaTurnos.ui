@@ -139,11 +139,6 @@ border: 0;
    </property>
    <item>
     <property name="text">
-     <string>Filtro</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
      <string>Turnos</string>
     </property>
    </item>
@@ -158,19 +153,52 @@ border: 0;
     </property>
    </item>
   </widget>
+  <widget class="QPushButton" name="botonBuscar">
+   <property name="geometry">
+    <rect>
+     <x>283</x>
+     <y>5</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+border: 0;
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../icons/loupe1.svg</normaloff>../icons/loupe1.svg</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>24</width>
+     <height>24</height>
+    </size>
+   </property>
+  </widget>
   <widget class="QLineEdit" name="campoBusqueda">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>170</x>
      <y>10</y>
-     <width>121</width>
-     <height>21</height>
+     <width>113</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="placeholderText">
-    <string>Busqueda..</string>
+    <string>Busqueda...</string>
    </property>
   </widget>
+  <zorder>botonBuscar</zorder>
+  <zorder>tablaTurnos</zorder>
+  <zorder>botonNuevoTurno</zorder>
+  <zorder>comboBoxFiltro</zorder>
+  <zorder>campoBusqueda</zorder>
  </widget>
  <resources/>
  <connections/>
