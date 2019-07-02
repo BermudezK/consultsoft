@@ -4,7 +4,7 @@ from PyQt5 import uic, QtCore
 from Controller.ventana_secretarios import DSecretario
 from Controller.ventana_pacientes import VentanaPacientes
 from Controller.ventana_medicos import VentanaMedicos
-
+from Controller.displayappointment import Displayappointment
 class MainWindow (QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
