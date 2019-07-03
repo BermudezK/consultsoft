@@ -144,8 +144,8 @@ border: 0;
   <widget class="QPushButton" name="botonAceptar">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>500</y>
+     <x>50</x>
+     <y>490</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -162,8 +162,8 @@ border: 0;
   <widget class="QPushButton" name="botonCancelar">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>500</y>
+     <x>260</x>
+     <y>490</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -365,8 +365,8 @@ border: 0;
   <tabstop>User</tabstop>
   <tabstop>Password</tabstop>
   <tabstop>Password2</tabstop>
-  <tabstop>botonCancelar</tabstop>
   <tabstop>botonAceptar</tabstop>
+  <tabstop>botonCancelar</tabstop>
  </tabstops>
  <resources/>
  <connections/>
