@@ -4,15 +4,41 @@ from PyQt5 import uic, QtCore
 from Controller.ventana_secretarios import DSecretario
 from Controller.ventana_pacientes import VentanaPacientes
 from Controller.ventana_medicos import VentanaMedicos
+from Controller.ventana_agenda import VentanaAgenda
 
 class MainWindow (QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
         uic.loadUi('View/home.ui',self)
         self.center()
+
+        # abrir la agenda
+        dialogo=VentanaAgenda()
+        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+        dialogo.showMaximized()
+        self.pb_agenda.clicked.connect(self.pb_agenda_on_click)
         self.pb_secretarios.clicked.connect(self.pb_secretarios_on_click)
         self.pb_pacientes.clicked.connect(self.pb_pacientes_on_click)
         self.pb_medicos.clicked.connect(self.pb_medicos_on_click)
+
+    def pb_agenda_on_click(self):
+        dialogo=VentanaAgenda()
+        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+        dialogo.showMaximized()
+        self.panel.setStyleSheet("""
+            #pb_agenda {
+                background-color: #00796b;
+            }
+            #pb_medicos,#pb_pacientes, #pb_secretarios{
+                background-color: #263238;
+            }
+            #pb_agenda:hover,#pb_medicos:hover,
+            #pb_pacientes:hover, #pb_secretarios:hover{
+                background-color: #00796b;
+            }
+        """)
     
     #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON SECRETARIOS
     def pb_secretarios_on_click(self):
@@ -20,7 +46,18 @@ class MainWindow (QMainWindow):
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
-        dialogo.exec_()
+        self.panel.setStyleSheet("""
+            #pb_secretarios {
+                background-color: #00796b;
+            }
+            #pb_medicos,#pb_pacientes, #pb_agenda{
+                background-color: #263238;
+            }
+            #pb_agenda:hover,#pb_medicos:hover,
+            #pb_pacientes:hover, #pb_agenda:hover{
+                background-color: #00796b;
+            }
+        """)
     
     #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON PACIENTES
     def pb_pacientes_on_click(self):
@@ -28,8 +65,18 @@ class MainWindow (QMainWindow):
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
-        dialogo.exec_()
-    
+        self.panel.setStyleSheet("""
+            #pb_pacientes {
+                background-color: #00796b;
+            }
+            #pb_medicos,#pb_secretarios, #pb_agenda{
+                background-color: #263238;
+            }
+            #pb_agenda:hover,#pb_medicos:hover,
+            #pb_secretarios:hover, #pb_agenda:hover{
+                background-color: #00796b;
+            }
+        """)
     #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON MEDICOS
     def pb_medicos_on_click(self):
         self.mdiArea.closeActiveSubWindow()
@@ -37,8 +84,19 @@ class MainWindow (QMainWindow):
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
-        dialogo.exec_()
-    
+        self.panel.setStyleSheet("""
+            #pb_medicos {
+                background-color: #00796b;
+            }
+            #pb_pacientes,#pb_secretarios, #pb_agenda{
+                background-color: #263238;
+            }
+            #pb_agenda:hover,#pb_pacientes:hover,
+            #pb_secretarios:hover, #pb_agenda:hover{
+                background-color: #00796b;
+            }
+        """) 
+
     def center(self):
         # geometry of the main window
         qr = self.frameGeometry()
@@ -48,6 +106,7 @@ class MainWindow (QMainWindow):
         qr.moveCenter(cp)
         # top left of rectangle becomes top left of window centering it
         self.move(qr.bottomLeft())
+        self.pb_agenda_on_click
 
 if __name__== '__main__':
     app = QApplication(sys.argv)
