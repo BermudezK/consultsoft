@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Ventana Paciente</string>
+   <string>Paciente</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget#Ventana_paciente{
