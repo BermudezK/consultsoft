@@ -30,7 +30,11 @@
 	height:80px;
     width: 130px;
 }
-#pb_agenda:hover,#pb_medicos:hover,
+#pb_agenda {
+	background-color: #00796b;
+}
+
+#pb_medicos:hover,
 #pb_pacientes:hover, #pb_secretarios:hover{
 	background-color: #00796b;
 }
