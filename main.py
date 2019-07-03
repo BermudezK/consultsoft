@@ -1,27 +1,49 @@
 import sys, re
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QDialog
 from PyQt5 import uic, QtCore
 from Controller.ventana_secretarios import DSecretario
 from Controller.ventana_pacientes import VentanaPacientes
 from Controller.ventana_medicos import VentanaMedicos
 from Controller.ventana_agenda import VentanaAgenda
-
+from Controller.ventana_login import VentanaLogin
 class MainWindow (QMainWindow):
-    def __init__(self):
+    def __init__(self, usuario):        
         QMainWindow.__init__(self)
         uic.loadUi('View/home.ui',self)
+        
         self.center()
-
-        # abrir la agenda
-        dialogo=VentanaAgenda()
-        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
-        dialogo.showMaximized()
         self.pb_agenda.clicked.connect(self.pb_agenda_on_click)
         self.pb_secretarios.clicked.connect(self.pb_secretarios_on_click)
         self.pb_pacientes.clicked.connect(self.pb_pacientes_on_click)
         self.pb_medicos.clicked.connect(self.pb_medicos_on_click)
+        
+        if usuario[3] == 1: #Administrador
+            self.pb_agenda.hide()
+            self.pb_pacientes.hide()
+            self.pb_secretarios.show()
+            self.pb_medicos.show()
 
+        elif usuario[3] == 2: #Secretario
+            self.pb_agenda.show()
+            self.pb_pacientes.show()
+            self.pb_secretarios.hide()
+            self.pb_medicos.show()
+
+            self.verAgenda()             
+        elif usuario[3] == 3: #Medico
+            self.pb_agenda.show()
+            self.pb_pacientes.hide()
+            self.pb_secretarios.hide()
+            self.pb_medicos.hide()
+            self.verAgenda()
+    
+    def verAgenda(self):
+         # abrir la agenda
+        dialogo=VentanaAgenda()
+        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+        dialogo.showMaximized()
+        
     def pb_agenda_on_click(self):
         dialogo=VentanaAgenda()
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
@@ -110,6 +132,9 @@ class MainWindow (QMainWindow):
 
 if __name__== '__main__':
     app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    app.exec_()
+    login = VentanaLogin()
+    ejec = login.exec_()
+    if ejec == QDialog.Accepted:
+        window = MainWindow(login.usuario)
+        window.show()
+        app.exec_()
