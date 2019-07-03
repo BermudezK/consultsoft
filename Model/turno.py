@@ -1,3 +1,5 @@
+from Model.turno_query import obtenerTurnos
+
 class Turno():
     def __init__(self, nro_turno=None, paciente=None, medico=None, fechaYhora=None, estado=None):
         self.setNro_Turno(nro_turno)
@@ -34,4 +36,5 @@ class Turno():
     fechaYhora = property (fget = getFechayHora , fset = setFechayHora )
     estado = property (fget = getEstado , fset = setEstado )
 
-    
+    def mostrar_turnos(self, desde, hasta):
+        return obtenerTurnos(desde, hasta)
