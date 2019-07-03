@@ -49,6 +49,9 @@ class VistaTurnos(QDialog):
 			self.botonBuscar.clicked.connect(lambda: self.buscarP())
 		elif filtro == "Medico":
 			self.botonBuscar.clicked.connect(lambda: self.buscarM())
+		elif filtro == "-------":
+			mostrar_turnos = cargar_turnos()
+			self.cargarTurnosALaTabla(mostrar_turnos)
 
 
 	def buscarP(self):
