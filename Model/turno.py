@@ -36,11 +36,11 @@ class Turno():
     fechaYhora = property (fget = getFechayHora , fset = setFechayHora )
     estado = property (fget = getEstado , fset = setEstado )
 
-    def filtrarTurno(self, id):
-        return filtrar_por_turno(id)
+    def filtrarTurno(self, idTurno):
+        return filtrar_por_turno(idTurno)
 
-    def filtrarPaciente(self, dni_paciente):
-        return filtrar_por_paciente()
+    def filtrarPaciente(self, nombrePaciente):
+        return filtrar_por_paciente(nombrePaciente)
 
-    def filtrarMedico(self, dni_medico):
-        return filtrar_por_medico()
+    def filtrarMedico(self, nMedico):
+        return filtrar_por_medico(nMedico)

@@ -13,15 +13,15 @@ class VistaTurnos(QDialog):
 		QDialog.__init__(self)
 		uic.loadUi('./View/vistaTurnos.ui',self)
 		#self.center()
-		self.cargarTurnosALaTabla(cargar_turnos)
+		# Se carga en una variable para luego mostrarla
+		mostrar_turnos = cargar_turnos()
+		self.cargarTurnosALaTabla(mostrar_turnos)
 		self.botonNuevoTurno.clicked.connect(self.botonNuevoTurno_on_click)
 		self.comboBoxFiltro.currentIndexChanged.connect(self.seleccionarFiltro)
-		#self.campoBusqueda.textChanged.connect(self.busqueda)
 		
 
 	def cargarTurnosALaTabla(self,consulta):
-		turnos = consulta()
-		#turnos = cargar_turnos()
+		turnos = consulta
 		self.tablaTurnos.setRowCount(len(turnos))
 		self.tablaTurnos.setEditTriggers(QTableWidget.NoEditTriggers)
 
@@ -40,18 +40,28 @@ class VistaTurnos(QDialog):
 				columna = columna + 1
 
 	def seleccionarFiltro(self,i):
+		# Segun el filtro que eligas traera algunos valores
 		filtro = self.comboBoxFiltro.itemText(i)
-		if filtro == "Turno":
-			pass
-			#self.botonBuscar.clicked.connect(self.buscar(busqueda(),Turno().filtrarTurno()))
-
+		if filtro == "Turnos":
+			self.botonBuscar.clicked.connect(lambda: self.buscarT())
 		elif filtro == "Paciente":
-			self.botonBuscar.clicked.connect(self.buscarP())
+			# Al cliquear en el buscador, busca los nombre o apellidos que se paresca a lo escrito.
+			self.botonBuscar.clicked.connect(lambda: self.buscarP())
+		elif filtro == "Medico":
+			self.botonBuscar.clicked.connect(lambda: self.buscarM())
 
 
 	def buscarP(self):
 		turnosPacientes= Turno().filtrarPaciente(self.campoBusqueda.text())
+		self.cargarTurnosALaTabla(turnosPacientes)
 
+	def buscarM(self):
+		turnosMedicos = Turno().filtrarMedico(self.campoBusqueda.text())
+		self.cargarTurnosALaTabla(turnosMedicos)
+
+	def buscarT(self):
+		turnoTurno = Turno().filtrarTurno(self.campoBusqueda.text())
+		self.cargarTurnosALaTabla(turnoTurno)
 
 
 
