@@ -42,6 +42,9 @@ min-height: 40px;
      <property name="gridStyle">
       <enum>Qt::NoPen</enum>
      </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
      <property name="wordWrap">
       <bool>false</bool>
      </property>
@@ -92,6 +95,7 @@ min-height: 40px;
      <property name="styleSheet">
       <string notr="true">#pb_cargarPaciente{
 	background-color:white;
+	color:black;
 	height:30px;
 	width:140px;
 	max-width:200px;

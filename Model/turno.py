@@ -1,4 +1,4 @@
-from Model.turno_query import filtrar_por_turno, filtrar_por_paciente, filtrar_por_medico
+from Model.turno_query import filtrar_por_turno, filtrar_por_paciente, filtrar_por_medico, obtenerTurnos
 
 class Turno():
     def __init__(self, nro_turno=None, paciente=None, medico=None, fechaYhora=None, estado=None):
@@ -44,3 +44,6 @@ class Turno():
 
     def filtrarMedico(self, nMedico):
         return filtrar_por_medico(nMedico)
+        
+    def mostrar_turnos(self, desde, hasta):
+        return obtenerTurnos(desde, hasta)
