@@ -7,14 +7,12 @@ from Model.personal_query import logIn
 class VentanaLogin(QDialog):
   def __init__(self):
     QDialog.__init__(self)
-    uic.loadUi("./View/ventanaLogin.ui", self)
+    uic.loadUi("View/ventanaLogin.ui", self)
 
     self.User.textChanged.connect(self.validar_User)
     self.Password.textChanged.connect(self.validar_Password)
 
     self.botonAcceder.clicked.connect(self.submitAcceder)
-
-    # self.botonCancelar.clicked.connect(self.closeEvent)
 
   def validar_User(self):
     self.User.setMaxLength(45)
@@ -59,30 +57,18 @@ class VentanaLogin(QDialog):
     else:
       self.User.setStyleSheet(styleInvalid)
 
-    usuario = logIn(userName=self.User.text(), password=self.Password.text())
-
-    if usuario:
-      usuario_id, username, personal_dni, rol_id, nombre_rol, nombre, apellido = usuario
-      print(usuario_id, username, personal_dni, rol_id, nombre_rol, nombre, apellido)
-      # QMessageBox.information(self, f"Bienvenido {apellido}, {nombre}. Rol {nombre_rol}", QMessageBox.Discard)
+    # SI YA TIENEN LA INFORMACION DE LOS USUARIOS PORQUE NO MANEJARLOS COMO UN OBJETO DE LA 
+    # CLASE USUARIO??????????
+    self.usuario = logIn(userName=self.User.text(), password=self.Password.text())    
+    if self.usuario:
+      # usuario_id, username, personal_dni, rol_id, nombre_rol, nombre, apellido = self.usuario
+      # print(usuario_id, username, personal_dni, rol_id, nombre_rol, nombre, apellido)
+      # # QMessageBox.information(self, f"Bienvenido {apellido}, {nombre}. Rol {nombre_rol}", QMessageBox.Discard)
+      
+      # SI ES CORRECTO LA VENTANA QUEDARÁ EN ACEPTADO, porfa no tocar esta linea
+      self.accept()
     else:
       QMessageBox.warning(self,"Ingreso", "¡Disfrute de nuestro sistema nae!!")
-  
-  # usuario
-
-  # SELECT * FROM usuario AS u
-  #   WHERE 
-  #     u.userName = userName AND
-  #     u.password = password AND
-  #     (SELECT * FROM personal AS p
-  #       WHERE 
-  #         p.usuario_DNI = u.usuario_ID);
-
-  
-  
-  # personal
-  # rol
-
 
 if __name__== '__main__':
     app = QApplication(sys.argv)

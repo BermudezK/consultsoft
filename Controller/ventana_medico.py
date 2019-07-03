@@ -6,7 +6,7 @@ from Model.administrador import Administrador
 class VentanaMedico(QDialog):
     def __init__(self):
         QDialog.__init__(self)
-        uic.loadUi("View/VentanaMedico.ui", self)
+        uic.loadUi("View/ventanaMedico.ui", self)
         #Al hacer focus en el campo ejecuta la funcion
         self.campoNombre.textChanged.connect(self.validar_nombre)
         self.campoApellido.textChanged.connect(self.validar_apellido)
