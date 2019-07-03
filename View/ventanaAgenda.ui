@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>Agenda</class>
+ <widget class="QDialog" name="Agenda">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -30,26 +30,31 @@
 	max-width: 40px;
 	min-width: 40px;
 	max-height: 40px;
+	background-color:none;
 }
 #l_mont{
 	size:20px;
+}
+
+#agenda QPushButton {
+	min-height: auto;
+	color: pink;
+	border:none;
+	text-align:center;
+	font-size:15px;
+	background-color:#00796b;
+	color: #FFFFFF
+}
+#agenda QPushButton:hover{
+	background-color:#4db6ac;
+	color: #000000;
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0">
     <widget class="QTableWidget" name="agenda">
      <property name="styleSheet">
-      <string notr="true">.QPushButton {
-	min-height: auto;
-	border:none;
-	text-align:center;
-	background-color:#00796b;
-	color: #FFFFFF
-}
-.QPushButton:hover{
-	background-color:#4db6ac;
-	color: #000000;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="autoScrollMargin">
       <number>16</number>
@@ -79,7 +84,7 @@
       <bool>true</bool>
      </property>
      <attribute name="horizontalHeaderCascadingSectionResizes">
-      <bool>false</bool>
+      <bool>true</bool>
      </attribute>
      <attribute name="horizontalHeaderDefaultSectionSize">
       <number>96</number>

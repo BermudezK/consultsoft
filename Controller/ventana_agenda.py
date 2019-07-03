@@ -26,8 +26,12 @@ class VentanaAgenda(QDialog):
         self.cargarCitas(rango)
         self.agenda.itemSelectionChanged.connect(lambda: self.agregarTurno(rango))
     
+    # Con este metodo abriremos la ventana para agregar 
+    # turnos y le pasaremos el dia 
+    # en el cuel queremos almacenarlo
     def agregarTurno(self, rango):
-        print('Hora: ', self.agenda.currentRow()+6,' Fecha: ', rango[self.agenda.currentColumn()])
+        print('vamo a agregar el turno')
+        # print('Hora: ', self.agenda.currentRow()+6,' Fecha: ', rango[self.agenda.currentColumn()])
         pass
     
     # esta funcion carga los datos en la tabla
@@ -59,11 +63,17 @@ class VentanaAgenda(QDialog):
             # de la tabla en la posicion (0,0)
             self.agenda.setCellWidget(fila,columna,celda)
             self.agenda.resizeRowsToContents()
+
+    
+    # con esto iremos a los filtros y 
+    # traremos los turnos en el rango de fecha 
+    # que se han solicitado en desde y hasta
     def goToFilter(self, desde, hasta):
         # acá vamos a abrir la ventana de los filtros y ver 
         # los turnos de esta fecha y hora en específico
         print('NOS FUIMOS AL FILTRO')
         pass
+
     # este metodo me permitirá obtener una lista de tuplas que contendrá los dias de la
     # semana actual con su fecha, si el dia es domingo me traerá la semana próxima
     def obtenerSemana(self, dia):
@@ -92,8 +102,8 @@ class VentanaAgenda(QDialog):
         self.cargarHeader(semana)
         self.cargarCitas(rango)
 
-# if __name__=='__main__':
-app = QApplication(sys.argv)
-_ventana = VentanaAgenda()
-_ventana.show()
-app.exec_()
+if __name__=='__main__':
+    app = QApplication(sys.argv)
+    _ventana = VentanaAgenda()
+    _ventana.show()
+    app.exec_()

@@ -20,7 +20,7 @@
 #panel{
 	margin: 0px;
 }
-.QPushButton{
+#pb_agenda, #pb_medicos, #pb_pacientes, #pb_secretarios, #pd_logOut{
 	font-size: 12px;
 	background-color:#263238;
 	border:none;
@@ -30,15 +30,13 @@
 	height:80px;
     width: 130px;
 }
-
-
-.QPushButton:hover{
+#pb_agenda:hover,#pb_medicos:hover,
+#pb_pacientes:hover, #pb_secretarios:hover{
 	background-color: #00796b;
 }
-.QPushButton:focus{
-	background-color: #00796b;
-}
-#pd_logOut:hover,#pd_logOut:focus {
+
+#pd_logOut:hover,
+#pd_logOut:focus {
 	background-color:#d32f2f;
 }
 #L_userPhoto{
@@ -48,8 +46,7 @@
 #L_userName{
 	font-size: 12px;
 	color: white;
-}
-</string>
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -146,7 +143,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pb_inicio">
+        <widget class="QPushButton" name="pb_agenda">
          <property name="styleSheet">
           <string notr="true"/>
          </property>
@@ -276,9 +273,7 @@
     <item row="1" column="1">
      <widget class="QMdiArea" name="mdiArea">
       <property name="styleSheet">
-       <string notr="true">QMdiArea{
-background: white;
-}</string>
+       <string notr="true"/>
       </property>
      </widget>
     </item>
@@ -287,7 +282,11 @@ background: white;
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <tabstops>
+  <tabstop>pb_agenda</tabstop>
+  <tabstop>pb_pacientes</tabstop>
   <tabstop>pb_medicos</tabstop>
+  <tabstop>pb_secretarios</tabstop>
+  <tabstop>pd_logOut</tabstop>
  </tabstops>
  <resources/>
  <connections/>
