@@ -14,13 +14,16 @@
    <string>ConsultSoft</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#panel, #MainWindow{
+   <string notr="true">#verticalSpacer {
+	height: 30px;
+}
+#panel, #MainWindow{
 	background-color:#263238;
 }
 #panel{
 	margin: 0px;
 }
-#pb_agenda, #pb_medicos, #pb_pacientes, #pb_secretarios, #pd_logOut{
+#pb_agenda,#pb_turnos, #pb_medicos, #pb_pacientes, #pb_secretarios, #pd_logOut{
 	font-size: 12px;
 	background-color:#263238;
 	border:none;
@@ -34,7 +37,7 @@
 	background-color: #00796b;
 }
 
-#pb_medicos:hover,
+#pb_medicos:hover,#pb_turnos:hover,
 #pb_pacientes:hover, #pb_secretarios:hover{
 	background-color: #00796b;
 }
@@ -138,10 +141,13 @@
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>35</height>
           </size>
          </property>
         </spacer>
@@ -167,6 +173,23 @@
          <attribute name="buttonGroup">
           <string notr="true">buttonGroup</string>
          </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pb_turnos">
+         <property name="text">
+          <string>  Turnos</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../icons/organize.png</normaloff>../icons/organize.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
         </widget>
        </item>
        <item>
@@ -261,12 +284,12 @@
           <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Expanding</enum>
+          <enum>QSizePolicy::Fixed</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>10</height>
           </size>
          </property>
         </spacer>

@@ -6,36 +6,42 @@ from Controller.ventana_pacientes import VentanaPacientes
 from Controller.ventana_medicos import VentanaMedicos
 from Controller.ventana_agenda import VentanaAgenda
 from Controller.ventana_login import VentanaLogin
+from Controller.ventana_turnos import VentanaTurnos
+
 class MainWindow (QMainWindow):
-    def __init__(self, usuario):        
+    def __init__(self, usuario):
+        self.usuario = usuario      
         QMainWindow.__init__(self)
         uic.loadUi('View/home.ui',self)
-        
+        self.L_userName.setText(self.usuario[5] + ", " + self.usuario[6])
         self.center()
         self.pb_agenda.clicked.connect(self.pb_agenda_on_click)
         self.pb_secretarios.clicked.connect(self.pb_secretarios_on_click)
         self.pb_pacientes.clicked.connect(self.pb_pacientes_on_click)
         self.pb_medicos.clicked.connect(self.pb_medicos_on_click)
-        
-        if usuario[3] == 1: #Administrador
+        self.pb_turnos.clicked.connect(self.pb_turnos_on_click)
+
+        if self.usuario[3] == 1: #Administrador
             self.pb_agenda.hide()
             self.pb_pacientes.hide()
             self.pb_secretarios.show()
             self.pb_medicos.show()
-
-        elif usuario[3] == 2: #Secretario
+            self.pb_turnos.hide()
+        elif self.usuario[3] == 2: #Secretario
             self.pb_agenda.show()
             self.pb_pacientes.show()
             self.pb_secretarios.hide()
             self.pb_medicos.show()
-
+            self.pb_turnos.show()
             self.verAgenda()             
-        elif usuario[3] == 3: #Medico
-            self.pb_agenda.show()
+        elif self.usuario[3] == 3: #Medico
+            self.pb_turnos.show()
+            self.pb_agenda.hide()
             self.pb_pacientes.hide()
             self.pb_secretarios.hide()
             self.pb_medicos.hide()
-            self.verAgenda()
+            # self.verMisTurnos()
+
     
     def verAgenda(self):
          # abrir la agenda
@@ -43,7 +49,33 @@ class MainWindow (QMainWindow):
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
-        
+
+    #DEFINIMOS EL METODO PARA VER LOS TURNOS Y FILTRARLOS
+    def pb_turnos_on_click (self):
+        if self.usuario[3]== 2:
+            # si es secretarios mira los turnos para aplicar filtros
+            dialogo=VentanaTurnos()
+        else:
+            # si es medicos mira su turno para dar de baja
+            dialogo = QDialog()
+            pass
+        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+        dialogo.showMaximized()
+        self.panel.setStyleSheet("""
+            #pb_turnos {
+                background-color: #00796b;
+            }
+            #pb_agenda, #pb_medicos,#pb_pacientes, #pb_secretarios{
+                background-color: #263238;
+            }
+            #pb_turnos:hover, #pb_agenda:hover,#pb_medicos:hover,
+            #pb_pacientes:hover, #pb_secretarios:hover{
+                background-color: #00796b;
+            }
+        """)
+
+    # DEFINIMOS EL METODO PARA PODER VER EL CALENDARIO
     def pb_agenda_on_click(self):
         dialogo=VentanaAgenda()
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
@@ -53,10 +85,10 @@ class MainWindow (QMainWindow):
             #pb_agenda {
                 background-color: #00796b;
             }
-            #pb_medicos,#pb_pacientes, #pb_secretarios{
+            #pb_turnos,#pb_medicos,#pb_pacientes, #pb_secretarios{
                 background-color: #263238;
             }
-            #pb_agenda:hover,#pb_medicos:hover,
+            #pb_turnos:hover,#pb_agenda:hover,#pb_medicos:hover,
             #pb_pacientes:hover, #pb_secretarios:hover{
                 background-color: #00796b;
             }
@@ -72,10 +104,10 @@ class MainWindow (QMainWindow):
             #pb_secretarios {
                 background-color: #00796b;
             }
-            #pb_medicos,#pb_pacientes, #pb_agenda{
+            #pb_medicos,#pb_turnos,#pb_pacientes, #pb_agenda{
                 background-color: #263238;
             }
-            #pb_agenda:hover,#pb_medicos:hover,
+            #pb_agenda:hover,#pb_turnos:hover,#pb_medicos:hover,
             #pb_pacientes:hover, #pb_agenda:hover{
                 background-color: #00796b;
             }
@@ -91,10 +123,10 @@ class MainWindow (QMainWindow):
             #pb_pacientes {
                 background-color: #00796b;
             }
-            #pb_medicos,#pb_secretarios, #pb_agenda{
+            #pb_medicos,#pb_turnos,#pb_secretarios, #pb_agenda{
                 background-color: #263238;
             }
-            #pb_agenda:hover,#pb_medicos:hover,
+            #pb_agenda:hover,#pb_medicos:hover,#pb_turnos:hover,
             #pb_secretarios:hover, #pb_agenda:hover{
                 background-color: #00796b;
             }
@@ -110,10 +142,10 @@ class MainWindow (QMainWindow):
             #pb_medicos {
                 background-color: #00796b;
             }
-            #pb_pacientes,#pb_secretarios, #pb_agenda{
+            #pb_pacientes,#pb_turnos,#pb_secretarios, #pb_agenda{
                 background-color: #263238;
             }
-            #pb_agenda:hover,#pb_pacientes:hover,
+            #pb_agenda:hover,#pb_turnos:hover,#pb_pacientes:hover,
             #pb_secretarios:hover, #pb_agenda:hover{
                 background-color: #00796b;
             }

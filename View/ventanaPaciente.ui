@@ -44,7 +44,7 @@ border: 0;
   <widget class="QPushButton" name="botonAceptar">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>70</x>
      <y>360</y>
      <width>111</width>
      <height>31</height>
@@ -62,7 +62,7 @@ border: 0;
   <widget class="QPushButton" name="botonCancelar">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>260</x>
      <y>360</y>
      <width>111</width>
      <height>31</height>
@@ -154,6 +154,9 @@ border: 0;
       <property name="readOnly">
        <bool>false</bool>
       </property>
+      <property name="placeholderText">
+       <string>ej: 40912097</string>
+      </property>
       <property name="clearButtonEnabled">
        <bool>true</bool>
       </property>
@@ -198,6 +201,9 @@ border: 0;
       </property>
       <property name="text">
        <string/>
+      </property>
+      <property name="placeholderText">
+       <string>10 a 13 digitos</string>
       </property>
       <property name="clearButtonEnabled">
        <bool>true</bool>
