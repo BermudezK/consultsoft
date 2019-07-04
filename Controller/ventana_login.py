@@ -11,70 +11,37 @@ class VentanaLogin(QDialog):
     QDialog.__init__(self)
     uic.loadUi("View/ventanaLogin.ui", self)
 
-    self.User.textChanged.connect(self.validar_User)
     self.Password.textChanged.connect(self.validar_Password)
 
     self.botonAcceder.clicked.connect(self.submitAcceder)
 
   def validar_User(self):
-    self.User.setMaxLength(45)
-    User = self.User.text()
-    validar = re.match("^[A-Z\sáéíóúàèìùäëïöüñ\0-9]{2,45}$", User, re.I)
-    if User == "":
-      return False
-    elif not validar:
-      return False
-    else:
-      return True
+    return len(self.User.text()) == 0
+    
 
   def validar_Password(self):
-    self.Password.setMaxLength(8)
-    Password = self.Password.text()
-    validar = re.match("^[A-Z\sáéíóúàèìùäëïöüñ\0-9]{2,8}$", Password, re.I)
-
-    if Password == "":
-      return False
-    elif not validar:
-      return False
-    else:
-      return True
+    return len(self.Password.text()) == 0
+    
 
   def submitAcceder(self):
-    if self.validar_Password() and self.validar_User():
-      print('Ok')
-      QMessageBox.warning(
-          self, "Login Correcto!!", "Bienvenido al sistema.", QMessageBox.Discard)
-
-    else:
-      print('Mal')
-      QMessageBox.warning(
-          self, "Error", "Usuario no existe o contraseña incorrecta, Intente nuevamente", QMessageBox.Discard)
-
-    styleValid = "border: 1px solid green; background-color: transparent;"
-    styleInvalid = "border: 1px solid red; background-color: transparent;"
-
+    message = ''
+    print(self.validar_Password())
+    print(self.validar_User())
     if self.validar_Password():
-      self.Password.setStyleSheet(styleValid)
-    else:
-      self.Password.setStyleSheet(styleInvalid)
-
+      message += '¡La contraseña es requerida!\n'
     if self.validar_User():
-      self.User.setStyleSheet(styleValid)
-    else:
-      self.User.setStyleSheet(styleInvalid)
+      message += '¡El usuario es requerido!\n'
 
-    # SI YA TIENEN LA INFORMACION DE LOS USUARIOS PORQUE NO MANEJARLOS COMO UN OBJETO DE LA 
-    # CLASE USUARIO??????????
-    self.usuario = logIn(userName=self.User.text(), password=self.Password.text())    
-    if self.usuario:
-      # usuario_id, username, personal_dni, rol_id, nombre_rol, nombre, apellido = self.usuario
-      # print(usuario_id, username, personal_dni, rol_id, nombre_rol, nombre, apellido)
-      # # QMessageBox.information(self, f"Bienvenido {apellido}, {nombre}. Rol {nombre_rol}", QMessageBox.Discard)
-      
-      # SI ES CORRECTO LA VENTANA QUEDARÁ EN ACEPTADO, porfa no tocar esta linea
-      self.accept()
+    if not self.validar_Password() and not self.validar_User():
+      self.usuario = logIn(userName=self.User.text(), password=self.Password.text())
+      if self.usuario:
+        print(self.usuario)
+        QMessageBox.information(self, "¡Ingreso!", "¡Disfrute de nuestro sistema nae!")
+        # self.accept() # si lo descomento no funciona
+      else:
+        QMessageBox.warning(self, "¡Login incorrecto!", "¡El usuario o contraseña es incorrecto!", QMessageBox.Discard)
     else:
-      QMessageBox.warning(self,"Ingreso", "¡Disfrute de nuestro sistema nae!!")
+      QMessageBox.warning(self, "Error", message, QMessageBox.Discard)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
