@@ -65,7 +65,8 @@ class VentanaLogin(QDialog):
 
     # SI YA TIENEN LA INFORMACION DE LOS USUARIOS PORQUE NO MANEJARLOS COMO UN OBJETO DE LA 
     # CLASE USUARIO??????????
-    self.usuario = logIn(userName=self.User.text(), password=self.Password.text())    
+    self.usuario = logIn(userName=self.User.text(), password=self.Password.text())
+    #print(self.usuario)   
     if self.usuario:
       # usuario_id, username, personal_dni, rol_id, nombre_rol, nombre, apellido = self.usuario
       # print(usuario_id, username, personal_dni, rol_id, nombre_rol, nombre, apellido)
@@ -73,8 +74,6 @@ class VentanaLogin(QDialog):
       
       # SI ES CORRECTO LA VENTANA QUEDARÁ EN ACEPTADO, porfa no tocar esta linea
       self.accept()
-    else:
-      QMessageBox.warning(self,"Ingreso", "¡Disfrute de nuestro sistema nae!!")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
