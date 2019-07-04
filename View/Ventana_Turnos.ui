@@ -20,8 +20,51 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
+   <string notr="true">QWidget#Dialog
+{
+background-color: rgb(255, 255, 255);
+}
+
+QPushButton#BotonAceptar{
+background-color: #0DA422;
+border: 0;
+}
+QPushButton#BotonAceptar_2{
+background-color: #A40D0F;
+color: #fff;
+border: 0;
+}</string>
   </property>
+  <widget class="QPushButton" name="BotonAceptar">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>390</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>Aceptar</string>
+   </property>
+  </widget>
   <widget class="QDateTimeEdit" name="campo_hora_fecha">
    <property name="geometry">
     <rect>
@@ -83,13 +126,40 @@
     <string>Seleccione Fecha y Hora</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="BotonAceptar_2">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>390</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
+   <property name="text">
+    <string>Cancelar</string>
+   </property>
+  </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>70</x>
      <y>24</y>
-     <width>251</width>
-     <height>251</height>
+     <width>281</width>
+     <height>261</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
@@ -220,66 +290,6 @@
       </property>
       <property name="placeholderText">
        <string/>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>410</y>
-     <width>257</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout_2">
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="horizontalSpacing">
-     <number>100</number>
-    </property>
-    <item row="0" column="0">
-     <widget class="QPushButton" name="BotonAceptar">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-      <property name="text">
-       <string>Aceptar</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QPushButton" name="BotonAceptar_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-      <property name="text">
-       <string>Cancelar</string>
       </property>
      </widget>
     </item>
