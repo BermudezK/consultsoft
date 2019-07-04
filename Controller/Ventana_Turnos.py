@@ -71,10 +71,12 @@ class VentanaTurno(QDialog):
 				self.Campo_DNI_paciente.setText("")
 				self.Campo_DNI_Medico.setText("")
 				self.Campo_DNI_Secretario.setText("")
+				#self.campo_hora_fecha("")
 
 				self.Campo_DNI_paciente.setStyleSheet("border: 1px solid black")
 				self.Campo_DNI_Medico.setStyleSheet("border: 1px solid black")
 				self.Campo_DNI_Secretario.setStyleSheet("border: 1px solid black")
+				#self.campo_hora_fecha.setStyleSheet("border: 1px solid black")
 			else:
 
 				QMessageBox.warning(self,"Carga Erronea!!","El paciente o el medico no existe")
@@ -95,6 +97,10 @@ class VentanaTurno(QDialog):
 				self.Campo_DNI_Secretario.setStyleSheet("border: 1px solid red;")
 			else: 
 				self.Campo_DNI_Secretario.setStyleSheet("border: 1px solid green;")
+			if not self.validar_fecha():
+				self.campo_hora_fecha.setStyleSheet("border: 1px solid red;")
+			else: 
+				self.campo_hora_fecha.setStyleSheet("border: 1px solid green;")
 
 
 
