@@ -65,14 +65,11 @@ def agregar_turno(medico_ID,secretario_ID,fecha_Hora,paciente_DNI,estado):
     cursor.close()
 
 def existe_turno(medico_ID,fecha_Hora):
-	print(fecha_Hora)
 	consultaTurno=(f"select count(*) from turno where medico_ID={medico_ID} and fecha_Hora='{fecha_Hora}';")
 	cursor = mydb.cursor()
 	cursor.execute(consultaTurno)
 	resultado=cursor.fetchone()
 	cursor.close()
-	print(resultado)
-	print(resultado[0])
 	return resultado[0]
 
 
