@@ -7,16 +7,18 @@ from PyQt5.QtWidgets import (
  )
 from PyQt5 import uic, QtCore, QtGui
 from Model.turno import Turno
+from Controller.Ventana_turno import VentanaTurno
 
 class VentanaTurnos(QDialog):
-	def __init__(self):
+	def __init__(self, usuario):
+		self.usuario = usuario
 		QDialog.__init__(self)
 		uic.loadUi('./View/vistaTurnos.ui',self)
 		#self.center()
 		# Se carga en una variable para luego mostrarla
 		mostrar_turnos = cargar_turnos()
 		self.cargarTurnosALaTabla(mostrar_turnos)
-		self.botonNuevoTurno.clicked.connect(self.botonNuevoTurno_on_click)
+		self.botonNuevoTurno.clicked.connect(lambda: self.botonNuevoTurno_on_click(self.usuario))
 		self.comboBoxFiltro.currentIndexChanged.connect(self.seleccionarFiltro)
 		
 
@@ -68,10 +70,12 @@ class VentanaTurnos(QDialog):
 
 
 
-	def botonNuevoTurno_on_click(self):
-		# Cargar un nuevo turno
-		# Falta modulo de Pablo
-		pass
+	def botonNuevoTurno_on_click(self, usuario):
+		dialogo=VentanaTurno(usuario)
+		if dialogo.exec_()==0:
+			mostrar_turnos = cargar_turnos()
+			self.cargarTurnosALaTabla(mostrar_turnos)
+		
 
 # Crea los botones de Editar y Eliminar en las columna de Accion.
 """
