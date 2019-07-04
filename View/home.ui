@@ -23,7 +23,11 @@
 #panel{
 	margin: 0px;
 }
+<<<<<<< HEAD
 #pb_agenda,#pb_turnos, #pb_medicos, #pb_pacientes, #pb_secretarios, #pd_logOut{
+=======
+#pb_agenda, #pb_medicos, #pb_pacientes, #pb_secretarios, #pb_logOut{
+>>>>>>> 8acb70d2211a256a48bf1cb4a5ded16d9dd92892
 	font-size: 12px;
 	background-color:#263238;
 	border:none;
@@ -42,8 +46,8 @@
 	background-color: #00796b;
 }
 
-#pd_logOut:hover,
-#pd_logOut:focus {
+#pb_logOut:hover,
+#pb_logOut:focus {
 	background-color:#d32f2f;
 }
 #L_userPhoto{
@@ -262,7 +266,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pd_logOut">
+        <widget class="QPushButton" name="pb_logOut">
          <property name="text">
           <string/>
          </property>
@@ -313,7 +317,7 @@
   <tabstop>pb_pacientes</tabstop>
   <tabstop>pb_medicos</tabstop>
   <tabstop>pb_secretarios</tabstop>
-  <tabstop>pd_logOut</tabstop>
+  <tabstop>pb_logOut</tabstop>
  </tabstops>
  <resources/>
  <connections/>

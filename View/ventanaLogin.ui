@@ -234,10 +234,10 @@ border: 0;
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(71, 82, 94);
-</string>
+border-radius: 5px;</string>
    </property>
    <property name="text">
-    <string>Acceder</string>
+    <string>ACCEDER</string>
    </property>
   </widget>
   <widget class="QLabel" name="Titulo">
@@ -289,11 +289,210 @@ border: 0;
   <widget class="QPushButton" name="pushButton_3">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>340</y>
+     <x>34</x>
+     <y>343</y>
      <width>51</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="palette">
+    <palette>
+     <active>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>97</red>
+         <green>102</green>
+         <blue>109</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>102</red>
+         <green>108</green>
+         <blue>116</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>102</red>
+         <green>108</green>
+         <blue>116</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ToolTipText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>102</red>
+         <green>108</green>
+         <blue>116</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </active>
+     <inactive>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>97</red>
+         <green>102</green>
+         <blue>109</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>102</red>
+         <green>108</green>
+         <blue>116</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>102</red>
+         <green>108</green>
+         <blue>116</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ToolTipText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>102</red>
+         <green>108</green>
+         <blue>116</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </inactive>
+     <disabled>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>120</red>
+         <green>120</green>
+         <blue>120</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>120</red>
+         <green>120</green>
+         <blue>120</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>120</red>
+         <green>120</green>
+         <blue>120</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ToolTipText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>102</red>
+         <green>108</green>
+         <blue>116</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </disabled>
+    </palette>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: transparent;</string>
@@ -307,16 +506,16 @@ border: 0;
    </property>
    <property name="iconSize">
     <size>
-     <width>40</width>
-     <height>40</height>
+     <width>34</width>
+     <height>35</height>
     </size>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_4">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>260</y>
+     <x>35</x>
+     <y>266</y>
      <width>51</width>
      <height>41</height>
     </rect>
@@ -333,8 +532,8 @@ border: 0;
    </property>
    <property name="iconSize">
     <size>
-     <width>42</width>
-     <height>42</height>
+     <width>32</width>
+     <height>32</height>
     </size>
    </property>
   </widget>
@@ -353,7 +552,8 @@ border: 0;
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: transparent;</string>
+    <string notr="true">background-color: transparent;
+color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string/>
