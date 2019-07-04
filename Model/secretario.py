@@ -15,7 +15,6 @@ class Secretario(Personal):
 		return resultado
 
 	def existe_secretario(self,dni):
-		print(existe(dni))
 		if existe(dni) > 0:
 			resultado= True
 		else:

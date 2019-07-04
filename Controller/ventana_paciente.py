@@ -76,7 +76,7 @@ class VentanaPaciente(QDialog):
 
 			else:
 				Secretario.agregar_paciente(self.campoDNI.text(),self.campoNombre.text(),self.campoApellido.text(),self.campoTelefono.text())
-				QMessageBox.information(self,"Carga completada.","Se creo un paciente correctamente.",QMessageBox.Discard)
+				QMessageBox.information(self,"Carga completada.","Se creo un paciente correctamente.",QMessageBox.Ok)
 				self.campoDNI.setText("")
 				self.campoApellido.setText("")
 				self.campoNombre.setText("")
@@ -87,7 +87,7 @@ class VentanaPaciente(QDialog):
 				self.campoTelefono.setStyleSheet("border: 1px solid black")
 				
 		else:
-			QMessageBox.warning(self,"Carga Erronea!!","Valor incorrecto o campo vacio.",QMessageBox.Discard)
+			QMessageBox.warning(self,"Carga Erronea!!","Valor incorrecto o campo vacio.",QMessageBox.Ok)
 			if not self.validar_DNI():
 				self.campoDNI.setStyleSheet("border: 1px solid red;")
 			else: 

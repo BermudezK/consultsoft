@@ -120,6 +120,7 @@ min-height: 40px;
     <widget class="QPushButton" name="pb_cargarMedico">
      <property name="styleSheet">
       <string notr="true">#pb_cargarMedico{
+	color: black;
 	background-color:white;
 	height:30px;
 	width:140px;

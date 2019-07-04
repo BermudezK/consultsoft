@@ -11,25 +11,18 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Turnos</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QDialog {
-background: white;
-}
-#tablePaciente{
-alternate-background-color: #C0CCDA;
-alignment: center;
-}
+   <string notr="true">#comboBox {
+	min-width: 100px;
+	max-width: 100px;
 
-QHeaderView{
-min-height: 40px;
-}
-</string>
+}</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="0">
-    <widget class="QTableWidget" name="tablePaciente">
+   <item row="0" column="0">
+    <widget class="QTableWidget" name="tablaTurnos">
      <property name="alternatingRowColors">
       <bool>true</bool>
      </property>
@@ -41,9 +34,6 @@ min-height: 40px;
      </property>
      <property name="gridStyle">
       <enum>Qt::NoPen</enum>
-     </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
      </property>
      <property name="wordWrap">
       <bool>false</bool>
@@ -80,7 +70,7 @@ min-height: 40px;
      </column>
      <column>
       <property name="text">
-       <string>Telefono</string>
+       <string>Turno</string>
       </property>
      </column>
      <column>
@@ -88,37 +78,6 @@ min-height: 40px;
        <string>Acciones</string>
       </property>
      </column>
-    </widget>
-   </item>
-   <item row="0" column="0" alignment="Qt::AlignRight">
-    <widget class="QPushButton" name="pb_cargarPaciente">
-     <property name="styleSheet">
-      <string notr="true">#pb_cargarPaciente{
-	background-color:white;
-	color:black;
-	height:30px;
-	width:140px;
-	max-width:200px;
-	min-width: 140px;
-	font-size: 20px;
-}</string>
-     </property>
-     <property name="text">
-      <string> Paciente</string>
-     </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>../icons/plus.svg</normaloff>../icons/plus.svg</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>20</width>
-       <height>20</height>
-      </size>
-     </property>
-     <property name="checkable">
-      <bool>false</bool>
-     </property>
     </widget>
    </item>
   </layout>
