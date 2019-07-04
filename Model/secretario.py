@@ -11,7 +11,6 @@ class Secretario(Personal):
 
 	def existe_paciente(dni):
 		resultado = pacienteExiste(dni)
-		print(resultado)
 		return resultado
 
 	def existe_secretario(self,dni):
