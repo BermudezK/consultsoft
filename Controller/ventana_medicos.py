@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import (
 from PyQt5 import uic, QtCore
 from Model.secretario import Secretario
 from Controller.ventana_medico import VentanaMedico
-
+from Controller.ventana_agenda import VentanaAgenda
 class VentanaMedicos(QDialog):
   def __init__(self):
     QDialog.__init__(self)
@@ -16,7 +16,7 @@ class VentanaMedicos(QDialog):
     self.center()
     self.cargarMedicosALaTabla()
     self.pb_cargarMedico.clicked.connect(self.pb_agregarMedico_on_click)
-
+    
   def cargarMedicosALaTabla(self):
     medicos = Secretario.obtener_medicos()
     self.tableMedicos.setRowCount(len(medicos))
