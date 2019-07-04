@@ -79,7 +79,7 @@ class VentanaTurno(QDialog):
 				#self.campo_hora_fecha.setStyleSheet("border: 1px solid black")
 			else:
 
-				QMessageBox.warning(self,"Carga Erronea!!","El paciente o el medico no existe")
+				QMessageBox.warning(self,"Carga Erronea!!","Valor incorrecto o campo vacio.")
 
 
 
