@@ -7,6 +7,7 @@ from Controller.ventana_medicos import VentanaMedicos
 from Controller.ventana_agenda import VentanaAgenda
 from Controller.ventana_login import VentanaLogin
 from Controller.ventana_turnos import VentanaTurnos
+from Controller.ventana_turnosMedico import VentanaTurnoMedico
 
 class MainWindow (QMainWindow):
     def __init__(self, usuario):
@@ -36,12 +37,22 @@ class MainWindow (QMainWindow):
             self.verAgenda()             
         elif self.usuario[3] == 3: #Medico
             self.pb_turnos.show()
+            self.pb_turnos.setStyleSheet("""
+                #pb_turnos {
+                background-color: #00796b;
+            }
+            """)
             self.pb_agenda.hide()
             self.pb_pacientes.hide()
             self.pb_secretarios.hide()
             self.pb_medicos.hide()
-            # self.verMisTurnos()
+            self.verMisTurnos()
 
+    def verMisTurnos(self):
+        dialogo=VentanaTurnoMedico()
+        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+        dialogo.showMaximized()
     
     def verAgenda(self):
          # abrir la agenda
@@ -57,7 +68,7 @@ class MainWindow (QMainWindow):
             dialogo=VentanaTurnos()
         else:
             # si es medicos mira su turno para dar de baja
-            dialogo = QDialog()
+            dialogo =VentanaTurnoMedico()
             pass
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
