@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>430</width>
-    <height>500</height>
+    <width>387</width>
+    <height>390</height>
    </rect>
   </property>
   <property name="sizeIncrement">
@@ -29,6 +29,7 @@ QPushButton#BotonAceptar{
 background-color: #0DA422;
 border: 0;
 }
+
 QPushButton#BotonAceptar_2{
 background-color: #A40D0F;
 color: #fff;
@@ -38,8 +39,8 @@ border: 0;
   <widget class="QPushButton" name="BotonAceptar">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>390</y>
+     <x>40</x>
+     <y>320</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -65,72 +66,11 @@ border: 0;
     <string>Aceptar</string>
    </property>
   </widget>
-  <widget class="QDateTimeEdit" name="campo_hora_fecha">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>330</y>
-     <width>110</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="dateTime">
-    <datetime>
-     <hour>0</hour>
-     <minute>0</minute>
-     <second>0</second>
-     <year>2019</year>
-     <month>1</month>
-     <day>1</day>
-    </datetime>
-   </property>
-   <property name="date">
-    <date>
-     <year>2019</year>
-     <month>1</month>
-     <day>1</day>
-    </date>
-   </property>
-   <property name="maximumDateTime">
-    <datetime>
-     <hour>23</hour>
-     <minute>59</minute>
-     <second>59</second>
-     <year>9999</year>
-     <month>12</month>
-     <day>31</day>
-    </datetime>
-   </property>
-   <property name="displayFormat">
-    <string>yyyy/MM/dd H:mm</string>
-   </property>
-   <property name="calendarPopup">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="Nombretext_2">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>290</y>
-     <width>228</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Seleccione Fecha y Hora</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="BotonAceptar_2">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>390</y>
+     <x>230</x>
+     <y>320</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -153,40 +93,46 @@ border: 0;
     <string>Cancelar</string>
    </property>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QLabel" name="Titulo_2">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>24</y>
-     <width>281</width>
-     <height>261</height>
+     <x>110</x>
+     <y>20</y>
+     <width>156</width>
+     <height>52</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout">
+   <property name="font">
+    <font>
+     <family>AlArabiya</family>
+     <pointsize>20</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Nuevo Turno&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::AutoText</enum>
+   </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>90</y>
+     <width>301</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
     <item row="0" column="0">
-     <widget class="QLabel" name="Titulo_2">
-      <property name="font">
-       <font>
-        <family>AlArabiya</family>
-        <pointsize>20</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-        <underline>true</underline>
-       </font>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Nuevo Turno&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="textFormat">
-       <enum>Qt::AutoText</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
      <widget class="QLabel" name="Label_DNI_Medico">
       <property name="font">
        <font>
-        <pointsize>16</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="text">
@@ -194,7 +140,7 @@ border: 0;
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
+    <item row="1" column="0" colspan="2">
      <widget class="QLineEdit" name="Campo_DNI_Medico">
       <property name="font">
        <font>
@@ -219,46 +165,10 @@ border: 0;
      </widget>
     </item>
     <item row="3" column="0">
-     <widget class="QLabel" name="Label_DNI_Medico_2">
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>DNI Secretario</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLineEdit" name="Campo_DNI_Secretario">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>true</bool>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-      <property name="contextMenuPolicy">
-       <enum>Qt::CustomContextMenu</enum>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="placeholderText">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
      <widget class="QLabel" name="DNItex_2">
       <property name="font">
        <font>
-        <pointsize>16</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="text">
@@ -266,7 +176,7 @@ border: 0;
       </property>
      </widget>
     </item>
-    <item row="6" column="0">
+    <item row="4" column="0" colspan="2">
      <widget class="QLineEdit" name="Campo_DNI_paciente">
       <property name="font">
        <font>
@@ -293,12 +203,59 @@ border: 0;
       </property>
      </widget>
     </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="Nombretext_2">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Fecha y Hora</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" colspan="2">
+     <widget class="QDateTimeEdit" name="campo_hora_fecha">
+      <property name="dateTime">
+       <datetime>
+        <hour>0</hour>
+        <minute>0</minute>
+        <second>0</second>
+        <year>2019</year>
+        <month>1</month>
+        <day>1</day>
+       </datetime>
+      </property>
+      <property name="date">
+       <date>
+        <year>2019</year>
+        <month>1</month>
+        <day>1</day>
+       </date>
+      </property>
+      <property name="maximumDateTime">
+       <datetime>
+        <hour>23</hour>
+        <minute>59</minute>
+        <second>59</second>
+        <year>9999</year>
+        <month>12</month>
+        <day>31</day>
+       </datetime>
+      </property>
+      <property name="displayFormat">
+       <string>yyyy/MM/dd H:mm</string>
+      </property>
+      <property name="calendarPopup">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>
  <tabstops>
-  <tabstop>Campo_DNI_Medico</tabstop>
-  <tabstop>Campo_DNI_Secretario</tabstop>
   <tabstop>Campo_DNI_paciente</tabstop>
   <tabstop>campo_hora_fecha</tabstop>
   <tabstop>BotonAceptar</tabstop>
