@@ -2,6 +2,7 @@ import sys, re
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QDialog
 from PyQt5 import uic, QtCore
 import platform
+
 from Controller.ventana_secretarios import DSecretario
 from Controller.ventana_pacientes import VentanaPacientes
 from Controller.ventana_medicos import VentanaMedicos
