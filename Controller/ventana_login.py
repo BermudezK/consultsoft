@@ -35,9 +35,9 @@ class VentanaLogin(QDialog):
     if not self.validar_Password() and not self.validar_User():
       self.usuario = logIn(userName=self.User.text(), password=self.Password.text())
       if self.usuario:
-        print(self.usuario)
-        QMessageBox.information(self, "¡Ingreso!", "¡Disfrute de nuestro sistema nae!")
-        # self.accept() # si lo descomento no funciona
+        #print(self.usuario)
+        #QMessageBox.information(self, "¡Ingreso!", "¡Disfrute de nuestro sistema nae!")
+        self.accept() # si lo descomento no funciona
       else:
         QMessageBox.warning(self, "¡Login incorrecto!", "¡El usuario o contraseña es incorrecto!", QMessageBox.Discard)
     else:

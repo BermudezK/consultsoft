@@ -6,6 +6,7 @@ from Controller.ventana_pacientes import VentanaPacientes
 from Controller.ventana_medicos import VentanaMedicos
 from Controller.ventana_agenda import VentanaAgenda
 from Controller.ventana_login import VentanaLogin
+from Controller.ventana_logOut import Ventana_logOut
 class MainWindow (QMainWindow):
     def __init__(self, usuario):        
         QMainWindow.__init__(self)
@@ -16,6 +17,7 @@ class MainWindow (QMainWindow):
         self.pb_secretarios.clicked.connect(self.pb_secretarios_on_click)
         self.pb_pacientes.clicked.connect(self.pb_pacientes_on_click)
         self.pb_medicos.clicked.connect(self.pb_medicos_on_click)
+        self.pb_logOut.clicked.connect(self.pb_logOut_on_click)
         
         if usuario[3] == 1: #Administrador
             self.pb_agenda.hide()
@@ -129,6 +131,29 @@ class MainWindow (QMainWindow):
         # top left of rectangle becomes top left of window centering it
         self.move(qr.bottomLeft())
         self.pb_agenda_on_click
+
+    def pb_logOut_on_click(self):
+        dialogo = Ventana_logOut()
+        dialogo.exec_()
+        return None
+        self.mdiArea.closeActiveSubWindow()
+        dialogo = Ventana_logOut()
+        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.mdiArea.addSubWindow(
+            dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+        dialogo.showMaximized()
+        self.panel.setStyleSheet("""
+            #pb_medicos {
+                background-color: #00796b;
+            }
+            #pb_pacientes,#pb_secretarios, #pb_agenda{
+                background-color: #263238;
+            }
+            #pb_agenda:hover,#pb_pacientes:hover,
+            #pb_secretarios:hover, #pb_agenda:hover{
+                background-color: #00796b;
+            }
+        """)
 
 if __name__== '__main__':
     app = QApplication(sys.argv)
