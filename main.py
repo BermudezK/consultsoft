@@ -1,6 +1,7 @@
 import sys, re
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QDialog
 from PyQt5 import uic, QtCore
+import platform
 from Controller.ventana_secretarios import DSecretario
 from Controller.ventana_pacientes import VentanaPacientes
 from Controller.ventana_medicos import VentanaMedicos
@@ -14,7 +15,8 @@ class MainWindow (QMainWindow):
         QMainWindow.__init__(self)
         uic.loadUi('View/home.ui',self)
         self.L_userName.setText(self.usuario[5] + ", " + self.usuario[6])
-        self.center()
+        if platform.system() == "Linux":
+            self.center()
         self.pb_agenda.clicked.connect(self.pb_agenda_on_click)
         self.pb_secretarios.clicked.connect(self.pb_secretarios_on_click)
         self.pb_pacientes.clicked.connect(self.pb_pacientes_on_click)
