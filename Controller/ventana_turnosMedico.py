@@ -9,7 +9,7 @@ from Model.administrador import Administrador
 
 
 class VentanaTurnoMedico(QDialog):
-	def __init__(self):
+	def __init__(self,medico):
 		QDialog.__init__(self)
 		uic.loadUi('./View/displyappointment.ui', self)
 		self.cargarPacientesALaTabla()

@@ -13,7 +13,8 @@ from Controller.ventana_turnosMedico import VentanaTurnoMedico
 
 class MainWindow (QMainWindow):
     def __init__(self, usuario):
-        self.usuario = usuario      
+        self.usuario = usuario
+        
         QMainWindow.__init__(self)
         uic.loadUi('View/home.ui',self)
         self.L_userName.setText(self.usuario[5] + ", " + self.usuario[6])
@@ -68,7 +69,7 @@ class MainWindow (QMainWindow):
     def pb_turnos_on_click (self):
         if self.usuario[3]== 2:
             # si es secretarios mira los turnos para aplicar filtros
-            dialogo=VentanaTurnos()
+            dialogo=VentanaTurnos(self.usuario)
         else:
             # si es medicos mira su turno para dar de baja
             dialogo =VentanaTurnoMedico()

@@ -5,16 +5,14 @@ from PyQt5 import uic
 from Model.administrador import Administrador
 from Model.secretario import Secretario
 
-
-
 class VentanaTurno(QDialog):
 
-	def __init__(self):
+	def __init__(self, usuario):
+		self.usuario=usuario
 		QDialog.__init__(self)
 		uic.loadUi("View/Ventana_Turnos.ui",self)
 
 		self.Campo_DNI_Medico.textChanged.connect(self.validar_dni_medico)
-		self.Campo_DNI_Secretario.textChanged.connect(self.validar_dni_secretario)
 		self.campo_hora_fecha.dateTimeChanged.connect(self.validar_fecha)
 		self.Campo_DNI_paciente.textChanged.connect(self.validar_dni_paciente)
 		#print(self.campo_hora_fecha.toString()) #de momento vamos a impirmir la fecha
@@ -30,16 +28,6 @@ class VentanaTurno(QDialog):
 			return False
 		else:
 			return True
-
-	def validar_dni_secretario(self):
-		self.Campo_DNI_Secretario.setMaxLength(8)
-		dni3=self.Campo_DNI_Secretario.text()
-		validar = re.match("^[0-9]{8,8}$", dni3, re.I)
-		if not validar:
-			return False
-		else:
-			return True
-
 
 	def validar_fecha(self):
 		datetime_object = datetime.datetime.now()
@@ -62,10 +50,10 @@ class VentanaTurno(QDialog):
 
 
 	def cargarTurno(self):
-		if self.validar_dni_medico() and self.validar_dni_paciente() and self.validar_dni_secretario() and self.validar_fecha():
-			if Secretario.existe_paciente(self.Campo_DNI_paciente.text()) and Secretario().existe_medico(self.Campo_DNI_Medico.text()) and Secretario().existe_secretario(self.Campo_DNI_Secretario.text()):
+		if self.validar_dni_medico() and self.validar_dni_paciente() and self.validar_fecha():
+			if Secretario.existe_paciente(self.Campo_DNI_paciente.text()) and Secretario().existe_medico(self.Campo_DNI_Medico.text()):
 
-				Secretario().nuevo_Turno(self.Campo_DNI_Medico.text(),self.Campo_DNI_Secretario.text(),self.campo_hora_fecha.text(),self.Campo_DNI_paciente.text())
+				Secretario().nuevo_Turno(self.Campo_DNI_Medico.text(),self.usuario[2],self.campo_hora_fecha.text(),self.Campo_DNI_paciente.text())
 				#crear turno con el estado 1 por defecto
 				QMessageBox.information(self,"Carga completa","Se creo un turno correctamente.",QMessageBox.Discard)
 				self.Campo_DNI_paciente.setText("")
@@ -79,7 +67,7 @@ class VentanaTurno(QDialog):
 				#self.campo_hora_fecha.setStyleSheet("border: 1px solid black")
 			else:
 
-				QMessageBox.warning(self,"Carga Erronea!!","Valor incorrecto o campo vacio.")
+				QMessageBox.warning(self,"Carga Erronea!!","1 Valor incorrecto o campo vacio.")
 
 
 
