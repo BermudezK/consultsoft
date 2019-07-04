@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import (
 from PyQt5 import uic, QtCore, QtGui
 from Model.turno import Turno
 
-class VistaTurnos(QDialog):
+class VentanaTurnos(QDialog):
 	def __init__(self):
 		QDialog.__init__(self)
 		uic.loadUi('./View/vistaTurnos.ui',self)
@@ -112,8 +112,8 @@ class VistaTurnos(QDialog):
 
 """
 
-#if __name__ == '__main__':
-app = QApplication(sys.argv)
-_ventana = VistaTurnos()
-_ventana.show()
-app.exec_()
+if __name__ == '__main__':
+	app = QApplication(sys.argv)
+	_ventana = VentanaTurnos()
+	_ventana.show()
+	app.exec_()
