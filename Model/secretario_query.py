@@ -49,9 +49,25 @@ def existe(dni):
     cursor.close()
     return resultado[0]
 
-def agregar_turno(medico_ID,secretario_ID,fecha_Hora,paciente_DNI):
-    sqlconsulta = "insert into turno (medico_ID,secretario_ID,fecha_Hora,paciente_DNI) values (%s,%s,%s,%s)"
+def existe2(dni):
     cursor= mydb.cursor()
-    cursor.execute(sqlconsulta,(medico_ID,secretario_ID,fecha_Hora,paciente_DNI))
+    consulta= (f"select count(*) from personal where personal_DNI={dni} and rol_ID=3")
+    cursor.execute(consulta)
+    resultado=cursor.fetchone()
+    cursor.close()
+    return resultado[0]
+
+def agregar_turno(medico_ID,secretario_ID,fecha_Hora,paciente_DNI,estado):
+    sqlconsulta = "insert into turno (medico_ID,secretario_ID,fecha_Hora,paciente_DNI,estado) values (%s,%s,%s,%s,%s)"
+    cursor= mydb.cursor()
+    cursor.execute(sqlconsulta,(medico_ID,secretario_ID,fecha_Hora,paciente_DNI,estado))
     mydb.commit()
     cursor.close()
+
+def obtenerTurno():
+	cursor = mydb.cursor()
+	consultaTurno="select * from turno"
+	cursor.execute(consultaTurno)
+	resultado=cursor.fetchall()
+	cursor.close()
+	return resultado
