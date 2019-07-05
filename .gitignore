@@ -1,0 +1,4 @@
+.vscode/
+Controller/__pycache__/
+Model/__pycache__/
+__pycache__
