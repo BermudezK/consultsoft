@@ -11,7 +11,7 @@ from Controller.ventana_agenda import VentanaAgenda
 from Controller.ventana_login import VentanaLogin
 from Controller.ventana_turnos import VentanaTurnos
 from Controller.ventana_turnosMedico import VentanaTurnoMedico
-from Controller.ventana_logOut import Ventana_logOut
+# from Controller.ventana_logOut import Ventana_logOut
 
 class MainWindow (QMainWindow):
     def __init__(self, usuario):
@@ -180,28 +180,28 @@ class MainWindow (QMainWindow):
         self.move(qr.bottomLeft())
         self.pb_agenda_on_click
 
-    def pb_logOut_on_click(self):
-        dialogo = Ventana_logOut()
-        dialogo.exec_()
-        return None
-        self.mdiArea.closeActiveSubWindow()
-        dialogo = Ventana_logOut()
-        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.mdiArea.addSubWindow(
-            dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
-        dialogo.showMaximized()
-        self.panel.setStyleSheet("""
-            #pb_medicos {
-                background-color: #00796b;
-            }
-            #pb_pacientes,#pb_secretarios, #pb_agenda{
-                background-color: #263238;
-            }
-            #pb_agenda:hover,#pb_pacientes:hover,
-            #pb_secretarios:hover, #pb_agenda:hover{
-                background-color: #00796b;
-            }
-        """)
+    # def pb_logOut_on_click(self):
+    #     dialogo = Ventana_logOut()
+    #     dialogo.exec_()
+    #     return None
+    #     self.mdiArea.closeActiveSubWindow()
+    #     dialogo = Ventana_logOut()
+    #     dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+    #     self.mdiArea.addSubWindow(
+    #         dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+    #     dialogo.showMaximized()
+    #     self.panel.setStyleSheet("""
+    #         #pb_medicos {
+    #             background-color: #00796b;
+    #         }
+    #         #pb_pacientes,#pb_secretarios, #pb_agenda{
+    #             background-color: #263238;
+    #         }
+    #         #pb_agenda:hover,#pb_pacientes:hover,
+    #         #pb_secretarios:hover, #pb_agenda:hover{
+    #             background-color: #00796b;
+    #         }
+    #     """)
 
 if __name__== '__main__':
     app = QApplication(sys.argv)
