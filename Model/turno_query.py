@@ -87,3 +87,17 @@ def obtenerTurnos(desde, hasta):
         #closing database connection.
         if(mydb.is_connected()):
             cursor.close()
+
+def filtrar_para_medico(dniMedico):
+	cursor = mydb.cursor()
+	consulta = (f"""SELECT T.turno_ID, T.fecha_hora, concat(PS.nombre,', ', PS.apellido), PS.paciente_DNI
+					from turno T 
+					inner join personal P on T.medico_ID = P.personal_DNI
+					inner join paciente PS on T.paciente_DNI = PS.paciente_DNI
+					where T.estado = true and P.personal_DNI = {dniMedico} and T.fecha_hora >= "{fechaActual}"
+					order by T.fecha_hora ASC
+				""")
+	cursor.execute(consulta)
+	resultado = cursor.fetchall()
+	cursor.close()
+	return resultado

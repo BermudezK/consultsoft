@@ -56,7 +56,7 @@ class MainWindow (QMainWindow):
             self.verMisTurnos()
 
     def verMisTurnos(self):
-        dialogo=VentanaTurnoMedico()
+        dialogo=VentanaTurnoMedico(self.usuario)
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()

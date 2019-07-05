@@ -55,22 +55,22 @@
      </attribute>
      <column>
       <property name="text">
+       <string>Fecha y Hora</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
        <string>DNI</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Nombre</string>
+       <string>Nombre y Apellido</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Apellido</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Turno</string>
+       <string>DNI</string>
       </property>
      </column>
      <column>
