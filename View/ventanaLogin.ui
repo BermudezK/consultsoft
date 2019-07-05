@@ -255,7 +255,7 @@ border-radius: 5px;</string>
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>180</y>
+     <y>190</y>
      <width>251</width>
      <height>31</height>
     </rect>
@@ -278,7 +278,7 @@ border-radius: 5px;</string>
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>10</y>
+     <y>30</y>
      <width>171</width>
      <height>151</height>
     </rect>
@@ -293,7 +293,7 @@ border-radius: 5px;</string>
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>60</x>

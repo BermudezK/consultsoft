@@ -208,6 +208,7 @@ if __name__== '__main__':
     login = VentanaLogin()
     ejec = login.exec_()
     if ejec == QDialog.Accepted:
+        print(login.usuario)
         window = MainWindow(login.usuario)
         window.show()
         app.exec_()
