@@ -51,7 +51,7 @@ class VentanaTurno(QDialog):
 
 	def cargarTurno(self):
 		if self.validar_dni_medico() and self.validar_dni_paciente() and self.validar_fecha():
-			if Secretario.existe_paciente(self.Campo_DNI_paciente.text()) and Secretario().existe_medico(self.Campo_DNI_Medico.text()):
+			if Secretario.existe_paciente(self.Campo_DNI_paciente.text()) and Secretario().existe_medico(self.Campo_DNI_Medico.text()) and not Secretario().verificar_turno(self.Campo_DNI_Medico.text(), self.campo_hora_fecha.text()):
 
 				Secretario().nuevo_Turno(self.Campo_DNI_Medico.text(),self.usuario[2],self.campo_hora_fecha.text(),self.Campo_DNI_paciente.text())
 				#crear turno con el estado 1 por defecto
