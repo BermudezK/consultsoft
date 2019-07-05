@@ -5,9 +5,9 @@ from Model.turno_query import cargar_turnos
 from PyQt5.QtWidgets import (
  QApplication, QTableWidgetItem,
  QTableWidget, QPushButton, QHBoxLayout, QWidget,
- QDialog, QDesktopWidget
+ QDialog, QDesktopWidget,
  )
-from PyQt5 import uic, QtCore, QtGui
+from PyQt5 import uic, QtCore, QtGui, QtWidgets
 from Model.turno import Turno
 
 
