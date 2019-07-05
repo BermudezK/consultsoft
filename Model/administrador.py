@@ -1,5 +1,10 @@
 from Model.personal import Personal
-from Model.administrador_query import select_secretarias, insertar_usuario, insert_personal
+from Model.administrador_query import (
+    select_secretarias,
+    insertar_usuario,
+    insert_personal,
+    select_pacientes
+)
 
 class Administrador(Personal):
     def __init__(self, dni=None,nombre=None,apellido=None,telefono=None,id_usuario=None,usuario=None,password=None):
@@ -24,3 +29,8 @@ class Administrador(Personal):
         id_user=insertar_usuario(nombre_usuario,contraseña)
         #personal_DNI, usuario_ID, rol_id, nombre, apellido, telefono
         insert_personal(dni,id_user, 2, nombre, apellido, telefono)
+
+#esta funcion es para obtener todos los pacientes 
+    def obtener_pacientes(self):
+        pacientes = select_pacientes()
+        return pacientes

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>669</width>
     <height>560</height>
    </rect>
   </property>
@@ -33,6 +33,35 @@
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="campoBusqueda">
+     <property name="placeholderText">
+      <string>Busqueda...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QPushButton" name="botonBuscar">
+     <property name="styleSheet">
+      <string notr="true">
+border: 0;
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../icons/loupe1.svg</normaloff>../icons/loupe1.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+    </widget>
+   </item>
    <item row="2" column="0" colspan="12">
     <widget class="QTableWidget" name="tablaTurnos">
      <property name="minimumSize">
@@ -142,7 +171,7 @@ border: 0;
      </item>
     </widget>
    </item>
-   <item row="0" column="11" alignment="Qt::AlignRight">
+   <item row="0" column="10" colspan="2">
     <widget class="QPushButton" name="botonNuevoTurno">
      <property name="font">
       <font>
@@ -153,36 +182,11 @@ border: 0;
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
-      <string>+ Turno</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="campoBusqueda">
-     <property name="placeholderText">
-      <string>Busqueda...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2">
-    <widget class="QPushButton" name="botonBuscar">
-     <property name="styleSheet">
-      <string notr="true">
-border: 0;
-</string>
-     </property>
-     <property name="text">
-      <string/>
+      <string> Turno   </string>
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>../icons/loupe1.svg</normaloff>../icons/loupe1.svg</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>24</width>
-       <height>24</height>
-      </size>
+       <normaloff>../icons/plus.svg</normaloff>../icons/plus.svg</iconset>
      </property>
     </widget>
    </item>

@@ -40,3 +40,19 @@ def select_IDuser(user_name):
     resultado = cursor.fetchall() 	
     cursor.close() 	
     return resultado[0][0]
+
+def select_pacientes():
+    try:
+        if mydb.is_connected():
+            print(mydb)
+            cursor = mydb.cursor()
+            consulta = 'SELECT personal_DNI,nombre, apellido, telefono FROM personal WHERE rol_id = 3;'
+            cursor.execute(consulta)
+            resultado = cursor.fetchall()
+            return resultado
+    except Error as e :
+        print ("Error while connecting to MySQL", e)
+    finally:
+        #closing database connection.
+        if(mydb.is_connected()):
+            cursor.close()
