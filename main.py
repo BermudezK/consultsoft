@@ -13,6 +13,7 @@ from Controller.ventana_turnos import VentanaTurnos
 from Controller.ventana_turnosMedico import VentanaTurnoMedico
 from Controller.ventana_logOut import Ventana_logOut
 
+
 class MainWindow (QMainWindow):
     def __init__(self, usuario):
         self.usuario = usuario
@@ -63,7 +64,7 @@ class MainWindow (QMainWindow):
     
     def verAgenda(self):
          # abrir la agenda
-        dialogo=VentanaAgenda()
+        dialogo=VentanaAgenda(self.usuario)
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
@@ -95,7 +96,7 @@ class MainWindow (QMainWindow):
 
     # DEFINIMOS EL METODO PARA PODER VER EL CALENDARIO
     def pb_agenda_on_click(self):
-        dialogo=VentanaAgenda()
+        dialogo=VentanaAgenda(self.usuario)
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()

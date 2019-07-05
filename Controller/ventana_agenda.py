@@ -11,7 +11,8 @@ from PyQt5 import uic, QtCore
 from Model.turno import Turno
 
 class VentanaAgenda(QDialog):
-	def __init__(self):
+	def __init__(self, usuario):
+		self.usuario = usuario
 		QDialog.__init__(self)
 		uic.loadUi('./View/ventanaAgenda.ui',self)
 		self._retaso=0
@@ -32,6 +33,7 @@ class VentanaAgenda(QDialog):
 	def agregarTurno(self, rango):
 		print('vamo a agregar el turno')
 		# print('Hora: ', self.agenda.currentRow()+6,' Fecha: ', rango[self.agenda.currentColumn()])
+
 		pass
 	
 	# esta funcion carga los datos en la tabla
