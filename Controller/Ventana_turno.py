@@ -58,12 +58,10 @@ class VentanaTurno(QDialog):
 				QMessageBox.information(self,"Carga completa","Se creo un turno correctamente.",QMessageBox.Discard)
 				self.Campo_DNI_paciente.setText("")
 				self.Campo_DNI_Medico.setText("")
-				#self.campo_hora_fecha("")
 
 				self.Campo_DNI_paciente.setStyleSheet("border: 1px solid black")
 				self.Campo_DNI_Medico.setStyleSheet("border: 1px solid black")
-
-				self.campo_hora_fecha.setStyleSheet("border: 1px solid black")
+				#self.campo_hora_fecha.setStyleSheet("border: 1px solid black")
 			else:
 
 				QMessageBox.warning(self,"Carga Erronea!!","1 Valor incorrecto o campo vacio.")
