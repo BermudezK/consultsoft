@@ -2,10 +2,13 @@ import mysql.connector
 from mysql.connector import Error
 
 mydb = mysql.connector.connect(
-  host='192.168.42.61',
-  user='cliente',
-  passwd='1234',
-  database='clinica'
+    host='127.0.0.1',
+    user='root',
+    passwd='147852',
+    port='3306',
+    auth_plugin='mysql_native_password',
+    database='clinica'
+
 )
 
 def select_personal(rol):
