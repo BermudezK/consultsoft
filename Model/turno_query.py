@@ -61,19 +61,16 @@ def filtrar_por_fecha(fechabuscada):
 	from turno T 
 	inner join personal P on T.medico_ID = P.personal_DNI
 	inner join paciente PS on T.paciente_DNI = PS.paciente_DNI
-	where T.fecha_hora = "{fechabuscada}"
+	where fecha_Hora between "{fechabuscada}" and "{fechabuscada}" + interval 1 day
 	order by T.fecha_hora ASC""")
 	cursor.execute(consulta)
 	resultado = cursor.fetchall()
 	cursor.close()
 	return resultado
 
-
-
 def obtenerTurnos(desde, hasta):
     try:
         if mydb.is_connected():
-            print(mydb)
             cursor = mydb.cursor()
             consulta = (f"""SELECT CAST(fecha_Hora as date) AS 'Dia', HOUR(CAST(fecha_Hora as time)) AS 'Hora', count(*) 'Total' FROM turno
                             WHERE fecha_Hora BETWEEN '{desde}' AND '{hasta}' AND estado = true
