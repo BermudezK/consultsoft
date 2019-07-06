@@ -21,8 +21,6 @@ class MainWindow (QMainWindow):
         QMainWindow.__init__(self)
         uic.loadUi('View/home.ui',self)
         self.L_userName.setText(self.usuario[5] + ", " + self.usuario[6])
-        if platform.system() == "Linux":
-            self.center()
         self.pb_agenda.clicked.connect(self.pb_agenda_on_click)
         self.pb_secretarios.clicked.connect(self.pb_secretarios_on_click)
         self.pb_pacientes.clicked.connect(self.pb_pacientes_on_click)
@@ -57,7 +55,7 @@ class MainWindow (QMainWindow):
             self.verMisTurnos()
 
     def verMisTurnos(self):
-        dialogo=VentanaTurnoMedico()
+        dialogo=VentanaTurnoMedico(self.usuario)
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
@@ -170,17 +168,6 @@ class MainWindow (QMainWindow):
             }
         """) 
 
-    def center(self):
-        # geometry of the main window
-        qr = self.frameGeometry()
-        # center point of screen
-        cp = QDesktopWidget().availableGeometry().center()
-        # move rectangle's center point to screen's center point
-        qr.moveCenter(cp)
-        # top left of rectangle becomes top left of window centering it
-        self.move(qr.bottomLeft())
-        self.pb_agenda_on_click
-
     def pb_logOut_on_click(self):
         dialogo = Ventana_logOut()
         dialogo.exec_()
@@ -209,7 +196,6 @@ if __name__== '__main__':
     login = VentanaLogin()
     ejec = login.exec_()
     if ejec == QDialog.Accepted:
-        print(login.usuario)
         window = MainWindow(login.usuario)
         window.show()
         app.exec_()

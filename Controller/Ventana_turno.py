@@ -51,20 +51,38 @@ class VentanaTurno(QDialog):
 
 	def cargarTurno(self):
 		if self.validar_dni_medico() and self.validar_dni_paciente() and self.validar_fecha():
-			if Secretario.existe_paciente(self.Campo_DNI_paciente.text()) and Secretario().existe_medico(self.Campo_DNI_Medico.text()) and not Secretario().verificar_turno(self.Campo_DNI_Medico.text(), self.campo_hora_fecha.text()):
+			resultado = Secretario.existe_paciente(self.Campo_DNI_paciente.text())
+
+			if Secretario().existe_medico(self.Campo_DNI_Medico.text()):
+				self.Campo_DNI_Medico.setStyleSheet("border: 1px solid green;")
+			else:
+				self.Campo_DNI_Medico.setStyleSheet("border: 1px solid red;")
+				QMessageBox.information(self,"Carga incompleta","El Medico no existe.",QMessageBox.Discard)
+
+			if resultado[0] >= 1:
+				self.Campo_DNI_paciente.setStyleSheet("border: 1px solid green;")
+			else:
+				self.Campo_DNI_paciente.setStyleSheet("border: 1px solid red;")
+				QMessageBox.information(self,"Carga incompleta","El Paciente no existe.",QMessageBox.Discard)
+
+			if not Secretario().verificar_turno(self.Campo_DNI_Medico.text(), self.campo_hora_fecha.text()):
+				self.campo_hora_fecha.setStyleSheet("border: 1px solid green;")
+			else:
+				self.campo_hora_fecha.setStyleSheet("border: 1px solid red;")
+				QMessageBox.information(self,"Carga incompleta","El turno ya existe",QMessageBox.Discard)
+
+			if resultado[0] >= 1 and Secretario().existe_medico(self.Campo_DNI_Medico.text()) and not Secretario().verificar_turno(self.Campo_DNI_Medico.text(), self.campo_hora_fecha.text()):
 
 				Secretario().nuevo_Turno(self.Campo_DNI_Medico.text(),self.usuario[2],self.campo_hora_fecha.text(),self.Campo_DNI_paciente.text())
-				#crear turno con el estado 1 por defecto
+				
 				QMessageBox.information(self,"Carga completa","Se creo un turno correctamente.",QMessageBox.Discard)
 				self.Campo_DNI_paciente.setText("")
 				self.Campo_DNI_Medico.setText("")
 
 				self.Campo_DNI_paciente.setStyleSheet("border: 1px solid black")
 				self.Campo_DNI_Medico.setStyleSheet("border: 1px solid black")
-				#self.campo_hora_fecha.setStyleSheet("border: 1px solid black")
-			else:
 
-				QMessageBox.warning(self,"Carga Erronea!!","1 Valor incorrecto o campo vacio.")
+				self.campo_hora_fecha.setStyleSheet("border: 1px solid black")
 
 
 

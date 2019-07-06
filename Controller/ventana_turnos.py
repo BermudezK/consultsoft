@@ -1,25 +1,33 @@
 import sys
+import time
+import datetime
 from Model.turno_query import cargar_turnos
 from PyQt5.QtWidgets import (
  QApplication, QTableWidgetItem,
  QTableWidget, QPushButton, QHBoxLayout, QWidget,
- QDialog, QDesktopWidget
+ QDialog, QDesktopWidget,
  )
-from PyQt5 import uic, QtCore, QtGui
+from PyQt5 import uic, QtCore, QtGui, QtWidgets
 from Model.turno import Turno
 from Controller.Ventana_turno import VentanaTurno
 
+
 class VentanaTurnos(QDialog):
-	def __init__(self, usuario):
+	def __init__(self, usuario, fechaYHora=None):
 		self.usuario = usuario
 		QDialog.__init__(self)
 		uic.loadUi('./View/vistaTurnos.ui',self)
-		#self.center()
 		# Se carga en una variable para luego mostrarla
-		mostrar_turnos = cargar_turnos()
+		if fechaYHora == None:
+			# ojo acá no respeta la Orientacion a objetos
+			mostrar_turnos = cargar_turnos()
+		else:
+			mostrar_turnos = Turno().filtrarFechaHora(fechaYHora)
+		
 		self.cargarTurnosALaTabla(mostrar_turnos)
 		self.botonNuevoTurno.clicked.connect(lambda: self.botonNuevoTurno_on_click(self.usuario))
 		self.comboBoxFiltro.currentIndexChanged.connect(self.seleccionarFiltro)
+		self.dateTimeEdit.hide()
 		
 
 	def cargarTurnosALaTabla(self,consulta):
@@ -45,15 +53,27 @@ class VentanaTurnos(QDialog):
 		# Segun el filtro que eligas traera algunos valores
 		filtro = self.comboBoxFiltro.itemText(i)
 		if filtro == "Turnos":
+			self.campoBusqueda.show()
+			self.dateTimeEdit.hide()
 			self.botonBuscar.clicked.connect(lambda: self.buscarT())
 		elif filtro == "Paciente":
+			self.campoBusqueda.show()
+			self.dateTimeEdit.hide()
 			# Al cliquear en el buscador, busca los nombre o apellidos que se paresca a lo escrito.
 			self.botonBuscar.clicked.connect(lambda: self.buscarP())
 		elif filtro == "Medico":
+			self.campoBusqueda.show()
+			self.dateTimeEdit.hide()
 			self.botonBuscar.clicked.connect(lambda: self.buscarM())
 		elif filtro == "-------":
+			self.campoBusqueda.show()
+			self.dateTimeEdit.hide()
 			mostrar_turnos = cargar_turnos()
 			self.cargarTurnosALaTabla(mostrar_turnos)
+		elif filtro == "Fecha":
+			self.campoBusqueda.hide()
+			self.dateTimeEdit.show()
+			self.botonBuscar.clicked.connect(lambda: self.buscarF())
 
 
 	def buscarP(self):
@@ -67,6 +87,13 @@ class VentanaTurnos(QDialog):
 	def buscarT(self):
 		turnoTurno = Turno().filtrarTurno(self.campoBusqueda.text())
 		self.cargarTurnosALaTabla(turnoTurno)
+
+	def buscarF(self):
+		fecha_text = self.dateTimeEdit.text()
+		fecha = datetime.datetime.strptime(fecha_text, '%Y/%m/%d %H:%M:%S')
+		turnoFecha = Turno().filtrarFecha(fecha)
+		self.cargarTurnosALaTabla(turnoFecha)
+
 
 
 

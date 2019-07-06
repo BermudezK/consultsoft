@@ -25,8 +25,6 @@ class VentanaLogin(QDialog):
 
   def submitAcceder(self):
     message = ''
-    print(self.validar_Password())
-    print(self.validar_User())
     if self.validar_Password():
       message += '¡La contraseña es requerida!\n'
     if self.validar_User():
