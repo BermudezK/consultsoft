@@ -9,51 +9,49 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5 import uic, QtCore
 from Model.turno import Turno
-from Controller.ventana_turnos import VentanaTurnos
 
+from Controller.ventana_turnos import VentanaTurnos
+from Controller.Ventana_turno import VentanaTurno
 class VentanaAgenda(QDialog):
 	def __init__(self, usuario):
-<<<<<<< HEAD
-		self.usuario = usuario
-=======
 		self.usuario=usuario
->>>>>>> Pablinho
 		QDialog.__init__(self)
 		uic.loadUi('./View/ventanaAgenda.ui',self)
+		hoy = datetime.date.today()
+		self.obtenerSemana(hoy)
+		self.cargarHeader(self._semana)
+		self.l_month.setText(hoy.strftime('%B')+'/'+ hoy.strftime('%Y'))
 		self._retaso=0
-
+		self.cambiarSemana(0)
+		self.agenda.cellClicked.connect(lambda: self.agregarTurno(self._rango))
 		self.pb_right.clicked.connect(lambda: self.cambiarSemana(1))
 		self.pb_left.clicked.connect(lambda: self.cambiarSemana(-1))
 
-		hoy = datetime.date.today()
-		semana, rango= self.obtenerSemana(hoy)
-		self.cargarHeader(semana)
-		self.l_month.setText(hoy.strftime('%B')+'/'+ hoy.strftime('%Y'))
-		self.cargarCitas(rango)
-		self.agenda.itemSelectionChanged.connect(lambda: self.agregarTurno(rango))
 	
 	# Con este metodo abriremos la ventana para agregar 
 	# turnos y le pasaremos el dia 
 	# en el cuel queremos almacenarlo
-	def agregarTurno(self, rango):
-		print('vamo a agregar el turno')
-		print(self.agenda.mimeTypes())
+	def agregarTurno(self, fecha):
+		columna=self.agenda.currentColumn()
+		hora =self.agenda.currentRow() + 6
+		fechaHora= str(fecha[columna]) + ' '+str(hora)+':00:00'
+		dialogo = VentanaTurno(self.usuario,fechaHora)
+		dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+		if dialogo.exec_()==0:
+			self.cambiarSemana(0)
+			
 
-		# print('Hora: ', self.agenda.currentRow()+6,' Fecha: ', rango[self.agenda.currentColumn()])
-
-		pass
-	
 	# esta funcion carga los datos en la tabla
-	def cargarCitas(self, rango):
+	def cargarCitas(self):
 		self.agenda.clearContents()
-		desde =rango[0]
-		hasta = rango[-1]
+		desde =self._rango[0]
+		hasta = self._rango[-1]
 		turnos = Turno().mostrar_turnos(desde,hasta)
 		# por cada uno de los turnos que traemos de la base de datos
 		for turno in turnos:
-			# obtenemos la columna correspondiente al día del rango especifico
-			columna=rango.index(turno[0])
-			# obtenemos la fila que se corresponde con un rango de hora en particular
+			# obtenemos la columna correspondiente al día del self._rango especifico
+			columna=self._rango.index(turno[0])
+			# obtenemos la fila que se corresponde con un self._rango de hora en particular
 			fila = turno[1] - 6
 			# acá creo el layout (es un contenedor) que va a contener a los botones de manera horizaontal
 			caja = QHBoxLayout()
@@ -75,30 +73,24 @@ class VentanaAgenda(QDialog):
 
 	
 	# con esto iremos a los filtros y 
-	# traremos los turnos en el rango de fecha 
+	# traremos los turnos en el self._rango de fecha 
 	# que se han solicitado en desde y hasta
 	def goToFilter(self, fecha, hora):
-		# acá vamos a abrir la ventana de los filtros y ver 
-		# # los turnos de esta fecha y hora en específico
-		# print(desde.strftime('%x'))
-
 		dia = str(fecha) +' '+ str(hora) +':00:00'
-		print(dia)
 		dialogo = VentanaTurnos(self.usuario, dia)
 		dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-		# MainWindow.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
 		dialogo.show()
+		
 
 	# este metodo me permitirá obtener una lista de tuplas que contendrá los dias de la
 	# semana actual con su fecha, si el dia es domingo me traerá la semana próxima
 	def obtenerSemana(self, dia):
-		semana = []
-		rango = []
+		self._semana = []
+		self._rango = []
 		for i in range(0 - dia.weekday(), 7 - dia.weekday()):
 			fecha = dia + datetime.timedelta(days=i)
-			rango.append(fecha)
-			semana.append( fecha.strftime('%A') + ' \n ' + fecha.strftime('%d') )
-		return semana, rango
+			self._rango.append(fecha)
+			self._semana.append( fecha.strftime('%A') + ' \n ' + fecha.strftime('%d') )
 
 	# Esta funcion carga las cabeceras del tableWidget con la info del dia y 
 	# numero de la semana
@@ -112,10 +104,10 @@ class VentanaAgenda(QDialog):
 		self._retaso = self._retaso + cuanto
 		dias = datetime.timedelta(7 * self._retaso)
 		hoy = datetime.date.today() - dias
-		semana,rango = self.obtenerSemana(hoy)
+		self.obtenerSemana(hoy)
 		self.l_month.setText(hoy.strftime('%B') +'/'+ hoy.strftime('%Y') )
-		self.cargarHeader(semana)
-		self.cargarCitas(rango)
+		self.cargarHeader(self._semana)
+		self.cargarCitas()
 
 if __name__=='__main__':
 	app = QApplication(sys.argv)

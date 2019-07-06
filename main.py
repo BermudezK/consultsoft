@@ -55,6 +55,7 @@ class MainWindow (QMainWindow):
             self.verMisTurnos()
 
     def verMisTurnos(self):
+        self.mdiArea.closeActiveSubWindow()
         dialogo=VentanaTurnoMedico(self.usuario)
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
@@ -62,6 +63,7 @@ class MainWindow (QMainWindow):
     
     def verAgenda(self):
          # abrir la agenda
+        self.mdiArea.closeActiveSubWindow()
         dialogo=VentanaAgenda(self.usuario)
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
@@ -69,6 +71,7 @@ class MainWindow (QMainWindow):
 
     #DEFINIMOS EL METODO PARA VER LOS TURNOS Y FILTRARLOS
     def pb_turnos_on_click (self):
+        self.mdiArea.closeActiveSubWindow()
         if self.usuario[3]== 2:
             # si es secretarios mira los turnos para aplicar filtros
             dialogo=VentanaTurnos(self.usuario)
@@ -94,6 +97,7 @@ class MainWindow (QMainWindow):
 
     # DEFINIMOS EL METODO PARA PODER VER EL CALENDARIO
     def pb_agenda_on_click(self):
+        self.mdiArea.closeActiveSubWindow()
         dialogo=VentanaAgenda(self.usuario)
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
@@ -113,6 +117,7 @@ class MainWindow (QMainWindow):
     
     #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON SECRETARIOS
     def pb_secretarios_on_click(self):
+        self.mdiArea.closeActiveSubWindow()
         dialogo=VentanaTurno()
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
@@ -132,6 +137,7 @@ class MainWindow (QMainWindow):
     
     #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON PACIENTES
     def pb_pacientes_on_click(self):
+        self.mdiArea.closeActiveSubWindow()
         dialogo=VentanaPacientes()
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)

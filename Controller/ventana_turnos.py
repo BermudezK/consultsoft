@@ -21,8 +21,10 @@ class VentanaTurnos(QDialog):
 		if fechaYHora == None:
 			# ojo acá no respeta la Orientacion a objetos
 			mostrar_turnos = cargar_turnos()
+			self.botonNuevoTurno.show()
 		else:
 			mostrar_turnos = Turno().filtrarFechaHora(fechaYHora)
+			self.botonNuevoTurno.hide()
 		
 		self.cargarTurnosALaTabla(mostrar_turnos)
 		self.botonNuevoTurno.clicked.connect(lambda: self.botonNuevoTurno_on_click(self.usuario))
