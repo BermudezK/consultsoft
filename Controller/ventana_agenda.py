@@ -9,9 +9,11 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5 import uic, QtCore
 from Model.turno import Turno
+from Controller.ventana_turnos import VentanaTurnos
 
 class VentanaAgenda(QDialog):
-	def __init__(self):
+	def __init__(self, usuario):
+		self.usuario=usuario
 		QDialog.__init__(self)
 		uic.loadUi('./View/ventanaAgenda.ui',self)
 		self._retaso=0
@@ -31,6 +33,8 @@ class VentanaAgenda(QDialog):
 	# en el cuel queremos almacenarlo
 	def agregarTurno(self, rango):
 		print('vamo a agregar el turno')
+		print(self.agenda.mimeTypes())
+
 		# print('Hora: ', self.agenda.currentRow()+6,' Fecha: ', rango[self.agenda.currentColumn()])
 		pass
 	
@@ -50,8 +54,6 @@ class VentanaAgenda(QDialog):
 			caja = QHBoxLayout()
 			# acá creo los botones (se pueden costumizar para que tengan un icon hay que investigar nomas)
 			boton1 = QPushButton(str(turno[2]))
-			# acá le agrego la funcion que se ejecuta cada vez que el boton escucha el evento de clicked
-			boton1.clicked.connect(lambda: self.goToFilter(desde,hasta))
 			#
 			# acá agrego al contenedor los botones creados
 			caja.addWidget(boton1)
@@ -62,17 +64,25 @@ class VentanaAgenda(QDialog):
 			# acá agrego el elemento celda con los botones ya cargados dentro 
 			# de la tabla en la posicion (0,0)
 			self.agenda.setCellWidget(fila,columna,celda)
+			# acá le agrego la funcion que se ejecuta cada vez que el boton escucha el evento de clicked
+			boton1.clicked.connect(lambda *args,hora=turno[1], fecha=turno[0]: self.goToFilter(fecha,hora))
 			self.agenda.resizeRowsToContents()
 
 	
 	# con esto iremos a los filtros y 
 	# traremos los turnos en el rango de fecha 
 	# que se han solicitado en desde y hasta
-	def goToFilter(self, desde, hasta):
+	def goToFilter(self, fecha, hora):
 		# acá vamos a abrir la ventana de los filtros y ver 
-		# los turnos de esta fecha y hora en específico
-		print('NOS FUIMOS AL FILTRO')
-		pass
+		# # los turnos de esta fecha y hora en específico
+		# print(desde.strftime('%x'))
+
+		dia = str(fecha) +' '+ str(hora) +':00:00'
+		print(dia)
+		dialogo = VentanaTurnos(self.usuario, dia)
+		dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+		# MainWindow.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+		dialogo.show()
 
 	# este metodo me permitirá obtener una lista de tuplas que contendrá los dias de la
 	# semana actual con su fecha, si el dia es domingo me traerá la semana próxima

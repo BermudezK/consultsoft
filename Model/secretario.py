@@ -22,7 +22,6 @@ class Secretario(Personal):
 
 
 	def existe_medico(self,dni):
-		print(existe2(dni))
 		if existe2(dni) > 0:
 			resultado= True
 		else:

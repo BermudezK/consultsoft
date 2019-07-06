@@ -13,13 +13,17 @@ from Controller.Ventana_turno import VentanaTurno
 
 
 class VentanaTurnos(QDialog):
-	def __init__(self, usuario):
+	def __init__(self, usuario, fechaYHora=None):
 		self.usuario = usuario
 		QDialog.__init__(self)
 		uic.loadUi('./View/vistaTurnos.ui',self)
-		#self.center()
 		# Se carga en una variable para luego mostrarla
-		mostrar_turnos = cargar_turnos()
+		if fechaYHora == None:
+			# ojo acá no respeta la Orientacion a objetos
+			mostrar_turnos = cargar_turnos()
+		else:
+			mostrar_turnos = Turno().filtrarFechaHora(fechaYHora)
+		
 		self.cargarTurnosALaTabla(mostrar_turnos)
 		self.botonNuevoTurno.clicked.connect(lambda: self.botonNuevoTurno_on_click(self.usuario))
 		self.comboBoxFiltro.currentIndexChanged.connect(self.seleccionarFiltro)

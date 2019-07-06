@@ -1,6 +1,6 @@
 from Model.turno_query import (filtrar_por_turno, filtrar_por_paciente,
                                 filtrar_por_medico, obtenerTurnos, 
-                                cargar_turnos, filtrar_por_fecha, filtrar_para_medico)
+                                cargar_turnos, filtrar_por_fecha, filtrar_para_medico, filtrar_por_fechaHora)
 
 
 class Turno():
@@ -57,6 +57,9 @@ class Turno():
 
     def filtrarFecha(self, fechabuscada):
         return filtrar_por_fecha(fechabuscada)
+
+    def filtrarFechaHora(self, fechaHora):
+            return filtrar_por_fechaHora(fechaHora)
 
     def mostrar_turnos_medico(self, medico):
             return filtrar_para_medico(medico)

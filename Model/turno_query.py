@@ -68,25 +68,39 @@ def filtrar_por_fecha(fechabuscada):
 	cursor.close()
 	return resultado
 
+def filtrar_por_fechaHora(fechaHora):
+	cursor = mydb.cursor()
+	consulta = (f"""
+					SELECT T.turno_ID, T.fecha_hora, concat(P.nombre,', ', P.apellido) as 'nombreMedico', concat(PS.nombre,', ', PS.apellido) as 'nombrePaciente'
+					from turno T 
+					inner join personal P on T.medico_ID = P.personal_DNI
+					inner join paciente PS on T.paciente_DNI = PS.paciente_DNI
+					where fecha_Hora between '{fechaHora}' AND '{fechaHora}' + interval  59 minute
+					order by T.fecha_hora ASC""")
+	cursor.execute(consulta)
+	resultado = cursor.fetchall()
+	cursor.close()
+	return resultado
+
 def obtenerTurnos(desde, hasta):
-    try:
-        if mydb.is_connected():
-            cursor = mydb.cursor()
-            consulta = (f"""SELECT CAST(fecha_Hora as date) AS 'Dia', HOUR(CAST(fecha_Hora as time)) AS 'Hora', count(*) 'Total' FROM turno
-                            WHERE fecha_Hora BETWEEN '{desde}' AND '{hasta}' AND estado = true
-                            GROUP BY CAST(fecha_Hora as date), HOUR(CAST(fecha_Hora as time))
-                            ORDER BY CAST(fecha_Hora as date), HOUR(CAST(fecha_Hora as time));
-                        """)
-                        
-            cursor.execute(consulta)
-            resultado = cursor.fetchall()
-            return resultado
-    except Error as e :
-        print ("Error while connecting to MySQL", e)
-    finally:
-        #closing database connection.
-        if(mydb.is_connected()):
-            cursor.close()
+	try:
+		if mydb.is_connected():
+			cursor = mydb.cursor()
+			consulta = (f"""SELECT CAST(fecha_Hora as date) AS 'Dia', HOUR(CAST(fecha_Hora as time)) AS 'Hora', count(*) 'Total' FROM turno
+							WHERE fecha_Hora BETWEEN '{desde}' AND '{hasta}' AND estado = true
+							GROUP BY CAST(fecha_Hora as date), HOUR(CAST(fecha_Hora as time))
+							ORDER BY CAST(fecha_Hora as date), HOUR(CAST(fecha_Hora as time));
+						""")
+						
+			cursor.execute(consulta)
+			resultado = cursor.fetchall()
+			return resultado
+	except Error as e :
+		print ("Error while connecting to MySQL", e)
+	finally:
+		#closing database connection.
+		if(mydb.is_connected()):
+			cursor.close()
 
 def filtrar_para_medico(dniMedico):
 	cursor = mydb.cursor()

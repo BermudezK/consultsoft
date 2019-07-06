@@ -16,7 +16,6 @@ class VentanaTurnoMedico(QDialog):
 		#self.pb_cargarPaciente.clicked.connect(self.pb_agregarPaciente_on_click)
 	
 	def cargarMisTurnosALaTabla(self):
-		print(self.usuario[2])
 		turnos = Turno().mostrar_turnos_medico(self.usuario[2])
 		self.tablaTurnos.setRowCount(len(turnos))
 		self.tablaTurnos.setEditTriggers(QTableWidget.NoEditTriggers)
