@@ -60,7 +60,7 @@ class MainWindow (QMainWindow):
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
-    
+
     def verAgenda(self):
          # abrir la agenda
         self.mdiArea.closeActiveSubWindow()
@@ -75,13 +75,12 @@ class MainWindow (QMainWindow):
         if self.usuario[3]== 2:
             # si es secretarios mira los turnos para aplicar filtros
             dialogo=VentanaTurnos(self.usuario)
+            dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+            self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+            dialogo.showMaximized()
         else:
             # si es medicos mira su turno para dar de baja
-            dialogo =VentanaTurnoMedico()
-            pass
-        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
-        dialogo.showMaximized()
+            self.verMisTurnos()
         self.panel.setStyleSheet("""
             #pb_turnos {
                 background-color: #00796b;
