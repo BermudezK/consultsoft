@@ -1,6 +1,5 @@
-
+.vscode/
+Controller/__pycache__/
+Model/__pycache__/
 __pycache__
-Model/__pycache__
-Controller/__pycache__
-.vscode
-View/home2.ui
+Model/connection.py

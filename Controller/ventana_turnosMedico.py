@@ -5,31 +5,34 @@ from PyQt5.QtWidgets import (QApplication, QDialog, QGridLayout, QMessageBox,
 from PyQt5 import uic, QtCore, QtGui, QtWidgets
 from Controller.ventana_medico import VentanaMedico
 from Controller.ventana_paciente import VentanaPaciente
-from Model.administrador import Administrador
-
+from Model.turno import Turno
 
 class VentanaTurnoMedico(QDialog):
-	def __init__(self,medico):
+	def __init__(self,usuario):
+		self.usuario=usuario
 		QDialog.__init__(self)
 		uic.loadUi('./View/displyappointment.ui', self)
-		self.cargarPacientesALaTabla()
+		self.cargarMisTurnosALaTabla()
 		#self.pb_cargarPaciente.clicked.connect(self.pb_agregarPaciente_on_click)
 	
-	def cargarPacientesALaTabla(self):
-		pacientes = Administrador().obtener_pacientes()
-		self.tablaTurnos.setRowCount(len(pacientes))
+	def cargarMisTurnosALaTabla(self):
+		print(self.usuario[2])
+		turnos = Turno().mostrar_turnos_medico(self.usuario[2])
+		self.tablaTurnos.setRowCount(len(turnos))
 		self.tablaTurnos.setEditTriggers(QTableWidget.NoEditTriggers)
 		
-		for i in range(len(pacientes)):
-			paciente = pacientes[i]
+		for i in range(len(turnos)):
+			turno = turnos[i]
 			columna = 0
-			for x in paciente:
+			for x in turno:
 				item = QTableWidgetItem(str(x))
 				item.setTextAlignment(QtCore.Qt.AlignCenter)
+				
 				self.tablaTurnos.setItem(i,columna, item)
+
 				# self.crearBoton(i)#aca va el boton de aceptar o cancelar turno
 				columna = columna + 1
-	
+		self.tablaTurnos.resizeColumnsToContents()
 	# def crearBoton(self,posicion):
 	# 	# Creo el layout que contendra a los botones
 	# 	caja = QHBoxLayout()
