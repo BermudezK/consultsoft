@@ -78,3 +78,5 @@ def EliminarTurno(turno):
   cursor = mydb.cursor()
   consulta = (f"delete from turno where turno_id ={turno}")
   cursor.execute(consulta)
+  mydb.commit()
+  cursor.close()

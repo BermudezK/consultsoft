@@ -46,5 +46,4 @@ class Secretario(Personal):
 
 # ------ Modificaciones de prueba -----
 	def borrarTurno(self,turno):
-		print(turno)
 		EliminarTurno(turno)

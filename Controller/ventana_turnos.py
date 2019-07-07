@@ -122,11 +122,15 @@ class VentanaTurnos(QDialog):
 	def borrar(self):
 		fila = self.tablaTurnos.currentRow()
 		item = self.tablaTurnos.item(fila,0)
-		resultado = QMessageBox.question(self,"Borrar!","Seguro que desea eliminar el turno?",
-		QMessageBox.Yes | QMessageBox.No)
-		if resultado == QMessageBox.Yes: 
-			Secretario().borrarTurno(item.text())
-			self.cargarTurnosALaTabla(cargar_turnos())
+		filaSeleccionada = self.tablaTurnos.selectedItems()
+		if filaSeleccionada:
+			resultado = QMessageBox.question(self,"Borrar!","Seguro que desea eliminar el turno?",
+			QMessageBox.Yes | QMessageBox.No)
+			if resultado == QMessageBox.Yes: 
+				Secretario().borrarTurno(item.text())
+				self.cargarTurnosALaTabla(cargar_turnos())
+		else:
+			QMessageBox.critical(self, "Eliminar fila", "Seleccione una fila.   ",QMessageBox.Ok)
 
 
 
