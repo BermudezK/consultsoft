@@ -5,18 +5,19 @@ from Model.turno_query import cargar_turnos
 from PyQt5.QtWidgets import (
  QApplication, QTableWidgetItem,
  QTableWidget, QPushButton, QHBoxLayout, QWidget,
- QDialog, QDesktopWidget,
+ QDialog, QDesktopWidget, QMessageBox
  )
 from PyQt5 import uic, QtCore, QtGui, QtWidgets
 from Model.turno import Turno
 from Controller.Ventana_turno import VentanaTurno
+from Model.secretario import Secretario
 
 
 class VentanaTurnos(QDialog):
 	def __init__(self, usuario, fechaYHora=None):
 		self.usuario = usuario
 		QDialog.__init__(self)
-		uic.loadUi('./View/vistaTurnos.ui',self)
+		uic.loadUi('./View/vistaTurnos2.ui',self)
 		# Se carga en una variable para luego mostrarla
 		if fechaYHora == None:
 			# ojo acá no respeta la Orientacion a objetos
@@ -25,11 +26,16 @@ class VentanaTurnos(QDialog):
 		else:
 			mostrar_turnos = Turno().filtrarFechaHora(fechaYHora)
 			self.botonNuevoTurno.hide()
+
+		for indice, ancho in enumerate((80,150,230,230),start=0):
+			self.tablaTurnos.setColumnWidth(indice,ancho)
 		
 		self.cargarTurnosALaTabla(mostrar_turnos)
 		self.botonNuevoTurno.clicked.connect(lambda: self.botonNuevoTurno_on_click(self.usuario))
 		self.comboBoxFiltro.currentIndexChanged.connect(self.seleccionarFiltro)
 		self.dateTimeEdit.hide()
+		self.botonEditar.clicked.connect(lambda: self.editar())
+		self.botonEliminar.clicked.connect(lambda: self.borrar())
 		
 
 	def cargarTurnosALaTabla(self,consulta):
@@ -106,7 +112,27 @@ class VentanaTurnos(QDialog):
 			self.cargarTurnosALaTabla(mostrar_turnos)
 		
 
-# Crea los botones de Editar y Eliminar en las columna de Accion.
+	def editar(self):
+		print("Editar")
+		fila = self.tablaTurnos.currentRow()
+		item = self.tablaTurnos.item(fila,0)
+		print(item.text())
+
+	# Crear funcion para borrar un turno
+	def borrar(self):
+		fila = self.tablaTurnos.currentRow()
+		item = self.tablaTurnos.item(fila,0)
+		resultado = QMessageBox.question(self,"Borrar!","Seguro que desea eliminar el turno?",
+		QMessageBox.Yes | QMessageBox.No)
+		if resultado == QMessageBox.Yes: 
+			Secretario().borrarTurno(item.text())
+			self.cargarTurnosALaTabla(cargar_turnos())
+
+
+
+
+
+#Crea los botones de Editar y Eliminar en las columna de Accion.
 """
 	def crearBoton(self,posicion):
 		# Creo el layout que contendra a los botones
@@ -115,8 +141,8 @@ class VentanaTurnos(QDialog):
 		botonEliminar = QPushButton()
 		botonEditar = QPushButton()
 		# Agrega un icono a los botones
-		botonEditar.setIcon(QtGui.QIcon("../icons/edit.svg"))
-		botonEliminar.setIcon(QtGui.QIcon("../icons/delete.svg"))
+		botonEditar.setIcon(QtGui.QIcon("./icons/edit.svg"))
+		botonEliminar.setIcon(QtGui.QIcon("./icons/delete.svg"))
 		# Da el tamaño de los botones
 		botonEliminar.setMinimumSize(20,20)
 		botonEliminar.setMaximumSize(20,20)
@@ -136,12 +162,6 @@ class VentanaTurnos(QDialog):
 		self.tablaTurnos.setCellWidget(posicion,4,celda)
 
 	# Crear funcion para editar un turno
-	def editar(self):
-		print("Editar")
-
-	# Crear funcion para borrar un turno
-	def borrar(self):
-		print("Borrar")
 
 """
 

@@ -72,4 +72,9 @@ def existe_turno(medico_ID,fecha_Hora):
 	cursor.close()
 	return resultado[0]
 
+# --------- Modificacion de prueba
 
+def EliminarTurno(turno):
+  cursor = mydb.cursor()
+  consulta = (f"delete from turno where turno_id ={turno}")
+  cursor.execute(consulta)
