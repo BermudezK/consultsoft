@@ -2,6 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 from Model.mysqlScript import mydbCon
 import time
+fechaActual = time.strftime("%Y-%m-%d %H:%M:%S")
 
 def querySelect(consulta):
 	try:
@@ -109,7 +110,6 @@ def existe_usuario(usuario):
 	resultado = querySelect(consulta)
 	return resultado[0][0]
 
-fechaActual = time.strftime("%Y-%m-%d %H:%M:%S")
 
 def select_turnos():
 	consulta = """SELECT T.turno_ID, T.fecha_hora, concat(P.nombre,', ', P.apellido) as 'nombreMedico', concat(PS.nombre,', ', PS.apellido) as 'nombrePaciente'
