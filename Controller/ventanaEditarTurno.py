@@ -11,14 +11,9 @@ class VentanaEditarTurno(QDialog):
 		self.usuario = usuario
 		QDialog.__init__(self)
 		uic.loadUi("View/VentanaEditarTurno.ui",self)
-		self.turno = Turno()
 		#Cargar todos los datos del turno para luego editarlo
 		print(datosTurno)
-		self.turno.setNro_Turno(datosTurno[0][0])
-		self.turno.setMedico(datosTurno[0][1])
-		self.turno.setFechayHora(datosTurno[0][3])
-		self.turno.setPaciente(datosTurno[0][4])
-		#self.turno.setEstado(datosTurno[0][5])
+		self.turno = Turno(datosTurno[0][0],datosTurno[0][1],datosTurno[0][2],datosTurno[0][3])
 		self.Campo_DNI_Medico.setText(str(self.turno.getMedico()))
 		self.campo_hora_fecha.setDateTime(self.turno.getFechayHora())
 		self.Campo_DNI_paciente.setText(str(self.turno.getPaciente()))
@@ -56,6 +51,7 @@ class VentanaEditarTurno(QDialog):
 
 	def botonAceptar(self):
 		if self.validar_dni_medico() and self.validar_fecha():
+			self.turno = Turno(self.turno.nro_turno,self.turno.paciente,self.Campo_DNI_Medico.text(),self.campo_hora_fecha.text())
 			#Verifica que el medico ingresado exista
 			#resultado = Secretario().existe_medico(self.Campo_DNI_Medico.text())
 			if Secretario().existe_medico(self.Campo_DNI_Medico.text()):

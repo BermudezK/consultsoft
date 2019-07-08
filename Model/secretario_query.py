@@ -84,7 +84,7 @@ def EliminarTurno(turno):
 def editarTurnoSeleccionado(medico,secretario,fecha,turno):
   try:        
     cursor = mydb.cursor()         
-    consulta = (f"update turno SET medico_ID = {medico}, secretario_ID = {secretario}, fecha_Hora = '{fecha}' where turno_ID = {turno};")       
+    consulta = (f"update turno SET medico_ID = {medico}, secretario_ID = {secretario}, fecha_Hora = '{fecha}' where turno_ID = {turno}")       
     cursor.execute(consulta)      
     mydb.commit()   
   except Error as e :     
