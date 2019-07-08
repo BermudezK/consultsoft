@@ -115,3 +115,15 @@ def filtrar_para_medico(dniMedico):
 	resultado = cursor.fetchall()
 	cursor.close()
 	return resultado
+
+# ------- MODIFICAR TURNO -------
+
+def Traer_turno_de_una_fila(paciente):
+	cursor = mydb.cursor()
+	consulta = (f"""SELECT turno_ID, medico_ID, secretario_ID, fecha_Hora, paciente_DNI
+					from turno
+					where turno_ID = {paciente}""")
+	cursor.execute(consulta)
+	resultado = cursor.fetchall()
+	cursor.close()
+	return resultado

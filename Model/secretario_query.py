@@ -80,3 +80,18 @@ def EliminarTurno(turno):
   cursor.execute(consulta)
   mydb.commit()
   cursor.close()
+
+def editarTurnoSeleccionado(medico,secretario,fecha,turno):
+  try:        
+    cursor = mydb.cursor()         
+    consulta = (f"update turno SET medico_ID = {medico}, secretario_ID = {secretario}, fecha_Hora = '{fecha}' where turno_ID = {turno};")       
+    cursor.execute(consulta)      
+    mydb.commit()   
+  except Error as e :     
+    print ("Error while connecting to MySQL", e)  
+  finally:
+    print(medico," - ",secretario," - ",fecha," - ",turno)   
+   #closing database connection.     
+    if(mydb.is_connected()):
+      cursor.close()
+

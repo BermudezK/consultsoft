@@ -1,5 +1,5 @@
 from Model.connection import mydb
-from Model.secretario_query import insertarPaciente, pacienteExiste, obtenerMedicos, obtenerPacientes, existe,existe2, agregar_turno,existe_turno, EliminarTurno
+from Model.secretario_query import insertarPaciente, pacienteExiste, obtenerMedicos, obtenerPacientes, existe,existe2, agregar_turno,existe_turno, EliminarTurno, editarTurnoSeleccionado
 from Model.personal import Personal
 
 class Secretario(Personal):
@@ -45,5 +45,9 @@ class Secretario(Personal):
 		return int( existe_turno(medico_ID,fecha_Hora)) > 0
 
 # ------ Modificaciones de prueba -----
+	
 	def borrarTurno(self,turno):
 		EliminarTurno(turno)
+
+	def editarTurno(self,medico,secretario,fecha,turno):
+		editarTurnoSeleccionado(medico,secretario,fecha,turno)

@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import (
 from PyQt5 import uic, QtCore, QtGui, QtWidgets
 from Model.turno import Turno
 from Controller.Ventana_turno import VentanaTurno
+from Controller.ventanaEditarTurno import VentanaEditarTurno
 from Model.secretario import Secretario
 
 
@@ -34,7 +35,7 @@ class VentanaTurnos(QDialog):
 		self.botonNuevoTurno.clicked.connect(lambda: self.botonNuevoTurno_on_click(self.usuario))
 		self.comboBoxFiltro.currentIndexChanged.connect(self.seleccionarFiltro)
 		self.dateTimeEdit.hide()
-		self.botonEditar.clicked.connect(lambda: self.editar())
+		self.botonEditar.clicked.connect(lambda: self.editar(self.usuario))
 		self.botonEliminar.clicked.connect(lambda: self.borrar())
 		
 
@@ -112,16 +113,26 @@ class VentanaTurnos(QDialog):
 			self.cargarTurnosALaTabla(mostrar_turnos)
 		
 
-	def editar(self):
-		print("Editar")
+	def editar(self, usuario):
 		fila = self.tablaTurnos.currentRow()
 		item = self.tablaTurnos.item(fila,0)
 		print(item.text())
+		filaSeleccionada = self.tablaTurnos.selectedItems()
+		if filaSeleccionada:
+			datosTurno = Turno().traerTurno(item.text())
+			#Abre la ventana de edicion de turno
+			dialogo = VentanaEditarTurno(usuario,datosTurno)
+			if dialogo.exec_()==0:
+				mostrar_turnos = cargar_turnos()
+				self.cargarTurnosALaTabla(mostrar_turnos)
+
+
 
 	# Crear funcion para borrar un turno
 	def borrar(self):
 		fila = self.tablaTurnos.currentRow()
 		item = self.tablaTurnos.item(fila,0)
+		# Verifica que una fila haya sido seleccionada para luego borrarla.
 		filaSeleccionada = self.tablaTurnos.selectedItems()
 		if filaSeleccionada:
 			resultado = QMessageBox.question(self,"Borrar!","Seguro que desea eliminar el turno?",
