@@ -16,8 +16,7 @@ class VentanaLogin(QDialog):
 
   def validar_User(self):
     return len(self.User.text()) == 0
-    
-
+  
   def validar_Password(self):
     return len(self.Password.text()) == 0
     
