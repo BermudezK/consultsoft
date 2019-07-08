@@ -34,13 +34,14 @@ class MainWindow (QMainWindow):
             self.pb_secretarios.show()
             self.pb_medicos.show()
             self.pb_turnos.hide()
+            self.verMedicos()
         elif self.usuario[3] == 2: #Secretario
             self.pb_agenda.show()
             self.pb_pacientes.show()
             self.pb_secretarios.hide()
             self.pb_medicos.show()
             self.pb_turnos.show()
-            self.verAgenda()             
+            self.verAgenda()
         elif self.usuario[3] == 3: #Medico
             self.pb_turnos.show()
             self.pb_turnos.setStyleSheet("""
@@ -53,6 +54,13 @@ class MainWindow (QMainWindow):
             self.pb_secretarios.hide()
             self.pb_medicos.hide()
             self.verMisTurnos()
+
+    def verMedicos(self):
+        self.mdiArea.closeActiveSubWindow()
+        dialogo=VentanaMedicos()
+        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+        dialogo.showMaximized()
 
     def verMisTurnos(self):
         self.mdiArea.closeActiveSubWindow()
@@ -117,7 +125,7 @@ class MainWindow (QMainWindow):
     #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON SECRETARIOS
     def pb_secretarios_on_click(self):
         self.mdiArea.closeActiveSubWindow()
-        dialogo=VentanaTurno()
+        dialogo=VentanaTurnos(self.usuario)
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
