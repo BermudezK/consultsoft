@@ -1,42 +1,36 @@
 import mysql.connector
 from mysql.connector import Error
+from Model.mysqlScript import mydbCon
 import time
-
-mydb = mysql.connector.connect(  
-  host='127.0.0.1',
-  user='kary',
-  passwd='holly',
-  port='33061',
-  auth_plugin='mysql_native_password',
-  database='clinica'
-)
 
 def querySelect(consulta):
 	try:
-		if mydb.is_connected():
-			cursor = mydb.cursor()
-			cursor.execute(consulta)
-			resultado = cursor.fetchall()
-			return resultado
+		mydb= mysql.connector.connect(**mydbCon)
+		cursor = mydb.cursor()
+		cursor.execute(consulta)
+		resultado = cursor.fetchall()
+		return resultado
 	except Error as e :
 		print ("Error while connecting to MySQL", e)
 	finally:
 		#closing database connection.
 		if(mydb.is_connected()):
 			cursor.close()
+			mydb.close()
 
 def queryInsert(consulta, values):
 	try:
-		if mydb.is_connected():
-			cursor = mydb.cursor()
-			cursor.execute(consulta, values) 	
-			mydb.commit()
+		mydb= mysql.connector.connect(**mydbCon)		
+		cursor = mydb.cursor()
+		cursor.execute(consulta, values) 	
+		mydb.commit()
 	except Error as e :
 		print ("Error while connecting to MySQL", e)
 	finally:
 		#closing database connection.
 		if(mydb.is_connected()):
 			cursor.close()
+			mydb.close()
 
 
 def select_personal(rol):
