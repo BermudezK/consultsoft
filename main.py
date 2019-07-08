@@ -3,8 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QDialog
 from PyQt5 import uic, QtCore
 import platform
 
-from Controller.ventana_secretarios import DSecretario
-
+from Controller.ventana_secretarios import VentanaSecretarios
 from Controller.ventana_pacientes import VentanaPacientes
 from Controller.ventana_medicos import VentanaMedicos
 from Controller.ventana_agenda import VentanaAgenda
@@ -125,7 +124,7 @@ class MainWindow (QMainWindow):
     #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON SECRETARIOS
     def pb_secretarios_on_click(self):
         self.mdiArea.closeActiveSubWindow()
-        dialogo=VentanaTurnos(self.usuario)
+        dialogo=VentanaSecretarios()
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
