@@ -3,8 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QDialog
 from PyQt5 import uic, QtCore
 import platform
 
-from Controller.ventana_secretarios import DSecretario
-
+from Controller.ventana_secretarios import VentanaSecretarios
 from Controller.ventana_pacientes import VentanaPacientes
 from Controller.ventana_medicos import VentanaMedicos
 from Controller.ventana_agenda import VentanaAgenda
@@ -34,6 +33,7 @@ class MainWindow (QMainWindow):
             self.pb_secretarios.show()
             self.pb_medicos.show()
             self.pb_turnos.hide()
+            self.verLosMedicos()
         elif self.usuario[3] == 2: #Secretario
             self.pb_agenda.show()
             self.pb_pacientes.show()
@@ -60,6 +60,13 @@ class MainWindow (QMainWindow):
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
+
+    def verLosMedicos(self):
+            self.mdiArea.closeActiveSubWindow()
+            dialogo=VentanaMedicos()
+            dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+            self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+            dialogo.showMaximized()
 
     def verAgenda(self):
          # abrir la agenda
@@ -117,7 +124,7 @@ class MainWindow (QMainWindow):
     #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON SECRETARIOS
     def pb_secretarios_on_click(self):
         self.mdiArea.closeActiveSubWindow()
-        dialogo=VentanaTurno()
+        dialogo=VentanaSecretarios()
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()

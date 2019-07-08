@@ -4,7 +4,7 @@ from Controller.ventana_secretario import VentanaSecretario
 from PyQt5.QtWidgets import QApplication, QDialog, QTableWidget, QTableWidgetItem,QPushButton,QHBoxLayout
 from PyQt5 import uic, QtCore
 
-class DSecretario (QDialog):
+class VentanaSecretarios(QDialog):
     def __init__(self):
         QDialog.__init__(self)
 
@@ -38,6 +38,6 @@ class DSecretario (QDialog):
 
 if __name__== '__main__':
     app = QApplication(sys.argv)
-    dialogo=DSecretario()
+    dialogo=VentanaSecretario()
     dialogo.show()
     app.exec_()

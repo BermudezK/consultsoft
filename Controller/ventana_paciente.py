@@ -70,8 +70,8 @@ class VentanaPaciente(QDialog):
 	def validar(self):
 		if self.validar_DNI() and self.validar_nombre() and self.validar_apellido() and self.validar_telefono():
 
-			resultado = Secretario.existe_paciente(self.campoDNI.text())
-			if resultado[0] == 1:
+			
+			if Secretario.existe_paciente(self.campoDNI.text()) == 1:
 				QMessageBox.warning(self,"Carga Erronea!!","El paciente ya existe")
 
 			else:

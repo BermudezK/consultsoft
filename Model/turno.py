@@ -1,6 +1,6 @@
-from Model.turno_query import (filtrar_por_turno, filtrar_por_paciente,
-                                filtrar_por_medico, obtenerTurnos, 
-                                cargar_turnos, filtrar_por_fecha, filtrar_para_medico, filtrar_por_fechaHora)
+from Model.connection import (
+    select_turnos,filtrar_por_turno,filtrar_por_paciente,filtrar_por_medico,
+    obtenerTurnos, filtrar_por_fecha,filtrar_para_medico, filtrar_por_fechaHora)
 
 
 class Turno():
@@ -42,7 +42,7 @@ class Turno():
     def filtrarTurno(self, idTurno):
         #En caso de que el campo este vacio muestra todos los turnos
         if idTurno == "":
-            return cargar_turnos()
+            return select_turnos()
         else:
             return filtrar_por_turno(idTurno)
 
@@ -52,8 +52,12 @@ class Turno():
     def filtrarMedico(self, nMedico):
         return filtrar_por_medico(nMedico)
         
-    def mostrar_turnos(self, desde, hasta):
-        return obtenerTurnos(desde, hasta)
+    def mostrar_turnos(self, desde=None, hasta=None):
+        if desde == None and hasta == None:
+            return select_turnos()
+        else:
+            return obtenerTurnos(desde, hasta)
+
 
     def filtrarFecha(self, fechabuscada):
         return filtrar_por_fecha(fechabuscada)

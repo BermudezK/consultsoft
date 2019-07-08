@@ -1,7 +1,6 @@
 import sys
 import time
 import datetime
-from Model.turno_query import cargar_turnos
 from PyQt5.QtWidgets import (
  QApplication, QTableWidgetItem,
  QTableWidget, QPushButton, QHBoxLayout, QWidget,
@@ -20,7 +19,7 @@ class VentanaTurnos(QDialog):
 		# Se carga en una variable para luego mostrarla
 		if fechaYHora == None:
 			# ojo acá no respeta la Orientacion a objetos
-			mostrar_turnos = cargar_turnos()
+			mostrar_turnos = Turno().mostrar_turnos()
 			self.botonNuevoTurno.show()
 		else:
 			mostrar_turnos = Turno().filtrarFechaHora(fechaYHora)
@@ -70,7 +69,7 @@ class VentanaTurnos(QDialog):
 		elif filtro == "-------":
 			self.campoBusqueda.show()
 			self.dateTimeEdit.hide()
-			mostrar_turnos = cargar_turnos()
+			mostrar_turnos = Turno().mostrar_turnos()
 			self.cargarTurnosALaTabla(mostrar_turnos)
 		elif filtro == "Fecha":
 			self.campoBusqueda.hide()
@@ -80,24 +79,25 @@ class VentanaTurnos(QDialog):
 
 	def buscarP(self):
 		turnosPacientes= Turno().filtrarPaciente(self.campoBusqueda.text())
-		self.cargarTurnosALaTabla(turnosPacientes)
+		if turnosPacientes:
+			self.cargarTurnosALaTabla(turnosPacientes)
 
 	def buscarM(self):
 		turnosMedicos = Turno().filtrarMedico(self.campoBusqueda.text())
-		self.cargarTurnosALaTabla(turnosMedicos)
+		if turnosMedicos:
+			self.cargarTurnosALaTabla(turnosMedicos)
 
 	def buscarT(self):
 		turnoTurno = Turno().filtrarTurno(self.campoBusqueda.text())
-		self.cargarTurnosALaTabla(turnoTurno)
+		if turnoTurno:
+			self.cargarTurnosALaTabla(turnoTurno)
 
 	def buscarF(self):
 		fecha_text = self.dateTimeEdit.text()
 		fecha = datetime.datetime.strptime(fecha_text, '%Y/%m/%d %H:%M:%S')
 		turnoFecha = Turno().filtrarFecha(fecha)
-		self.cargarTurnosALaTabla(turnoFecha)
-
-
-
+		if turnoFecha:
+			self.cargarTurnosALaTabla(turnoFecha)
 
 	def botonNuevoTurno_on_click(self, usuario):
 		dialogo=VentanaTurno(usuario)

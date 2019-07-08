@@ -101,10 +101,11 @@ class VentanaMedico(QDialog):
     def validar(self):
         if self.validar_DNI() and self.validar_nombre() and self.validar_apellido() and self.validar_User() and self.validar_Password() and self.validar_telefono():
             #Aca evaluo si el nombre de usuario existe y si el medico a cargar ya existe
-            if Administrador().comprobar_existencia(self.User.text()):
+            
+            if Administrador().existe_usuario(self.User.text())>0:
                 QMessageBox.warning(self, "Carga Erronea!!",
                                     "Nombre de Usuario ya existe")
-            elif Administrador().comprobar_existencia(self.campoDNI.text()):
+            elif Administrador().existe_personal(self.campoDNI.text(),3):
                 QMessageBox.warning(self, "Carga Erronea!!",
                                     "El medico ya existe")
 
@@ -114,7 +115,7 @@ class VentanaMedico(QDialog):
                 Administrador().agregar_medico(self.campoDNI.text(), self.campoNombre.text(),
                                                self.campoApellido.text(), self.campoTelefono.text(), self.User.text(), self.Password.text())
                 QMessageBox.information(
-                    self, "Carga completada.", "Se creo un Doctor correctamente.", QMessageBox.Discard)
+                    self, "Carga completada.", "Se creo un Medico correctamente.", QMessageBox.Discard)
                 self.campoDNI.setText("")
                 self.campoApellido.setText("")
                 self.campoNombre.setText("")

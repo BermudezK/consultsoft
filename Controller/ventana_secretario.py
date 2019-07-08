@@ -93,9 +93,9 @@ class VentanaSecretario(QDialog):
 	def cargarSecretario(self):
 		if self.validar_telefono() and self.validar_password() and self.validar_usuario() and self.validar_nombre() and self.validar_apellido() and self.validar_dni():
 			
-			if Secretario().existe_secretario(self.Campo_DNI.text()):
+			if Secretario().existe_personal(self.Campo_DNI.text()):
 				QMessageBox.warning(self,"Carga Erronea!!","El Secretario ya existe")
-			elif Secretario().comprobar_existencia(self.Campo_Usuario.text()):
+			elif Secretario().existe_usuario(self.Campo_Usuario.text()):
 				QMessageBox.warning(self,"Carga Erronea!!","Nombre de Usuario ya existe")
 			else:
 				Administrador().agregar_secretario(self.Campo_DNI.text(), self.Campo_Nombre.text(), self.Campo_Apellido.text(),self.Campo_Usuario.text(),self.Campo_Password.text(), self.Campo_Telefono.text())

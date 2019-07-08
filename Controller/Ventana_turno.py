@@ -57,15 +57,14 @@ class VentanaTurno(QDialog):
 
 	def cargarTurno(self):
 		if self.validar_dni_medico() and self.validar_dni_paciente() and self.validar_fecha():
-			resultado = Secretario.existe_paciente(self.Campo_DNI_paciente.text())
-
-			if Secretario().existe_medico(self.Campo_DNI_Medico.text()):
+			
+			if Secretario().existe_personal(self.Campo_DNI_Medico.text(),3):
 				self.Campo_DNI_Medico.setStyleSheet("border: 1px solid green;")
 			else:
 				self.Campo_DNI_Medico.setStyleSheet("border: 1px solid red;")
 				QMessageBox.information(self,"Carga incompleta","El Medico no existe.",QMessageBox.Discard)
 
-			if resultado[0] >= 1:
+			if Secretario.existe_paciente(self.Campo_DNI_paciente.text()) >= 1:
 				self.Campo_DNI_paciente.setStyleSheet("border: 1px solid green;")
 			else:
 				self.Campo_DNI_paciente.setStyleSheet("border: 1px solid red;")
@@ -77,7 +76,7 @@ class VentanaTurno(QDialog):
 				self.campo_hora_fecha.setStyleSheet("border: 1px solid red;")
 				QMessageBox.information(self,"Carga incompleta","El turno ya existe",QMessageBox.Discard)
 
-			if resultado[0] >= 1 and Secretario().existe_medico(self.Campo_DNI_Medico.text()) and not Secretario().verificar_turno(self.Campo_DNI_Medico.text(), self.campo_hora_fecha.text()):
+			if Secretario.existe_paciente(self.Campo_DNI_paciente.text()) >= 1 and Secretario().existe_personal(self.Campo_DNI_Medico.text(),3) and not Secretario().verificar_turno(self.Campo_DNI_Medico.text(), self.campo_hora_fecha.text()):
 				Secretario().nuevo_Turno(self.Campo_DNI_Medico.text(),self.usuario[2],self.campo_hora_fecha.text(),self.Campo_DNI_paciente.text())
 				print(self.Campo_DNI_Medico.text(),self.usuario[2],self.campo_hora_fecha.text(),self.Campo_DNI_paciente.text())
 				
