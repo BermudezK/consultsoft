@@ -54,6 +54,21 @@ def obtenerMedicos():
   cursor.close()
   return resultado
 
+def obtenerMedico(dni):
+  cursor = mydb.cursor()
+
+  consulta = f"""
+    SELECT p.personal_dni, p.nombre, p.apellido, p.telefono, u.username, u.password
+      FROM personal AS p 
+      INNER JOIN usuario AS u ON p.usuario_id = u.usuario_id 
+      INNER JOIN rol AS r ON p.rol_id = r.rol_id 
+      WHERE r.rol_id = 3 AND p.personal_dni = {dni};
+  """
+  cursor.execute(consulta)
+  resultado = cursor.fetchone()
+  cursor.close()
+  return resultado
+
   
 def obtenerPacientes():
 	cursor =mydb.cursor()
