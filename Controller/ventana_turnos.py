@@ -28,7 +28,7 @@ class VentanaTurnos(QDialog):
 			mostrar_turnos = Turno().filtrarFechaHora(fechaYHora)
 			self.botonNuevoTurno.hide()
 
-		for indice, ancho in enumerate((80,150,230,230),start=0):
+		for indice, ancho in enumerate((80,150,230,230,50),start=0):
 			self.tablaTurnos.setColumnWidth(indice,ancho)
 		
 		self.cargarTurnosALaTabla(mostrar_turnos)
@@ -55,7 +55,7 @@ class VentanaTurnos(QDialog):
 				item.setTextAlignment(QtCore.Qt.AlignCenter)
 				self.tablaTurnos.setItem(i,columna,item)
 				#Crea el boton en la fila i
-				#self.crearBoton(i)
+				self.crearBoton(i)
 				columna = columna + 1
 
 	def seleccionarFiltro(self,i):
@@ -113,18 +113,23 @@ class VentanaTurnos(QDialog):
 			self.cargarTurnosALaTabla(mostrar_turnos)
 		
 
-	def editar(self, usuario):
-		fila = self.tablaTurnos.currentRow()
+	def editar(self, usuario,fila):
+		print(fila)
+		#fila = self.tablaTurnos.currentRow()
 		item = self.tablaTurnos.item(fila,0)
 		print(item.text())
 		filaSeleccionada = self.tablaTurnos.selectedItems()
-		if filaSeleccionada:
-			datosTurno = Turno().traerTurno(item.text())
-			#Abre la ventana de edicion de turno
-			dialogo = VentanaEditarTurno(usuario,datosTurno)
-			if dialogo.exec_()==0:
-				mostrar_turnos = cargar_turnos()
-				self.cargarTurnosALaTabla(mostrar_turnos)
+		print(filaSeleccionada)
+		#if filaSeleccionada:
+		datosTurno = Turno().traerTurno(item.text())
+		#Abre la ventana de edicion de turno
+		dialogo = VentanaEditarTurno(usuario,datosTurno)
+		if dialogo.exec_()==0:
+			mostrar_turnos = cargar_turnos()
+			self.cargarTurnosALaTabla(mostrar_turnos)
+		else:
+			QMessageBox.critical(self, "Eliminar fila", "Seleccione una fila.   ",QMessageBox.Ok)
+
 
 
 
@@ -148,7 +153,7 @@ class VentanaTurnos(QDialog):
 
 
 #Crea los botones de Editar y Eliminar en las columna de Accion.
-"""
+
 	def crearBoton(self,posicion):
 		# Creo el layout que contendra a los botones
 		caja = QHBoxLayout()
@@ -163,9 +168,6 @@ class VentanaTurnos(QDialog):
 		botonEliminar.setMaximumSize(20,20)
 		botonEditar.setMinimumSize(20,20)
 		botonEditar.setMaximumSize(20,20)
-		# Creo las acciones
-		botonEliminar.clicked.connect(self.borrar)
-		botonEditar.clicked.connect(self.editar)
 		# Agrego al contenedor los botones creados
 		caja.addWidget(botonEliminar)
 		caja.addWidget(botonEditar)
@@ -173,12 +175,16 @@ class VentanaTurnos(QDialog):
 		celda = QWidget()
 		# Introduzco el layout con los botones dentro del tipo celda
 		celda.setLayout(caja)
+		# Creo las acciones
+		fila = posicion
+		botonEliminar.clicked.connect(self.borrar)
+		botonEditar.clicked.connect(lambda: self.editar(self.usuario,posicion))
 		# Agrego el elemento celda con los botones dentro de la tabpla en la pocicion (pocicion,4)
 		self.tablaTurnos.setCellWidget(posicion,4,celda)
 
 	# Crear funcion para editar un turno
 
-"""
+
 
 if __name__ == '__main__':
 	app = QApplication(sys.argv)

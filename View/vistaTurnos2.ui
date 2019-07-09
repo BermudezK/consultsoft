@@ -82,7 +82,7 @@ border: 0;
       <enum>QAbstractItemView::SelectRows</enum>
      </property>
      <property name="columnCount">
-      <number>4</number>
+      <number>5</number>
      </property>
      <attribute name="horizontalHeaderCascadingSectionResizes">
       <bool>false</bool>
@@ -135,6 +135,11 @@ border: 0;
      <column>
       <property name="text">
        <string>Paciente</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Acciones</string>
       </property>
      </column>
     </widget>
