@@ -10,7 +10,10 @@ class VentanaLogin(QDialog):
   def __init__(self):
     QDialog.__init__(self)
     uic.loadUi("View/ventanaLogin.ui", self)
-
+    self.Password.setText("12345678")
+    self.User.setText("hernanmc")
+    self.submitAcceder()
+    
     self.Password.textChanged.connect(self.validar_Password)
 
     self.botonAcceder.clicked.connect(self.submitAcceder)

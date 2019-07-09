@@ -8,9 +8,8 @@ from PyQt5.QtWidgets import (
   QWidget,
   QDialog,
   QDesktopWidget,
-  QHBoxLayout
 )
-from PyQt5 import uic, QtCore
+from PyQt5 import uic, QtCore, QtGui
 from Model.secretario import Secretario
 from Controller.ventana_medico import VentanaMedico
 from Controller.ventana_agenda import VentanaAgenda
@@ -34,33 +33,67 @@ class VentanaMedicos(QDialog):
       for x in medico:
         item = QTableWidgetItem(str(x))
         item.setTextAlignment(QtCore.Qt.AlignCenter)
-        self.tableMedicos.setItem(i,columna, item)
+        self.tableMedicos.setItem(i, columna, item)
         columna = columna + 1
-
-      layout = QHBoxLayout()
-      deleteButtonItem = QPushButton('Eliminar')
-      editButtonItem = QPushButton('Editar')
       
-      layout.addWidget(deleteButtonItem)
-      layout.addWidget(editButtonItem)
-      cellWidget = QWidget()
-      cellWidget.setLayout(layout)
-      self.tableMedicos.setCellWidget(i, columna, cellWidget)
+      self.crearBotones(self.tableMedicos, i, columna, medico)
 
-      deleteButtonItem.clicked.connect(self.deleteMedico)
-      editButtonItem.clicked.connect(self.editMedico)
+  def crearBotones(self, tabla, fila, columna, medico):
+    # Creo el layout que contendra a los botones
+    caja = QHBoxLayout()
+    # Creo los botones
+    botonEliminar = QPushButton()
+    botonEditar = QPushButton()
+    # Agrega un icono a los botones
+    
+    estiloBasicoBoton = """
+      background-color: transparent;
+    """
+    botonEditar.setStyleSheet(estiloBasicoBoton)
+    botonEliminar.setStyleSheet(estiloBasicoBoton)
+    
+    botonEditar.setIcon(QtGui.QIcon("./icons/edit.svg"))
+    botonEliminar.setIcon(QtGui.QIcon("./icons/delete.svg"))
+    
+    # Da el tamaño de los botones
+    botonEliminar.setMinimumSize(20,20)
+    botonEliminar.setMaximumSize(20,20)
+    botonEditar.setMinimumSize(20,20)
+    botonEditar.setMaximumSize(20,20)
 
+    # Creo las acciones
+    botonEliminar.clicked.connect(self.eliminarMedico)
+    botonEditar.clicked.connect(self.editarMedico(medico))
+    
+    # Agrego al contenedor los botones creados
+    caja.addWidget(botonEliminar)
+    caja.addWidget(botonEditar)
+    # Creo una elemento del tipo celda
+    celda = QWidget()
+    # Introduzco el layout con los botones dentro del tipo celda
+    celda.setLayout(caja)
+    # Agrego el elemento celda con los botones dentro de la tabpla en la pocicion (pocicion,4)
+    tabla.setCellWidget(fila, columna, celda)
+    
   #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON agregar pacientes
   def pb_agregarMedico_on_click(self):
-        dialogo=VentanaMedico()
-        if dialogo.exec_()==0:
-          self.cargarMedicosALaTabla()
+    dialogo=VentanaMedico()
+    if dialogo.exec_()==0:
+      self.cargarMedicosALaTabla()
         
-  def deleteMedico(self):
+  def eliminarMedico(self):
     print('Eliminar medico')
 
-  def editMedico(self):
-    print('Editar medico')
+  def editarMedico(self, medico):
+    def callback():
+      dni, nombre, apellido, telefono = medico
+      
+      medicoFound = Secretario.obtener_medico(dni)
+
+      dialogo = VentanaMedico(medicoFound)
+      if dialogo.exec_() == 0:
+        self.cargarMedicosALaTabla()
+    return callback
 
   def center(self):
     # geometry of the main window

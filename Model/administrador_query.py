@@ -58,12 +58,50 @@ def select_pacientes():
             cursor.close()
 
 
-# def modificar_personal():
+def modificar_personal(dni, nuevosDatos):
+    cursor = mydb.cursor()
+    print('Entro')
+    print(dni)
+    print(nuevosDatos)
+    updatePersonal = f"""
+        UPDATE personal
+            SET Personal_DNI = {nuevosDatos['dni']},
+                Nombre = "{nuevosDatos['nombre']}",
+                Apellido = "{nuevosDatos['apellido']}",
+                Telefono = {nuevosDatos['telefono']}
+            WHERE Personal_DNI = {dni};
+    """
+    
+    cursor.execute(updatePersonal)
+    mydb.commit()
+    cursor.close()
+
+def modificar_usuario(username, nuevosDatos):
+    cursor = mydb.cursor()
+    updateUsuario = f"""
+        UPDATE usuario
+            SET userName = "{nuevosDatos['username']}", 
+                password = "{nuevosDatos['password']}"
+            WHERE userName = "{username}";
+    """
+
+    cursor.execute(updateUsuario)
+    mydb.commit()
+    cursor.close()
+
+
+# def insert_personal(dni, usuario, rol, nombre, apellido, telefono):
+#     cursor = mydb.cursor()
+#     consulta = "INSERT into personal(Personal_DNI, Usuario_ID, Rol_ID, Nombre, Apellido, Telefono)values(%s,%s,%s,%s,%s,%s)"
+#     cursor.execute(consulta,(dni, usuario, rol, nombre, apellido, telefono))
+#     mydb.commit()
+#     cursor.close()
+
+# def insertar_usuario(user_name, password):
 #     cursor = mydb.cursor() 	
 #     consulta = "insert into usuario(userName, password) value(%s,%s);" 	
 #     cursor.execute(consulta, (user_name, password)) 	
 #     mydb.commit() 	
 #     resultado_usuarioID = select_IDuser(user_name) 	
-#     cursor.close()
+#     cursor.close() 
 #     return resultado_usuarioID
-
