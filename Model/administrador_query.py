@@ -58,9 +58,6 @@ def select_pacientes():
 
 def modificar_personal(dni, nuevosDatos):
     cursor = mydb.cursor()
-    print('Entro')
-    print(dni)
-    print(nuevosDatos)
     updatePersonal = f"""
         UPDATE personal
             SET Personal_DNI = {nuevosDatos['dni']},
