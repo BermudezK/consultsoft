@@ -1,6 +1,5 @@
 import mysql.connector
 from mysql.connector import Error
-from Model.mysqlScript import mydbCon
 
 mydb = mysql.connector.connect(  
     host='127.0.0.1',
