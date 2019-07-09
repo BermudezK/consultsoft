@@ -47,7 +47,9 @@ class VentanaMedicos(QDialog):
     # Agrega un icono a los botones
     
     estiloBasicoBoton = """
-      background-color: transparent;
+      .QPushButton{
+        border:none;
+        background-color: transparent;}
     """
     botonEditar.setStyleSheet(estiloBasicoBoton)
     botonEliminar.setStyleSheet(estiloBasicoBoton)
