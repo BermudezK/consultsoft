@@ -6,9 +6,28 @@ from Model.secretario import Secretario
 #from databaseclinica import *
 
 class VentanaPaciente(QDialog):
-	def __init__(self):
+	def __init__(self, paciente = None):	
 		QDialog.__init__(self)
 		uic.loadUi("View/ventanaPaciente.ui",self)
+
+		self.paciente = paciente
+
+		if self.paciente:
+			dni, nombre, apellido, telefono = self.paciente
+			self.paciente = {
+				'dni': dni,
+				'nombre': nombre,
+				'apellido': apellido,
+				'telefono': telefono
+			}
+			self.labelNuevoPaciente.setText('Editar paciente')
+			self.campoDNI.setDisabled(True)
+			self.campoDNI.setText(str(dni))
+			self.campoNombre.setText(str(nombre))
+			self.campoApellido.setText(str(apellido))
+			self.campoTelefono.setText(str(telefono))
+
+
 		#Al hacer focus en el campo ejecuta la funcion
 		self.campoNombre.textChanged.connect(self.validar_nombre)
 		self.campoApellido.textChanged.connect(self.validar_apellido)
@@ -69,11 +88,20 @@ class VentanaPaciente(QDialog):
 	# Guarda los datos correctos en la Base de Datos
 	def validar(self):
 		if self.validar_DNI() and self.validar_nombre() and self.validar_apellido() and self.validar_telefono():
+			if self.paciente:
+					nuevosDatos = {
+						'dni': self.campoDNI.text(),
+						'nombre': self.campoNombre.text(),
+						'apellido': self.campoApellido.text(),
+						'telefono': self.campoTelefono.text()
+					}
+					Secretario.modificar_paciente(self.paciente['dni'], nuevosDatos['nombre'], nuevosDatos['apellido'], nuevosDatos['telefono'])
+					QMessageBox.information(self, "Carga completada.", "Se actualizo un Paciente correctamente.", QMessageBox.Discard)
+					self.close()
 
-			resultado = Secretario.existe_paciente(self.campoDNI.text())
-			if resultado[0] == 1:
+			elif Secretario.existe_paciente(self.campoDNI.text())[0] == 1:
 				QMessageBox.warning(self,"Carga Erronea!!","El paciente ya existe")
-
+				
 			else:
 				Secretario.agregar_paciente(self.campoDNI.text(),self.campoNombre.text(),self.campoApellido.text(),self.campoTelefono.text())
 				QMessageBox.information(self,"Carga completada.","Se creo un paciente correctamente.",QMessageBox.Ok)
@@ -111,7 +139,7 @@ class VentanaPaciente(QDialog):
 
 
 if __name__== '__main__':
-    app = QApplication(sys.argv)
-    dialogo=VentanaPaciente()
-    dialogo.show()
-    app.exec_()
+	app = QApplication(sys.argv)
+	dialogo=VentanaPaciente()
+	dialogo.show()
+	app.exec_()

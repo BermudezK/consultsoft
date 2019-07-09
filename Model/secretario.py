@@ -1,5 +1,5 @@
 from Model.connection import mydb
-from Model.secretario_query import insertarPaciente, pacienteExiste, obtenerMedicos, obtenerPacientes, existe,existe2, agregar_turno,existe_turno
+from Model.secretario_query import insertarPaciente, pacienteExiste, obtenerMedicos, obtenerPacientes, existe,existe2, agregar_turno,existe_turno, getPaciente, modificar_paciente
 from Model.personal import Personal
 
 class Secretario(Personal):
@@ -12,6 +12,13 @@ class Secretario(Personal):
 	def existe_paciente(dni):
 		resultado = pacienteExiste(dni)
 		return resultado
+	
+	def obtener_paciente(dni):
+		resultado = getPaciente(dni)
+		return resultado
+	def modificar_paciente(dni, nombre, apellido, telefono):
+		modificar_paciente(dni, nombre, apellido, telefono)
+
 
 	def existe_secretario(self,dni):
 		if existe(dni) > 0:
