@@ -61,6 +61,13 @@ class MainWindow (QMainWindow):
         self.pb_turnos.clicked.connect(self.pb_turnos_on_click)
         self.pd_logOut.clicked.connect(self.pb_logOut_on_click)
 
+    def verMedicos(self):
+        self.mdiArea.closeActiveSubWindow()
+        dialogo=VentanaMedicos()
+        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+        dialogo.showMaximized()
+
     def verMisTurnos(self):
         self.mdiArea.closeActiveSubWindow()
         dialogo=VentanaTurnoMedico(self.usuario)
