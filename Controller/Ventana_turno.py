@@ -79,7 +79,6 @@ class VentanaTurno(QDialog):
 
 			if resultado[0] >= 1 and Secretario().existe_medico(self.Campo_DNI_Medico.text()) and not Secretario().verificar_turno(self.Campo_DNI_Medico.text(), self.campo_hora_fecha.text()):
 				Secretario().nuevo_Turno(self.Campo_DNI_Medico.text(),self.usuario[2],self.campo_hora_fecha.text(),self.Campo_DNI_paciente.text())
-				print(self.Campo_DNI_Medico.text(),self.usuario[2],self.campo_hora_fecha.text(),self.Campo_DNI_paciente.text())
 				
 				QMessageBox.information(self,"Carga completa","Se creo un turno correctamente.",QMessageBox.Discard)
 				self.Campo_DNI_paciente.setText("")

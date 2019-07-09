@@ -2,6 +2,7 @@ import sys, re
 from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox
 from PyQt5 import uic
 from Model.administrador import Administrador
+from Model.medico import Medico
 
 class VentanaMedico(QDialog):
     def __init__(self, medico = None):
@@ -9,25 +10,16 @@ class VentanaMedico(QDialog):
         uic.loadUi("View/ventanaMedico.ui", self)
         self.medico = medico
 
-        if self.medico:
-            dni, nombre, apellido, telefono, password, username = self.medico
-            self.medico = {
-                'dni': dni,
-                'nombre': nombre,
-                'apellido': apellido,
-                'telefono': telefono,
-                'password': password,
-                'username': username,
-            }
+        if isinstance(self.medico,Medico):
             self.campoDNI.setDisabled(True)
-            self.campoDNI.setText(str(self.medico['dni']))
             self.labelFormMedico.setText('Editar medico')
-            self.campoNombre.setText(str(self.medico['nombre']))
-            self.campoApellido.setText(str(self.medico['apellido']))
-            self.campoTelefono.setText(str(self.medico['telefono']))
-            self.User.setText(str(self.medico['username']))
-            self.Password.setText(str(self.medico['password']))
-            self.Password2.setText(str(self.medico['password']))
+            self.campoDNI.setText(str(self.medico.dni))
+            self.campoNombre.setText(str(self.medico.nombre))
+            self.campoApellido.setText(str(self.medico.apellido))
+            self.campoTelefono.setText(str(self.medico.telefono))
+            self.User.setText(str(self.medico.usuario))
+            self.Password.setText(str(self.medico.password))
+            self.Password2.setText(str(self.medico.password))
 
             
         #Al hacer focus en el campo ejecuta la funcion
@@ -126,13 +118,13 @@ class VentanaMedico(QDialog):
         if self.validar_DNI() and self.validar_nombre() and self.validar_apellido() and self.validar_User() and self.validar_Password() and self.validar_telefono():
             #Aca evaluo si el nombre de usuario existe y si el medico a cargar ya existe
              
-            if (not self.medico or self.medico['username'] != self.User.text()) and Administrador().comprobar_existencia(self.User.text()):
+            if (not isinstance(self.medico,Medico)) and Administrador().comprobar_existencia(self.User.text()):
                 QMessageBox.warning(self, "Carga Erronea!!", "Nombre de Usuario ya existe")
-            elif (not self.medico or self.medico['dni'] != self.campoDNI.text()) and Administrador().comprobar_existencia(self.campoDNI.text()):
+            elif (not isinstance(self.medico,Medico)) and  Medico().existe_medico(self.campoDNI.text()):
                 QMessageBox.warning(self, "Carga Erronea!!", "El medico ya existe")
 
             else:
-                if self.medico:
+                if isinstance(self.medico,Medico):
                     nuevosDatos = {
                         'dni': self.campoDNI.text(),
                         'nombre': self.campoNombre.text(),
@@ -141,7 +133,7 @@ class VentanaMedico(QDialog):
                         'password': self.Password.text(),
                         'username': self.User.text(),
                     }
-                    Administrador().modificar_medico(self.medico['dni'], self.medico['username'], nuevosDatos)
+                    Administrador().modificar_medico(self.medico.dni, self.medico.usuario, nuevosDatos)
                     QMessageBox.information(self, "Carga completada.", "Se actualizo un Doctor correctamente.", QMessageBox.Discard)
                 else:
                     #Aca se carga medico

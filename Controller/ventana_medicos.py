@@ -11,8 +11,10 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5 import uic, QtCore, QtGui
 from Model.secretario import Secretario
+from Model.medico import Medico
 from Controller.ventana_medico import VentanaMedico
 from Controller.ventana_agenda import VentanaAgenda
+
 
 class VentanaMedicos(QDialog):
   def __init__(self):
@@ -35,14 +37,13 @@ class VentanaMedicos(QDialog):
         item.setTextAlignment(QtCore.Qt.AlignCenter)
         self.tableMedicos.setItem(i, columna, item)
         columna = columna + 1
-      
       self.crearBotones(self.tableMedicos, i, columna, medico)
 
   def crearBotones(self, tabla, fila, columna, medico):
     # Creo el layout que contendra a los botones
     caja = QHBoxLayout()
     # Creo los botones
-    botonEliminar = QPushButton()
+    # botonEliminar = QPushButton()
     botonEditar = QPushButton()
     # Agrega un icono a los botones
     
@@ -52,23 +53,23 @@ class VentanaMedicos(QDialog):
         background-color: transparent;}
     """
     botonEditar.setStyleSheet(estiloBasicoBoton)
-    botonEliminar.setStyleSheet(estiloBasicoBoton)
+    # botonEliminar.setStyleSheet(estiloBasicoBoton)
     
     botonEditar.setIcon(QtGui.QIcon("./icons/edit.svg"))
-    botonEliminar.setIcon(QtGui.QIcon("./icons/delete.svg"))
+    # botonEliminar.setIcon(QtGui.QIcon("./icons/delete.svg"))
     
     # Da el tamaño de los botones
-    botonEliminar.setMinimumSize(20,20)
-    botonEliminar.setMaximumSize(20,20)
+    # botonEliminar.setMinimumSize(20,20)
+    # botonEliminar.setMaximumSize(20,20)
     botonEditar.setMinimumSize(20,20)
     botonEditar.setMaximumSize(20,20)
 
     # Creo las acciones
-    botonEliminar.clicked.connect(self.eliminarMedico)
+    # botonEliminar.clicked.connect(self.eliminarMedico)
     botonEditar.clicked.connect(self.editarMedico(medico))
     
     # Agrego al contenedor los botones creados
-    caja.addWidget(botonEliminar)
+    # caja.addWidget(botonEliminar)
     caja.addWidget(botonEditar)
     # Creo una elemento del tipo celda
     celda = QWidget()
@@ -83,16 +84,15 @@ class VentanaMedicos(QDialog):
     if dialogo.exec_()==0:
       self.cargarMedicosALaTabla()
         
-  def eliminarMedico(self):
-    print('Eliminar medico')
+  # def eliminarMedico(self):
+  #   print('Eliminar medico')
 
   def editarMedico(self, medico):
-    def callback():
-      dni, nombre, apellido, telefono = medico
+    def callback():      
+      medicoFound = Secretario.obtener_medico(medico[0])
       
-      medicoFound = Secretario.obtener_medico(dni)
-
-      dialogo = VentanaMedico(medicoFound)
+      med = Medico(medicoFound[0],medicoFound[1],medicoFound[2],medicoFound[3],None,medicoFound[4],medicoFound[5])
+      dialogo = VentanaMedico(med)
       if dialogo.exec_() == 0:
         self.cargarMedicosALaTabla()
     return callback

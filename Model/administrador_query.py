@@ -4,7 +4,6 @@ from mysql.connector import Error
 def select_secretarias():
     try:
         if mydb.is_connected():
-            print(mydb)
             cursor = mydb.cursor()
             consulta = 'SELECT personal_DNI,nombre, apellido, telefono FROM personal WHERE rol_id = 2;'
             cursor.execute(consulta)
@@ -44,7 +43,6 @@ def select_IDuser(user_name):
 def select_pacientes():
     try:
         if mydb.is_connected():
-            print(mydb)
             cursor = mydb.cursor()
             consulta = 'SELECT personal_DNI,nombre, apellido, telefono FROM personal WHERE rol_id = 3;'
             cursor.execute(consulta)
