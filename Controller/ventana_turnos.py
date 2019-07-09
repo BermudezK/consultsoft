@@ -114,43 +114,22 @@ class VentanaTurnos(QDialog):
 		
 
 	def editar(self, usuario,fila):
-		print(fila)
-		#fila = self.tablaTurnos.currentRow()
 		item = self.tablaTurnos.item(fila,0)
-		print(item.text())
-		filaSeleccionada = self.tablaTurnos.selectedItems()
-		print(filaSeleccionada)
-		#if filaSeleccionada:
 		datosTurno = Turno().traerTurno(item.text())
 		#Abre la ventana de edicion de turno
 		dialogo = VentanaEditarTurno(usuario,datosTurno)
 		if dialogo.exec_()==0:
 			mostrar_turnos = cargar_turnos()
 			self.cargarTurnosALaTabla(mostrar_turnos)
-		else:
-			QMessageBox.critical(self, "Eliminar fila", "Seleccione una fila.   ",QMessageBox.Ok)
-
-
-
 
 	# Crear funcion para borrar un turno
-	def borrar(self):
-		fila = self.tablaTurnos.currentRow()
+	def borrar(self,fila):
 		item = self.tablaTurnos.item(fila,0)
-		# Verifica que una fila haya sido seleccionada para luego borrarla.
-		filaSeleccionada = self.tablaTurnos.selectedItems()
-		if filaSeleccionada:
-			resultado = QMessageBox.question(self,"Borrar!","Seguro que desea eliminar el turno?",
-			QMessageBox.Yes | QMessageBox.No)
-			if resultado == QMessageBox.Yes: 
-				Secretario().borrarTurno(item.text())
-				self.cargarTurnosALaTabla(cargar_turnos())
-		else:
-			QMessageBox.critical(self, "Eliminar fila", "Seleccione una fila.   ",QMessageBox.Ok)
-
-
-
-
+		resultado = QMessageBox.question(self,"Borrar!","Seguro que desea eliminar el turno?",
+		QMessageBox.Yes | QMessageBox.No)
+		if resultado == QMessageBox.Yes: 
+			Secretario().borrarTurno(item.text())
+			self.cargarTurnosALaTabla(cargar_turnos())
 
 #Crea los botones de Editar y Eliminar en las columna de Accion.
 
@@ -176,8 +155,7 @@ class VentanaTurnos(QDialog):
 		# Introduzco el layout con los botones dentro del tipo celda
 		celda.setLayout(caja)
 		# Creo las acciones
-		fila = posicion
-		botonEliminar.clicked.connect(self.borrar)
+		botonEliminar.clicked.connect(lambda: self.borrar(posicion))
 		botonEditar.clicked.connect(lambda: self.editar(self.usuario,posicion))
 		# Agrego el elemento celda con los botones dentro de la tabpla en la pocicion (pocicion,4)
 		self.tablaTurnos.setCellWidget(posicion,4,celda)
