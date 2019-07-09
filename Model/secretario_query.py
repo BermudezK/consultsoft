@@ -76,7 +76,7 @@ def existe_turno(medico_ID,fecha_Hora):
 
 def EliminarTurno(turno):
   cursor = mydb.cursor()
-  consulta = (f"delete from turno where turno_id ={turno}")
+  consulta = (f"update turno set estado = false where turno_ID = {turno}")
   cursor.execute(consulta)
   mydb.commit()
   cursor.close()
