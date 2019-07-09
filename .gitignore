@@ -1,6 +1,6 @@
+Model/mysqlScript.py
 .vscode/
 Controller/__pycache__/
 Model/__pycache__/
 __pycache__
-Model/connection.py
 /.env
