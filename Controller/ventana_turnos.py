@@ -18,7 +18,7 @@ class VentanaTurnos(QDialog):
 	def __init__(self, usuario, fechaYHora=None):
 		self.usuario = usuario
 		QDialog.__init__(self)
-		uic.loadUi('./View/vistaTurnos2.ui',self)
+		uic.loadUi('./View/vistaTurnos.ui',self)
 		# Se carga en una variable para luego mostrarla
 		if fechaYHora == None:
 			# ojo acá no respeta la Orientacion a objetos
@@ -35,8 +35,6 @@ class VentanaTurnos(QDialog):
 		self.botonNuevoTurno.clicked.connect(lambda: self.botonNuevoTurno_on_click(self.usuario))
 		self.comboBoxFiltro.currentIndexChanged.connect(self.seleccionarFiltro)
 		self.dateTimeEdit.hide()
-		self.botonEditar.clicked.connect(lambda: self.editar(self.usuario))
-		self.botonEliminar.clicked.connect(lambda: self.borrar())
 		
 
 	def cargarTurnosALaTabla(self,consulta):
