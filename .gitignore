@@ -1,4 +1,4 @@
-Model/connection.py
+Model/mysqlScript.py
 .vscode/
 Controller/__pycache__/
 Model/__pycache__/
