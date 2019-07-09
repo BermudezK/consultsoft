@@ -1,6 +1,6 @@
 from Model.personal import Personal
 from Model.connection import (
-	select_secretarias,
+	select_secretarias, select_personal,
 	insert_usuario,
 	insert_personal, existe_personal
 )
@@ -14,6 +14,9 @@ class Administrador(Personal):
 	def obtener_secretarios(self):
 		secretarias = select_secretarias()
 		return secretarias
+	
+	def obtener_medicos(self):
+		return select_personal(3)
 	
 	def agregar_medico(self, dni,nombre,apellido,telefono,usuario,password):
 		#Para agregar un medico antes tengo que agregar su usuario y obtener su id 

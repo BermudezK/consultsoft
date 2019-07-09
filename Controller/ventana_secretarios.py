@@ -1,13 +1,12 @@
 import sys, re
-from Model.administrador import Administrador
 from Controller.ventana_secretario import VentanaSecretario
 from PyQt5.QtWidgets import QApplication, QDialog, QTableWidget, QTableWidgetItem,QPushButton,QHBoxLayout
 from PyQt5 import uic, QtCore
 
 class VentanaSecretarios(QDialog):
-    def __init__(self):
+    def __init__(self, usuario):
         QDialog.__init__(self)
-
+        self.usuario = usuario
         #CARGO EL FORMULARIO
         uic.loadUi('View/ventanaSecretarios.ui',self)
         self.cargarSecretariosALaTabla()
@@ -16,7 +15,7 @@ class VentanaSecretarios(QDialog):
     def cargarSecretariosALaTabla(self):
         # como el fin principal de este formulario es el de ver los secretarios del sistema 
         # debemos pedirle (como controlador) al modelo que nos dé los secretarios existentes
-        secretarios = Administrador().obtener_secretarios()
+        secretarios = self.usuario.obtener_secretarios()
         # #una vez obtenidos todos los secretarios cargados en el sistema debemos
         # # agregarlos a nuestra vista
         # # calculamos el total de filas que tendra nuestra tabla deacuerdo a la cantidad de secretarios
@@ -30,14 +29,15 @@ class VentanaSecretarios(QDialog):
                     item.setTextAlignment(QtCore.Qt.AlignCenter)
                     self.tableWidget.setItem(i,columna, item)
                     columna = columna + 1
+    
     def pb_agregarSecretario_on_click(self):
-        dialog = VentanaSecretario()
+        dialog = VentanaSecretario(self.usuario)
         if dialog.exec_() == 0:
             self.cargarSecretariosALaTabla()
 
 
 if __name__== '__main__':
     app = QApplication(sys.argv)
-    dialogo=VentanaSecretario()
+    dialogo=VentanaSecretarios()
     dialogo.show()
     app.exec_()

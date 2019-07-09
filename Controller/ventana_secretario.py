@@ -1,13 +1,12 @@
 import sys, re
 from PyQt5.QtWidgets import QApplication,QDialog,QMessageBox
 from PyQt5 import uic
-from Model.administrador import Administrador
-from Model.secretario import Secretario
 
 #Clase heredada de QMainWindow (Constructor de ventanas)
 class VentanaSecretario(QDialog):
 	#Metodo constructor del a clase
-	def __init__(self):
+	def __init__(self, usuario):
+		self.usuario=usuario #deberian de pasarle un administrador
 		#Iniciar el objeto QMainWindow
 		QDialog.__init__(self)
 		#Cargar la configuracio del archivo .ui en el objeto
@@ -92,13 +91,12 @@ class VentanaSecretario(QDialog):
 
 	def cargarSecretario(self):
 		if self.validar_telefono() and self.validar_password() and self.validar_usuario() and self.validar_nombre() and self.validar_apellido() and self.validar_dni():
-			
-			if Secretario().existe_personal(self.Campo_DNI.text()):
+			if self.usuario.existe_personal(self.Campo_DNI.text(),2):
 				QMessageBox.warning(self,"Carga Erronea!!","El Secretario ya existe")
-			elif Secretario().existe_usuario(self.Campo_Usuario.text()):
+			elif self.usuario.existe_usuario(self.Campo_Usuario.text()):
 				QMessageBox.warning(self,"Carga Erronea!!","Nombre de Usuario ya existe")
 			else:
-				Administrador().agregar_secretario(self.Campo_DNI.text(), self.Campo_Nombre.text(), self.Campo_Apellido.text(),self.Campo_Usuario.text(),self.Campo_Password.text(), self.Campo_Telefono.text())
+				self.usuario.agregar_secretario(self.Campo_DNI.text(), self.Campo_Nombre.text(), self.Campo_Apellido.text(),self.Campo_Usuario.text(),self.Campo_Password.text(), self.Campo_Telefono.text())
 				QMessageBox.information(self,"Carga completada.","Se creo un Secretario correctamente.",QMessageBox.Discard)
 				self.Campo_DNI.setText("")
 				self.Campo_Apellido.setText("")

@@ -66,11 +66,7 @@ def insert_paciente(dni,nombre,apellido,telefono):
 def pacienteExiste(dni):
 	consulta = (f"SELECT COUNT(*) FROM paciente WHERE Paciente_DNI = {dni}")
 	resultado = querySelect(consulta)
-	if len(resultado)>0:
-		res = resultado
-	else:
-		res=[resultado]
-	return res[0][0]
+	return resultado[0][0]
 
 def obtenerPacientes():
 	consulta = " SELECT paciente_DNI, nombre, apellido, telefono from paciente"
@@ -97,7 +93,13 @@ def existe_turno(medico_ID,fecha_Hora):
 	return res[0][0]
 
 def logIn(userName, password):
-	consulta = (f'SELECT u.usuario_id, u.username, p.personal_dni, r.rol_id, r.nombre_rol, p.nombre, p.apellido FROM usuario u inner join personal p on u.Usuario_ID = p.Usuario_ID inner join rol r on p.Rol_ID = r.Rol_ID WHERE u.userName = "{userName}" AND u.password = "{password}" AND u.Usuario_ID in (SELECT distinct (Usuario_ID) FROM personal )')
+      # (dni,nombre,apellido,telefono,id_usuario,usuario,password)
+	consulta = (f"""SELECT  p.personal_dni, p.nombre, p.apellido, p.telefono, u.usuario_id, u.username,u.password, r.rol_id, r.nombre_rol 
+					FROM usuario u 
+					INNER JOIN personal p on u.Usuario_ID = p.Usuario_ID 
+					INNER JOIN rol r on p.Rol_ID = r.Rol_ID 
+					WHERE u.userName = "{userName}" AND u.password = "{password}" AND u.Usuario_ID 
+					in (SELECT distinct (Usuario_ID) FROM personal)""" )
 	resultado = querySelect(consulta)
 	if len(resultado)>0:
 		res = resultado

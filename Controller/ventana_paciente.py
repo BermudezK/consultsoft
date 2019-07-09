@@ -6,7 +6,8 @@ from Model.secretario import Secretario
 #from databaseclinica import *
 
 class VentanaPaciente(QDialog):
-	def __init__(self):
+	def __init__(self,usuario):
+		self.usuario=usuario
 		QDialog.__init__(self)
 		uic.loadUi("View/ventanaPaciente.ui",self)
 		#Al hacer focus en el campo ejecuta la funcion
@@ -71,11 +72,11 @@ class VentanaPaciente(QDialog):
 		if self.validar_DNI() and self.validar_nombre() and self.validar_apellido() and self.validar_telefono():
 
 			
-			if Secretario.existe_paciente(self.campoDNI.text()) == 1:
+			if self.usuario.existe_paciente(self.campoDNI.text()):
 				QMessageBox.warning(self,"Carga Erronea!!","El paciente ya existe")
 
 			else:
-				Secretario.agregar_paciente(self.campoDNI.text(),self.campoNombre.text(),self.campoApellido.text(),self.campoTelefono.text())
+				self.usuario.agregar_paciente(self.campoDNI.text(),self.campoNombre.text(),self.campoApellido.text(),self.campoTelefono.text())
 				QMessageBox.information(self,"Carga completada.","Se creo un paciente correctamente.",QMessageBox.Ok)
 				self.campoDNI.setText("")
 				self.campoApellido.setText("")

@@ -99,8 +99,8 @@ class VentanaTurnos(QDialog):
 		if turnoFecha:
 			self.cargarTurnosALaTabla(turnoFecha)
 
-	def botonNuevoTurno_on_click(self, usuario):
-		dialogo=VentanaTurno(usuario)
+	def botonNuevoTurno_on_click(self):
+		dialogo=VentanaTurno(self.usuario)
 		if dialogo.exec_()==0:
 			mostrar_turnos = cargar_turnos()
 			self.cargarTurnosALaTabla(mostrar_turnos)
