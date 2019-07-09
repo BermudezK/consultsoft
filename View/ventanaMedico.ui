@@ -177,7 +177,7 @@ border: 0;
     <string>Cancelar</string>
    </property>
   </widget>
-  <widget class="QLabel" name="labelNuevoPaciente">
+  <widget class="QLabel" name="labelFormMedico">
    <property name="geometry">
     <rect>
      <x>130</x>
