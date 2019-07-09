@@ -1,14 +1,20 @@
 import sys
 from PyQt5.QtWidgets import (
-  QApplication, QTableWidgetItem,
-  QTableWidget, QPushButton,
-  QHBoxLayout, QWidget,
-  QDialog, QDesktopWidget
+  QApplication,
+  QTableWidgetItem,
+  QTableWidget,
+  QPushButton,
+  QHBoxLayout,
+  QWidget,
+  QDialog,
+  QDesktopWidget,
+  QHBoxLayout
 )
 from PyQt5 import uic, QtCore
 from Model.secretario import Secretario
 from Controller.ventana_medico import VentanaMedico
 from Controller.ventana_agenda import VentanaAgenda
+
 class VentanaMedicos(QDialog):
   def __init__(self):
     QDialog.__init__(self)
@@ -31,12 +37,31 @@ class VentanaMedicos(QDialog):
         self.tableMedicos.setItem(i,columna, item)
         columna = columna + 1
 
+      layout = QHBoxLayout()
+      deleteButtonItem = QPushButton('Eliminar')
+      editButtonItem = QPushButton('Editar')
+      
+      layout.addWidget(deleteButtonItem)
+      layout.addWidget(editButtonItem)
+      cellWidget = QWidget()
+      cellWidget.setLayout(layout)
+      self.tableMedicos.setCellWidget(i, columna, cellWidget)
+
+      deleteButtonItem.clicked.connect(self.deleteMedico)
+      editButtonItem.clicked.connect(self.editMedico)
+
   #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON agregar pacientes
   def pb_agregarMedico_on_click(self):
         dialogo=VentanaMedico()
         if dialogo.exec_()==0:
           self.cargarMedicosALaTabla()
         
+  def deleteMedico(self):
+    print('Eliminar medico')
+
+  def editMedico(self):
+    print('Editar medico')
+
   def center(self):
     # geometry of the main window
     qr = self.frameGeometry()

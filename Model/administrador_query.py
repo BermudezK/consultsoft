@@ -56,3 +56,14 @@ def select_pacientes():
         #closing database connection.
         if(mydb.is_connected()):
             cursor.close()
+
+
+# def modificar_personal():
+#     cursor = mydb.cursor() 	
+#     consulta = "insert into usuario(userName, password) value(%s,%s);" 	
+#     cursor.execute(consulta, (user_name, password)) 	
+#     mydb.commit() 	
+#     resultado_usuarioID = select_IDuser(user_name) 	
+#     cursor.close()
+#     return resultado_usuarioID
+
