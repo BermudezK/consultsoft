@@ -184,8 +184,6 @@ class MainWindow (QMainWindow):
         dialogo = Ventana_logOut()
         ejecLogout = dialogo.exec_()
 
-        print('Holamundo')
-
         if ejecLogout == QDialog.Accepted:
             self.mdiArea.close()
             self.close()
