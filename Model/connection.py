@@ -119,7 +119,7 @@ def filtrar_por_paciente(nombre_paciente):
 	from turno T 
 	inner join personal P on T.medico_ID = P.personal_DNI
 	inner join paciente PS on T.paciente_DNI = PS.paciente_DNI
-	where T.estado = true and concat(PS.nombre,', ', PS.apellido) like "%{nombre_paciente}%" and T.fecha_hora >= "{fechaActual}"
+	where T.estado = true and concat(PS.nombre,', ', PS.apellido) like '%{nombre_paciente}%' and T.fecha_hora >= '{fechaActual}'
 	order by T.fecha_hora""")
 	resultado = querySelect(consulta)
 	return resultado

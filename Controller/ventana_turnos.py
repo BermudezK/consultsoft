@@ -130,8 +130,9 @@ class VentanaTurnos(QDialog):
 		resultado = QMessageBox.question(self,"Borrar!","Seguro que desea eliminar el turno?",
 		QMessageBox.Yes | QMessageBox.No)
 		if resultado == QMessageBox.Yes: 
-			Secretario().borrarTurno(item.text())
-			self.cargarTurnosALaTabla(cargar_turnos())
+			self.usuario.borrarTurno(item.text())
+			mostrar_turnos = Turno().mostrar_turnos()
+			self.cargarTurnosALaTabla(mostrar_turnos)
 
 #Crea los botones de Editar y Eliminar en las columna de Accion.
 

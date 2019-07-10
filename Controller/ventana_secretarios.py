@@ -80,7 +80,7 @@ class VentanaSecretarios(QDialog):
 
     def editar(self, fila):
         item = self.tableWidget.item(fila,0)
-        datos = Administrador().obtener_personal(item.text(),2)
+        datos = self.usuario.obtener_personal(item.text(),2)
         #Abre la ventana de edicion de turno
         # dni,nombre,apellido,telefono,id_usuario,usuario,password
         # P.personal_DNI, P.nombre,P.apellido, P.telefono, U.userName, U.password 

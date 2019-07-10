@@ -130,8 +130,8 @@ class VentanaMedico(QDialog):
                         'password': self.Password.text(),
                         'username': self.User.text(),
                     }
-                    Administrador().modificar_medico(self.medico.dni, self.medico.usuario, nuevosDatos)
-                    QMessageBox.information(self, "Carga completada.", "Se actualizo un Doctor correctamente.", QMessageBox.Discard)
+                    self.usuario.modificar_medico(self.medico.dni, self.medico.usuario, nuevosDatos)
+                    QMessageBox.information(self, "Carga completada.", "Se actualizo el Medico correctamente.", QMessageBox.Discard)
                     self.close()
             else:
                 if self.usuario.existe_usuario(self.User.text())>0:

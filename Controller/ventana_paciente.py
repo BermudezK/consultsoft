@@ -89,7 +89,7 @@ class VentanaPaciente(QDialog):
 						'apellido': self.campoApellido.text(),
 						'telefono': self.campoTelefono.text()
 					}
-					Secretario().modificar_paciente(self.paciente.dni, nuevosDatos['nombre'], nuevosDatos['apellido'], nuevosDatos['telefono'])
+					self.usuario.modificar_paciente(self.paciente.dni, nuevosDatos['nombre'], nuevosDatos['apellido'], nuevosDatos['telefono'])
 					QMessageBox.information(self, "Carga completada.", "Se actualizo un Paciente correctamente.", QMessageBox.Discard)
 					self.close()
 
