@@ -2,8 +2,6 @@ import sys, re
 import datetime
 from PyQt5.QtWidgets import QApplication,QDialog,QMessageBox
 from PyQt5 import uic, QtCore
-from Model.administrador import Administrador
-from Model.secretario import Secretario
 
 class VentanaTurno(QDialog):
 
@@ -15,8 +13,6 @@ class VentanaTurno(QDialog):
 		if fechaHora != None:
 			data = QtCore.QDateTime.fromString(fechaHora, "yyyy-MM-dd h:mm:ss")
 			self.campo_hora_fecha.setDateTime(data)
-			
-
 
 		self.Campo_DNI_Medico.textChanged.connect(self.validar_dni_medico)
 		self.campo_hora_fecha.dateTimeChanged.connect(self.validar_fecha)
@@ -57,28 +53,27 @@ class VentanaTurno(QDialog):
 
 	def cargarTurno(self):
 		if self.validar_dni_medico() and self.validar_dni_paciente() and self.validar_fecha():
-			resultado = Secretario.existe_paciente(self.Campo_DNI_paciente.text())
-
-			if Secretario().existe_medico(self.Campo_DNI_Medico.text()):
+			
+			if self.usuario.existe_personal(self.Campo_DNI_Medico.text(),3):
 				self.Campo_DNI_Medico.setStyleSheet("border: 1px solid green;")
 			else:
 				self.Campo_DNI_Medico.setStyleSheet("border: 1px solid red;")
 				QMessageBox.information(self,"Carga incompleta","El Medico no existe.",QMessageBox.Discard)
 
-			if resultado[0] >= 1:
+			if self.usuario.existe_paciente(self.Campo_DNI_paciente.text()):
 				self.Campo_DNI_paciente.setStyleSheet("border: 1px solid green;")
 			else:
 				self.Campo_DNI_paciente.setStyleSheet("border: 1px solid red;")
 				QMessageBox.information(self,"Carga incompleta","El Paciente no existe.",QMessageBox.Discard)
 
-			if not Secretario().verificar_turno(self.Campo_DNI_Medico.text(), self.campo_hora_fecha.text()):
+			if not self.usuario.verificar_turno(self.Campo_DNI_Medico.text(), self.campo_hora_fecha.text()):
 				self.campo_hora_fecha.setStyleSheet("border: 1px solid green;")
 			else:
 				self.campo_hora_fecha.setStyleSheet("border: 1px solid red;")
 				QMessageBox.information(self,"Carga incompleta","El turno ya existe",QMessageBox.Discard)
 
-			if resultado[0] >= 1 and Secretario().existe_medico(self.Campo_DNI_Medico.text()) and not Secretario().verificar_turno(self.Campo_DNI_Medico.text(), self.campo_hora_fecha.text()):
-				Secretario().nuevo_Turno(self.Campo_DNI_Medico.text(),self.usuario[2],self.campo_hora_fecha.text(),self.Campo_DNI_paciente.text())
+			if self.usuario.existe_paciente(self.Campo_DNI_paciente.text()) and self.usuario.existe_personal(self.Campo_DNI_Medico.text(), 3) and not self.usuario.verificar_turno(self.Campo_DNI_Medico.text(), self.campo_hora_fecha.text()):
+				self.usuario.nuevo_Turno(self.Campo_DNI_Medico.text(),self.usuario.dni,self.campo_hora_fecha.text(),self.Campo_DNI_paciente.text())
 				
 				QMessageBox.information(self,"Carga completa","Se creo un turno correctamente.",QMessageBox.Discard)
 				self.Campo_DNI_paciente.setText("")

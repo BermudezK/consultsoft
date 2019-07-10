@@ -2,8 +2,7 @@ import sys
 import re
 from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox
 from PyQt5 import uic
-from Model.administrador import Administrador
-from Model.personal_query import logIn
+from Model.personal import Personal
 
 
 class VentanaLogin(QDialog):
@@ -17,8 +16,7 @@ class VentanaLogin(QDialog):
 
   def validar_User(self):
     return len(self.User.text()) == 0
-    
-
+  
   def validar_Password(self):
     return len(self.Password.text()) == 0
     
@@ -31,10 +29,8 @@ class VentanaLogin(QDialog):
       message += '¡El usuario es requerido!\n'
 
     if not self.validar_Password() and not self.validar_User():
-      self.usuario = logIn(userName=self.User.text(), password=self.Password.text())
+      self.usuario = Personal.logIn(self.User.text(), self.Password.text())
       if self.usuario:
-        # print(self.usuario)
-        # QMessageBox.information(self, "¡Ingreso!", "¡Disfrute de nuestro sistema nae!")
         self.accept() # si lo descomento no funciona
       else:
         QMessageBox.warning(self, "¡Login incorrecto!", "¡El usuario o contraseña es incorrecto!", QMessageBox.Discard)

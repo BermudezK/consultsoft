@@ -1,48 +1,49 @@
-from Model.connection import mydb
-from Model.secretario_query import insertarPaciente, pacienteExiste, obtenerMedicos, obtenerMedico, obtenerPacientes, existe,existe2, agregar_turno,existe_turno
+
+from Model.connection import (insert_paciente, pacienteExiste, 
+							select_personal, obtener_personal,
+							obtenerPacientes, existe_personal,
+							insert_turno, existe_turno, 
+							eliminarTurno, editarTurno,
+							getPaciente, modificar_paciente, 
+							modificar_usuario,modificar_personal
+							)
 from Model.personal import Personal
 
 class Secretario(Personal):
 	def __init__(self, dni=None, nombre=None, apellido= None, telefono=None, id_usuario=None, usuario=None, password=None):
 		super(Secretario,self).__init__(dni,nombre,apellido,telefono,id_usuario,usuario,password)
 
-	def agregar_paciente(dni,nombre,apellido,telefono):
-		insertarPaciente(dni,nombre,apellido,telefono)
+	def agregar_paciente(self,dni,nombre,apellido,telefono):
+		insert_paciente(dni,nombre,apellido,telefono)
 
-	def existe_paciente(dni):
-		resultado = pacienteExiste(dni)
-		return resultado
+	def existe_paciente(self,dni):
+		return pacienteExiste (dni) > 0
 
-	def existe_secretario(self,dni):
-		if existe(dni) > 0:
-			resultado= True
-		else:
-			resultado= False
-		return resultado
-
-
-	def existe_medico(self,dni):
-		if existe2(dni) > 0:
-			resultado= True
-		else:
-			resultado= False
+	def obtener_paciente(self, dni):
+		resultado = getPaciente(dni)
 		return resultado
 	
-	
+	def modificar_paciente(self, dni, nombre, apellido, telefono):
+		modificar_paciente(dni, nombre, apellido, telefono)
 
-		
-	def obtener_medicos():
-		return obtenerMedicos()
-
-	def obtener_medico(dni):
-		return obtenerMedico(dni)
+	def obtener_medicos(self):
+		return select_personal(3)
 	
 	#este metodo va a obtener todos los pacientes
 	def obtener_pacientes(self):
 		return obtenerPacientes()
 
 	def nuevo_Turno(self,medicodni,secretariodni,fechayhora,pacientedni,estado=True):
-		agregar_turno(medicodni,secretariodni,fechayhora,pacientedni,estado)
+		insert_turno(medicodni,secretariodni,fechayhora,pacientedni,estado)
 
 	def verificar_turno(self,medico_ID,fecha_Hora):
-		return int( existe_turno(medico_ID,fecha_Hora)) > 0
+		return existe_turno(medico_ID,fecha_Hora) > 0
+	
+
+# ------ Modificaciones de prueba -----
+	
+	def borrarTurno(self,turno):
+		eliminarTurno(turno)
+
+	def editarTurno(self,medico,secretario,fecha,turno):
+		editarTurno(medico,secretario,fecha,turno)
