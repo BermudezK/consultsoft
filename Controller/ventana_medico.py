@@ -2,11 +2,27 @@ import sys, re
 from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox
 from PyQt5 import uic
 from Model.administrador import Administrador
+from Model.medico import Medico
 
 class VentanaMedico(QDialog):
-    def __init__(self):
+    def __init__(self,usuario,medico=None):
+        self.usuario = usuario
         QDialog.__init__(self)
         uic.loadUi("View/ventanaMedico.ui", self)
+        self.medico = medico
+
+        if isinstance(self.medico,Medico):
+            self.campoDNI.setDisabled(True)
+            self.labelFormMedico.setText('Editar medico')
+            self.campoDNI.setText(str(self.medico.dni))
+            self.campoNombre.setText(str(self.medico.nombre))
+            self.campoApellido.setText(str(self.medico.apellido))
+            self.campoTelefono.setText(str(self.medico.telefono))
+            self.User.setText(str(self.medico.usuario))
+            self.Password.setText(str(self.medico.password))
+            self.Password2.setText(str(self.medico.password))
+
+            
         #Al hacer focus en el campo ejecuta la funcion
         self.campoNombre.textChanged.connect(self.validar_nombre)
         self.campoApellido.textChanged.connect(self.validar_apellido)
@@ -99,36 +115,50 @@ class VentanaMedico(QDialog):
     # Almacena los datos correctos en la Base de Datos
 
     def validar(self):
+
         if self.validar_DNI() and self.validar_nombre() and self.validar_apellido() and self.validar_User() and self.validar_Password() and self.validar_telefono():
             #Aca evaluo si el nombre de usuario existe y si el medico a cargar ya existe
-            if Administrador().comprobar_existencia(self.User.text()):
-                QMessageBox.warning(self, "Carga Erronea!!",
-                                    "Nombre de Usuario ya existe")
-            elif Administrador().comprobar_existencia(self.campoDNI.text()):
-                QMessageBox.warning(self, "Carga Erronea!!",
-                                    "El medico ya existe")
-
+            if isinstance(self.medico, Medico):
+                if (self.medico.usuario != self.User.text() and self.usuario.existe_usuario(self.User.text())>0):
+                    QMessageBox.warning(self, "Carga Erronea!!", "Nombre de Usuario ya existe")
+                else:
+                    nuevosDatos = {
+                        'dni': self.campoDNI.text(),
+                        'nombre': self.campoNombre.text(),
+                        'apellido': self.campoApellido.text(),
+                        'telefono': self.campoTelefono.text(),
+                        'password': self.Password.text(),
+                        'username': self.User.text(),
+                    }
+                    self.usuario.modificar_medico(self.medico.dni, self.medico.usuario, nuevosDatos)
+                    QMessageBox.information(self, "Carga completada.", "Se actualizo el Medico correctamente.", QMessageBox.Discard)
+                    self.close()
             else:
-                #Aca se carga medico
-                # def agregar_medico(self, dni,nombre,apellido,telefono,usuario,password):
-                Administrador().agregar_medico(self.campoDNI.text(), self.campoNombre.text(),
-                                               self.campoApellido.text(), self.campoTelefono.text(), self.User.text(), self.Password.text())
-                QMessageBox.information(
-                    self, "Carga completada.", "Se creo un Doctor correctamente.", QMessageBox.Discard)
-                self.campoDNI.setText("")
-                self.campoApellido.setText("")
-                self.campoNombre.setText("")
-                self.campoTelefono.setText("")
-                self.User.setText("")
-                self.Password.setText("")
-                self.Password2.setText("")
-                self.campoDNI.setStyleSheet("border: 1px solid black")
-                self.campoApellido.setStyleSheet("border: 1px solid black")
-                self.campoNombre.setStyleSheet("border: 1px solid black")
-                self.campoTelefono.setStyleSheet("border: 1px solid black")
-                self.User.setStyleSheet("border: 1px solid black")
-                self.Password.setStyleSheet("border: 1px solid black")
-                self.Password2.setStyleSheet("border: 1px solid black")
+                if self.usuario.existe_usuario(self.User.text())>0:
+                    QMessageBox.warning(self, "Carga Erronea!!", "Nombre de Usuario ya existe")
+                elif (not isinstance(self.medico,Medico)) and  self.usuario.existe_personal(self.campoDNI.text(),3):
+                    QMessageBox.warning(self, "Carga Erronea!!", "El medico ya existe") 
+                else:
+                    #Aca se carga medico
+                    # def agregar_medico(self, dni,nombre,apellido,telefono,usuario,password):
+                    self.usuario.agregar_medico(self.campoDNI.text(), self.campoNombre.text(),
+                                                self.campoApellido.text(), self.campoTelefono.text(), self.User.text(), self.Password.text())
+                    QMessageBox.information(
+                        self, "Carga completada.", "Se creo un Doctor correctamente.", QMessageBox.Discard)
+                    self.campoDNI.setText("")
+                    self.campoApellido.setText("")
+                    self.campoNombre.setText("")
+                    self.campoTelefono.setText("")
+                    self.User.setText("")
+                    self.Password.setText("")
+                    self.Password2.setText("")
+                    self.campoDNI.setStyleSheet("border: 1px solid black")
+                    self.campoApellido.setStyleSheet("border: 1px solid black")
+                    self.campoNombre.setStyleSheet("border: 1px solid black")
+                    self.campoTelefono.setStyleSheet("border: 1px solid black")
+                    self.User.setStyleSheet("border: 1px solid black")
+                    self.Password.setStyleSheet("border: 1px solid black")
+                    self.Password2.setStyleSheet("border: 1px solid black")
         else:
             QMessageBox.warning(
                 self, "Carga Erronea!!", "Valor incorrecto o campo vacio.", QMessageBox.Discard)
@@ -160,7 +190,6 @@ class VentanaMedico(QDialog):
                 self.Password2.setStyleSheet("border: 1px solid red;")
             else:
                 self.Password2.setStyleSheet("border: 1px solid green;")
-
     #Cierra la ventana
     def closeEvent(self, event):
         self.close()

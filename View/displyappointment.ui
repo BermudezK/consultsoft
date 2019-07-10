@@ -55,17 +55,17 @@
      </attribute>
      <column>
       <property name="text">
+       <string>N° Turno</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
        <string>Fecha y Hora</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>DNI</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Nombre y Apellido</string>
+       <string>Paciente</string>
       </property>
      </column>
      <column>

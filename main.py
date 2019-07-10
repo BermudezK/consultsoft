@@ -2,9 +2,11 @@ import sys, re
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QDialog
 from PyQt5 import uic, QtCore
 import platform
+from Model.administrador import Administrador
+from Model.secretario import Secretario
+from Model.medico import Medico
 
-from Controller.ventana_secretarios import DSecretario
-
+from Controller.ventana_secretarios import VentanaSecretarios
 from Controller.ventana_pacientes import VentanaPacientes
 from Controller.ventana_medicos import VentanaMedicos
 from Controller.ventana_agenda import VentanaAgenda
@@ -15,33 +17,30 @@ from Controller.ventana_logOut import Ventana_logOut
 
 
 class MainWindow (QMainWindow):
-    def __init__(self, usuario):
-        self.usuario = usuario
-        
+    def __init__(self, usuario):        
         QMainWindow.__init__(self)
         uic.loadUi('View/home.ui',self)
-        self.L_userName.setText(self.usuario[5] + ", " + self.usuario[6])
-        self.pb_agenda.clicked.connect(self.pb_agenda_on_click)
-        self.pb_secretarios.clicked.connect(self.pb_secretarios_on_click)
-        self.pb_pacientes.clicked.connect(self.pb_pacientes_on_click)
-        self.pb_medicos.clicked.connect(self.pb_medicos_on_click)
-        self.pb_turnos.clicked.connect(self.pb_turnos_on_click)
-        self.pd_logOut.clicked.connect(self.pb_logOut_on_click)
 
-        if self.usuario[3] == 1: #Administrador
+        if usuario[7] == 1: #Administrador
+            # (dni,nombre,apellido,telefono,id_usuario,usuario,password)
+            self.usuario = Administrador(usuario[0],usuario[1],usuario[2],usuario[3],usuario[4],usuario[5],usuario[6])     
             self.pb_agenda.hide()
             self.pb_pacientes.hide()
             self.pb_secretarios.show()
             self.pb_medicos.show()
             self.pb_turnos.hide()
-        elif self.usuario[3] == 2: #Secretario
+            self.verLosMedicos()
+
+        elif usuario[7] == 2: #Secretario
+            self.usuario = Secretario(usuario[0],usuario[1],usuario[2],usuario[3],usuario[4],usuario[5],usuario[6])
             self.pb_agenda.show()
             self.pb_pacientes.show()
             self.pb_secretarios.hide()
             self.pb_medicos.show()
             self.pb_turnos.show()
             self.verAgenda()             
-        elif self.usuario[3] == 3: #Medico
+        elif usuario[7] == 3: #Medico
+            self.usuario = Medico(usuario[0],usuario[1],usuario[2],usuario[3],usuario[4],usuario[5],usuario[6])
             self.pb_turnos.show()
             self.pb_turnos.setStyleSheet("""
                 #pb_turnos {
@@ -53,6 +52,21 @@ class MainWindow (QMainWindow):
             self.pb_secretarios.hide()
             self.pb_medicos.hide()
             self.verMisTurnos()
+        
+        self.L_userName.setText(self.usuario.nombre + ", " + self.usuario.apellido)
+        self.pb_agenda.clicked.connect(self.pb_agenda_on_click)
+        self.pb_secretarios.clicked.connect(self.pb_secretarios_on_click)
+        self.pb_pacientes.clicked.connect(self.pb_pacientes_on_click)
+        self.pb_medicos.clicked.connect(self.pb_medicos_on_click)
+        self.pb_turnos.clicked.connect(self.pb_turnos_on_click)
+        self.pd_logOut.clicked.connect(self.pb_logOut_on_click)
+
+    def verMedicos(self):
+        self.mdiArea.closeActiveSubWindow()
+        dialogo=VentanaMedicos()
+        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+        dialogo.showMaximized()
 
     def verMisTurnos(self):
         self.mdiArea.closeActiveSubWindow()
@@ -60,6 +74,13 @@ class MainWindow (QMainWindow):
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
+
+    def verLosMedicos(self):
+            self.mdiArea.closeActiveSubWindow()
+            dialogo=VentanaMedicos(self.usuario)
+            dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+            self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+            dialogo.showMaximized()
 
     def verAgenda(self):
          # abrir la agenda
@@ -72,7 +93,7 @@ class MainWindow (QMainWindow):
     #DEFINIMOS EL METODO PARA VER LOS TURNOS Y FILTRARLOS
     def pb_turnos_on_click (self):
         self.mdiArea.closeActiveSubWindow()
-        if self.usuario[3]== 2:
+        if isinstance(self.usuario, Secretario):
             # si es secretarios mira los turnos para aplicar filtros
             dialogo=VentanaTurnos(self.usuario)
             dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
@@ -117,7 +138,7 @@ class MainWindow (QMainWindow):
     #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON SECRETARIOS
     def pb_secretarios_on_click(self):
         self.mdiArea.closeActiveSubWindow()
-        dialogo=VentanaTurno()
+        dialogo=VentanaSecretarios(self.usuario)
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
@@ -137,7 +158,7 @@ class MainWindow (QMainWindow):
     #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON PACIENTES
     def pb_pacientes_on_click(self):
         self.mdiArea.closeActiveSubWindow()
-        dialogo=VentanaPacientes()
+        dialogo=VentanaPacientes(self.usuario)
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
@@ -156,7 +177,7 @@ class MainWindow (QMainWindow):
     #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON MEDICOS
     def pb_medicos_on_click(self):
         self.mdiArea.closeActiveSubWindow()
-        dialogo= VentanaMedicos()
+        dialogo= VentanaMedicos(self.usuario)
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
@@ -175,32 +196,44 @@ class MainWindow (QMainWindow):
 
     def pb_logOut_on_click(self):
         dialogo = Ventana_logOut()
-        dialogo.exec_()
-        return None
-        self.mdiArea.closeActiveSubWindow()
-        dialogo = Ventana_logOut()
-        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.mdiArea.addSubWindow(
-            dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
-        dialogo.showMaximized()
-        self.panel.setStyleSheet("""
-            #pb_medicos {
-                background-color: #00796b;
-            }
-            #pb_pacientes,#pb_secretarios, #pb_agenda{
-                background-color: #263238;
-            }
-            #pb_agenda:hover,#pb_pacientes:hover,
-            #pb_secretarios:hover, #pb_agenda:hover{
-                background-color: #00796b;
-            }
-        """)
+        ejecLogout = dialogo.exec_()
+
+        if ejecLogout == QDialog.Accepted:
+            self.mdiArea.close()
+            self.close()
+            # login = VentanaLogin()
+            # ejecLogin = login.exec_()
+            
+        
+        # self.mdiArea.closeActiveSubWindow()
+        # dialogo = Ventana_logOut()
+        # dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        # self.mdiArea.addSubWindow(
+        #     dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+        # dialogo.showMaximized()
+        # self.panel.setStyleSheet("""
+        #     #pb_medicos {
+        #         background-color: #00796b;
+        #     }
+        #     #pb_pacientes,#pb_secretarios, #pb_agenda{
+        #         background-color: #263238;
+        #     }
+        #     #pb_agenda:hover,#pb_pacientes:hover,
+        #     #pb_secretarios:hover, #pb_agenda:hover{
+        #         background-color: #00796b;
+        #     }
+        # """)
 
 if __name__== '__main__':
     app = QApplication(sys.argv)
-    login = VentanaLogin()
-    ejec = login.exec_()
-    if ejec == QDialog.Accepted:
-        window = MainWindow(login.usuario)
-        window.show()
-        app.exec_()
+    ejecLogin = True
+
+    while ejecLogin:
+        login = VentanaLogin()
+        ejecLogin = login.exec_()
+
+        if ejecLogin == QDialog.Accepted:
+            window = MainWindow(login.usuario)
+            window.show()
+            app.exec_()
+            window.close()
