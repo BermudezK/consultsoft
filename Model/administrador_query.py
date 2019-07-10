@@ -56,6 +56,15 @@ def select_pacientes():
             cursor.close()
 
 
+def select_secretario(usuario_ID):
+    cursor = mydb.cursor()
+    consulta = (f'select P.personal_DNI, P.nombre,P.apellido, P.telefono,U.usuario_ID, U.userName, U.password from personal P inner join usuario U on P.usuario_ID = U.usuario_ID where P.personal_DNI = {usuario_ID};')  
+    cursor.execute(consulta)
+    resultado = cursor.fetchall()
+    mydb.commit()
+    cursor.close()    
+    return resultado[0]
+
 def modificar_personal(dni, nuevosDatos):
     cursor = mydb.cursor()
     updatePersonal = f"""

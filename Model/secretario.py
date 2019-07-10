@@ -4,7 +4,9 @@ from Model.secretario_query import (insertarPaciente, pacienteExiste,
 									obtenerPacientes, existe,existe2, 
 									agregar_turno, existe_turno, 
 									EliminarTurno, editarTurnoSeleccionado, 
-									getPaciente, modificar_paciente)
+									getPaciente, modificar_paciente, 
+									modificar_usuario,modificar_secretario
+									)
 from Model.personal import Personal
 
 class Secretario(Personal):
@@ -58,7 +60,15 @@ class Secretario(Personal):
 		agregar_turno(medicodni,secretariodni,fechayhora,pacientedni,estado)
 
 	def verificar_turno(self,medico_ID,fecha_Hora):
-		return int(existe_turno(medico_ID,fecha_Hora)) > 0
+		return int( existe_turno(medico_ID,fecha_Hora)) > 0
+
+	def Borrar_Secretario(self,secretario):
+		eliminar_Secretario(secretario)
+
+
+	def editar_secretario(self,dni,nombre,apellido,telefono,nombreusuario,contraseña,userID):
+		modificar_secretario(nombre,apellido,telefono,dni)
+		modificar_usuario(nombreusuario,contraseña,userID)
 
 # ------ Modificaciones de prueba -----
 	

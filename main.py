@@ -124,7 +124,7 @@ class MainWindow (QMainWindow):
     #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON SECRETARIOS
     def pb_secretarios_on_click(self):
         self.mdiArea.closeActiveSubWindow()
-        dialogo=VentanaSecretarios()
+        dialogo=VentanaSecretarios(self.usuario)
         dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.mdiArea.addSubWindow(dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
         dialogo.showMaximized()
