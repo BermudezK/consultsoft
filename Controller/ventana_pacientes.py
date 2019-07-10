@@ -1,19 +1,19 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QDialog, QGridLayout, QMessageBox, QTableWidget, QTableWidgetItem, QPushButton, QHBoxLayout, QWidget  
 from PyQt5 import uic, QtCore, QtGui
-from Model.secretario import Secretario
-from Model.paciente import Paciente
 from Controller.ventana_paciente import VentanaPaciente
+from Model.paciente import Paciente
 
 class VentanaPacientes(QDialog):
-      def __init__(self):
+      def __init__(self,usuario):
+            self.usuario=usuario
             QDialog.__init__(self)
             uic.loadUi('./View/ventanaPacientes.ui', self)
             self.cargarPacientesALaTabla()
             self.pb_cargarPaciente.clicked.connect(self.pb_agregarPaciente_on_click)
       
       def cargarPacientesALaTabla(self):
-            pacientes = Secretario().obtener_pacientes()
+            pacientes = self.usuario.obtener_pacientes()
             self.tablePaciente.setRowCount(len(pacientes))
             self.tablePaciente.setEditTriggers(QTableWidget.NoEditTriggers)
            
@@ -30,7 +30,7 @@ class VentanaPacientes(QDialog):
      
       #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON agregar pacientes
       def pb_agregarPaciente_on_click(self):
-            dialogo=VentanaPaciente()
+            dialogo=VentanaPaciente(self.usuario)
             if dialogo.exec_() == 0:
                   self.cargarPacientesALaTabla()
       
@@ -76,10 +76,9 @@ class VentanaPacientes(QDialog):
       
       def editarPaciente(self, paciente):
             def callback():
-                  # dni, nombre, apellido, telefono = paciente
-                  pacienteFound = Secretario().obtener_paciente(paciente[0])
+                  pacienteFound = self.usuario.obtener_paciente(paciente[0])
                   pac = Paciente(pacienteFound[0],pacienteFound[1],pacienteFound[2],pacienteFound[3] )
-                  dialogo = VentanaPaciente(pac)
+                  dialogo = VentanaPaciente(self.usuario, pac)
                   if dialogo.exec_() == 0:
                         self.cargarPacientesALaTabla()
             return callback

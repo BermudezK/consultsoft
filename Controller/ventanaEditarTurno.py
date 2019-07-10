@@ -53,14 +53,15 @@ class VentanaEditarTurno(QDialog):
 			#Verificar si la fecha ya esta ocupada
 			# print(self.Campo_DNI_Medico.text(),' - ',self.campo_hora_fecha.text())
 			
-			existe = Secretario().verificar_turno(self.Campo_DNI_Medico.text(),self.campo_hora_fecha.text())
+			existe = self.usuario.verificar_turno(self.Campo_DNI_Medico.text(),self.campo_hora_fecha.text())
 			if not existe:
 				self.turno = Turno(self.turno.nro_turno,self.turno.paciente,self.Campo_DNI_Medico.text(),self.campo_hora_fecha.text())
 				#Verifica que el medico ingresado exista
 				#resultado = Secretario().existe_medico(self.Campo_DNI_Medico.text())
-				if Secretario().existe_medico(self.Campo_DNI_Medico.text()):
-					Secretario().editarTurno(self.turno.getMedico(),self.usuario[2],self.turno.getFechayHora(),self.turno.getNro_Turno())
+				if self.usuario.existe_personal(self.Campo_DNI_Medico.text(),3):
+					self.usuario.editarTurno(self.turno.getMedico(),self.usuario.dni,self.turno.getFechayHora(),self.turno.getNro_Turno())
 					QMessageBox.information(self, "Turno editado", "Turno editado exitosamente.   ",QMessageBox.Ok)
+					self.close()
 				else:
 					QMessageBox.warning(self, "Error!!","Medico no existe.",QMessageBox.Ok)
 			else:

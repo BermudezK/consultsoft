@@ -5,7 +5,8 @@ from Model.administrador import Administrador
 from Model.medico import Medico
 
 class VentanaMedico(QDialog):
-    def __init__(self, medico = None):
+    def __init__(self,usuario,medico=None):
+        self.usuario = usuario
         QDialog.__init__(self)
         uic.loadUi("View/ventanaMedico.ui", self)
         self.medico = medico
@@ -117,14 +118,10 @@ class VentanaMedico(QDialog):
 
         if self.validar_DNI() and self.validar_nombre() and self.validar_apellido() and self.validar_User() and self.validar_Password() and self.validar_telefono():
             #Aca evaluo si el nombre de usuario existe y si el medico a cargar ya existe
-             
-            if (not isinstance(self.medico,Medico)) and Administrador().comprobar_existencia(self.User.text()):
-                QMessageBox.warning(self, "Carga Erronea!!", "Nombre de Usuario ya existe")
-            elif (not isinstance(self.medico,Medico)) and  Medico().existe_medico(self.campoDNI.text()):
-                QMessageBox.warning(self, "Carga Erronea!!", "El medico ya existe")
-
-            else:
-                if isinstance(self.medico,Medico):
+            if isinstance(self.medico, Medico):
+                if (self.medico.usuario != self.User.text() and self.usuario.existe_usuario(self.User.text())>0):
+                    QMessageBox.warning(self, "Carga Erronea!!", "Nombre de Usuario ya existe")
+                else:
                     nuevosDatos = {
                         'dni': self.campoDNI.text(),
                         'nombre': self.campoNombre.text(),
@@ -133,12 +130,18 @@ class VentanaMedico(QDialog):
                         'password': self.Password.text(),
                         'username': self.User.text(),
                     }
-                    Administrador().modificar_medico(self.medico.dni, self.medico.usuario, nuevosDatos)
-                    QMessageBox.information(self, "Carga completada.", "Se actualizo un Doctor correctamente.", QMessageBox.Discard)
+                    self.usuario.modificar_medico(self.medico.dni, self.medico.usuario, nuevosDatos)
+                    QMessageBox.information(self, "Carga completada.", "Se actualizo el Medico correctamente.", QMessageBox.Discard)
+                    self.close()
+            else:
+                if self.usuario.existe_usuario(self.User.text())>0:
+                    QMessageBox.warning(self, "Carga Erronea!!", "Nombre de Usuario ya existe")
+                elif (not isinstance(self.medico,Medico)) and  self.usuario.existe_personal(self.campoDNI.text(),3):
+                    QMessageBox.warning(self, "Carga Erronea!!", "El medico ya existe") 
                 else:
                     #Aca se carga medico
                     # def agregar_medico(self, dni,nombre,apellido,telefono,usuario,password):
-                    Administrador().agregar_medico(self.campoDNI.text(), self.campoNombre.text(),
+                    self.usuario.agregar_medico(self.campoDNI.text(), self.campoNombre.text(),
                                                 self.campoApellido.text(), self.campoTelefono.text(), self.User.text(), self.Password.text())
                     QMessageBox.information(
                         self, "Carga completada.", "Se creo un Doctor correctamente.", QMessageBox.Discard)
