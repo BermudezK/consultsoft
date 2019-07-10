@@ -40,6 +40,11 @@ class Administrador(Personal):
 		modificar_personal(dni, nuevosDatos)
 		modificar_usuario(username, nuevosDatos)
 
-    def traer_secretario(self,usuarioid):
-        return select_secretario(usuarioid) 
-      
+	
+	def editar_secretario(self,dni, username, nuevosDatos):
+		modificar_personal(dni,nuevosDatos)
+		modificar_usuario(username,nuevosDatos)
+
+	def obtener_secretario(self,usuarioid):
+		return select_personal(usuarioid) 
+	  

@@ -39,9 +39,6 @@ class Secretario(Personal):
 	def verificar_turno(self,medico_ID,fecha_Hora):
 		return existe_turno(medico_ID,fecha_Hora) > 0
 	
-	def editar_secretario(self,dni,nombre,apellido,telefono,nombreusuario,contraseña,userID):
-		modificar_secretario(nombre,apellido,telefono,dni)
-		modificar_usuario(nombreusuario,contraseña,userID)
 
 # ------ Modificaciones de prueba -----
 	
