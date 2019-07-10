@@ -1,6 +1,7 @@
 import sys, re
 from Model.administrador import Administrador
 from Controller.ventana_secretario import VentanaSecretario
+from Controller.ventana_Editar_Secretario import VentanaEditarsecretario
 from PyQt5.QtWidgets import   QApplication,QTableWidgetItem,QTableWidget,QPushButton,QHBoxLayout,QWidget,QDialog,QDesktopWidget
 from PyQt5 import uic, QtCore, QtGui
 
@@ -74,12 +75,11 @@ class VentanaSecretarios (QDialog):
             self.cargarSecretariosALaTabla()
 
 
-    def editar(self, secretario):
-        fila = self.tableWidget.currentRow()
+    def editar(self, secretario,fila):
         item = self.tableWidget.item(fila,0)
         datossecretario = Administrador().traer_Secretario(item.text())
         #Abre la ventana de edicion de turno
-        dialogo = ventana_Editar_Secretario(secretario,datossecretario)
+        dialogo = VentanaEditarsecretario(secretario,datossecretario)
         if dialogo.exec_()==0:
             self.cargarSecretariosALaTabla()
 

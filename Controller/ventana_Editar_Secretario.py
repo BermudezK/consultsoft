@@ -9,9 +9,9 @@ from Model.personal import Personal
 
 class VentanaEditarsecretario(QDialog):
 
-	def __init__(self):
+	def __init__(self,secretario,datossecretario):
 		QDialog.__init__(self)
-		uic.loadUi("View/VentanaEditarTurno.ui",self)
+		uic.loadUi("View/VentanaEditarSecretario.ui",self)
 		#Cargar todos los datos del turno para luego editarlo
 		self.secretario = Secretario(datossecretario[0][0],datossecretario[0][2],datossecretario[0][1],datossecretario[0][3],None,datossecretario[0][4],datossecretario[0][5])
 		self.Campo_Nombre.setText(str(self.secretario.getNombre()))
