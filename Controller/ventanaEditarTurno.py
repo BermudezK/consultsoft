@@ -62,8 +62,12 @@ class VentanaEditarTurno(QDialog):
 					QMessageBox.information(self, "Turno editado", "Turno editado exitosamente.   ",QMessageBox.Ok)
 				else:
 					QMessageBox.warning(self, "Error!!","Medico no existe.",QMessageBox.Ok)
-			else: 
-				QMessageBox.warning(self, "Error!!","El medico ya tiene una turno asignado en esa fecha.",self.campo_hora_fecha.text(),QMessageBox.Ok)
+			else:
+				"""
+				msgBox = QMessageBox()
+				msgBox.setText("El medico ya tiene una turno asignado en esa fecha.") 
+				msgBox.exec()"""
+				QMessageBox.warning(self, "Error!!","El medico ya tiene una turno asignado en la fecha "+self.campo_hora_fecha.text()+".",QMessageBox.Ok)
 		else:
 			QMessageBox.warning(self,"Error","Medico o fecha invalido.",QMessageBox.Ok)
 
