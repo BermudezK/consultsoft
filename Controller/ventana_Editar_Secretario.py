@@ -9,18 +9,18 @@ from Model.personal import Personal
 
 class VentanaEditarsecretario(QDialog):
 
-	def __init__(self,secretario,datossecretario):
-		self.usuario=secretario
+	def __init__(self,usuario,secretario):
+		self.usuario=usuario
+		self.secretario = secretario
 		QDialog.__init__(self)
 		uic.loadUi("View/VentanaEditarSecretario.ui",self)
-		print(datossecretario)
+		
 		#Cargar todos los datos del turno para luego editarlo
-		self.secretario = Secretario(datossecretario[0][0],datossecretario[0][2],datossecretario[0][1],datossecretario[0][3],None,datossecretario[0][4],datossecretario[0][5])
-		self.Campo_Nombre_2.setText(str(self.secretario.getNombre()))
-		self.Campo_Apellido_2.setText(self.secretario.getApellido())
-		self.Campo_Usuario_2.setText(str(self.secretario.getUsuario()))
-		self.Campo_Password_2.setText(str(self.secretario.getPassword()))
-		self.Campo_Telefono_2.setText(str(self.secretario.getTelefono()))
+		self.Campo_Nombre_2.setText(str(self.secretario.nombre))
+		self.Campo_Apellido_2.setText(self.secretario.apellido)
+		self.Campo_Telefono_2.setText(str(self.secretario.telefono))
+		self.Campo_Usuario_2.setText(str(self.secretario.usuario))
+		self.Campo_Password_2.setText(str(self.secretario.password))
 
 		self.Campo_Nombre_2.textChanged.connect(self.validar_nombre)
 		self.Campo_Apellido_2.textChanged.connect(self.validar_apellido)
@@ -91,17 +91,38 @@ class VentanaEditarsecretario(QDialog):
 
 	def botonAceptar(self):
 		if self.validar_telefono() and self.validar_password() and self.validar_usuario() and self.validar_nombre() and self.validar_apellido():
-
-			#Verifica que el medico ingresado exista
-			#resultado = Secretario().existe_medico(self.Campo_DNI_Medico.text())
-			if (self.secretario.usuario != self.Campo_Usuario_2.text() and self.usuario.existe_usuario(self.Campo_Usuario_2.text())>0):
-				self.secretario = Secretario(self.Campo_Nombre_2.text(),self.Campo_Apellido_2.text(),self.Campo_Usuario_2.text(),self.Campo_Password_2.text(),self.Campo_Telefono_2.text())
-				Secretario().Editar_Secretario(self.secretario.getNombre(),self.secretario.getApellido(),self.secretario.getUsuario(),self.secretario.getPassword(),self.secretario.getTelefono())
-				QMessageBox.information(self, "Turno editado", "Turno editado exitosamente.   ",QMessageBox.Ok)
-		else:
-			#QMessageBox.warning(self,"Fallo en la Edicion!!"," :(")
-			print("Error de edicion")
-
+			if (self.secretario.usuario != self.Campo_Usuario_2.text()) and Secretario().comprobar_existencia(self.Campo_Usuario_2.text()):	
+				QMessageBox.information(self, "Error al Editar", "El usuario ya se encuentra registrado",QMessageBox.Ok)
+			else:
+				# dni,nombre,apellido,telefono,nombreusuario,contraseña,userID
+				Secretario().editar_secretario(self.secretario.dni,self.Campo_Nombre_2.text(),self.Campo_Apellido_2.text(),self.secretario.getTelefono(),self.Campo_Usuario_2.text(),self.Campo_Password_2.text(), self.secretario.id_usuario)
+				QMessageBox.information(self, "Secretario editado", "Secretario editado exitosamente.   ",QMessageBox.Ok)
+				self.close()
+		else: 
+			if not self.validar_telefono():
+				self.Campo_Telefono_2.setStyleSheet("border: 1px solid red;")
+			else:
+				self.Campo_Telefono_2.setStyleSheet("border: 1px solid green;")
+			
+			if not self.validar_password():
+				self.Campo_Password_2.setStyleSheet("border: 1px solid red;")
+			else:
+				self.Campo_Password_2.setStyleSheet("border: 1px solid green;")
+			
+			if not self.validar_nombre():
+				self.Campo_Nombre_2.setStyleSheet("border: 1px solid red;")
+			else:
+				self.Campo_Nombre_2.setStyleSheet("border: 1px solid green;")
+			
+			if not self.validar_apellido():
+				self.Campo_Apellido_2.setStyleSheet("border: 1px solid red;")
+			else:
+				self.Campo_Apellido_2.setStyleSheet("border: 1px solid green;")
+			if not self.validar_usuario():
+				self.Campo_Usuario_2.setStyleSheet("border: 1px solid red;")
+			else:
+				self.Campo_Usuario_2.setStyleSheet("border: 1px solid green;")
+			
 	def closeEvent(self,event):
 		self.close()
 

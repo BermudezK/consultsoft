@@ -1,5 +1,7 @@
 import sys, re
 from Model.administrador import Administrador
+from Model.secretario import Secretario
+
 from Controller.ventana_secretario import VentanaSecretario
 from Controller.ventana_Editar_Secretario import VentanaEditarsecretario
 from PyQt5.QtWidgets import   QApplication,QTableWidgetItem,QTableWidget,QPushButton,QHBoxLayout,QWidget,QDialog,QDesktopWidget
@@ -7,7 +9,7 @@ from PyQt5 import uic, QtCore, QtGui
 
 class VentanaSecretarios (QDialog):
     def __init__(self,usuario):
-        self.secretario=usuario
+        self.usuario=usuario
         QDialog.__init__(self)
 
         #CARGO EL FORMULARIO
@@ -56,7 +58,7 @@ class VentanaSecretarios (QDialog):
 
         # Creo las acciones
   
-        botonEditar.clicked.connect(lambda:self.editar(self.secretario,fila))
+        botonEditar.clicked.connect(lambda:self.editar(fila))
         
         # Agrego al contenedor los botones creados
 
@@ -75,13 +77,14 @@ class VentanaSecretarios (QDialog):
             self.cargarSecretariosALaTabla()
 
 
-    def editar(self, secretario,fila):
+    def editar(self, fila):
         item = self.tableWidget.item(fila,0)
-        print("hola item",item.text())
-        datossecretario = Administrador().traer_Secretario(item.text())
+        datos = Administrador().traer_secretario(item.text())
         #Abre la ventana de edicion de turno
-        print("hola datossecretario",datossecretario)
-        dialogo = VentanaEditarsecretario(secretario,datossecretario)
+        # dni,nombre,apellido,telefono,id_usuario,usuario,password
+        # P.personal_DNI, P.nombre,P.apellido, P.telefono, U.userName, U.password 
+        secretario = Secretario(datos[0],datos[1],datos[2],datos[3],datos[4],datos[5],datos[6])
+        dialogo = VentanaEditarsecretario(self.usuario,secretario)
         if dialogo.exec_()==0:
             self.cargarSecretariosALaTabla()
 
