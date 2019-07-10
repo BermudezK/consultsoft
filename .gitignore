@@ -1,3 +1,4 @@
+Model/mysqlScript.py
 Model/connection.py
 .vscode/
 Controller/__pycache__/

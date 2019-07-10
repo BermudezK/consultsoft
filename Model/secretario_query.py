@@ -109,4 +109,25 @@ def existe_turno(medico_ID,fecha_Hora):
 	cursor.close()
 	return resultado[0]
 
+# --------- Modificacion de prueba
+
+def EliminarTurno(turno):
+  cursor = mydb.cursor()
+  consulta = (f"update turno set estado = false where turno_ID = {turno}")
+  cursor.execute(consulta)
+  mydb.commit()
+  cursor.close()
+
+def editarTurnoSeleccionado(medico,secretario,fecha,turno):
+  try:        
+    cursor = mydb.cursor()         
+    consulta = (f"update turno SET medico_ID = {medico}, secretario_ID = {secretario}, fecha_Hora = '{fecha}' where turno_ID = {turno}")       
+    cursor.execute(consulta)      
+    mydb.commit()   
+  except Error as e :     
+    print ("Error while connecting to MySQL", e)  
+  finally:
+   #closing database connection.     
+    if(mydb.is_connected()):
+      cursor.close()
 

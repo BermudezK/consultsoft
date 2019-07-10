@@ -15,8 +15,6 @@ class VentanaTurno(QDialog):
 		if fechaHora != None:
 			data = QtCore.QDateTime.fromString(fechaHora, "yyyy-MM-dd h:mm:ss")
 			self.campo_hora_fecha.setDateTime(data)
-			
-
 
 		self.Campo_DNI_Medico.textChanged.connect(self.validar_dni_medico)
 		self.campo_hora_fecha.dateTimeChanged.connect(self.validar_fecha)
