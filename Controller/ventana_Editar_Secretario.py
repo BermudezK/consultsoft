@@ -94,13 +94,13 @@ class VentanaEditarsecretario(QDialog):
 
 			#Verifica que el medico ingresado exista
 			#resultado = Secretario().existe_medico(self.Campo_DNI_Medico.text())
-			if not Personal().comprobar_existencia(self.Campo_Usuario_2.text()):
+			if (self.secretario.usuario != self.Campo_Usuario_2.text() and self.usuario.existe_usuario(self.Campo_Usuario_2.text())>0):
 				self.secretario = Secretario(self.Campo_Nombre_2.text(),self.Campo_Apellido_2.text(),self.Campo_Usuario_2.text(),self.Campo_Password_2.text(),self.Campo_Telefono_2.text())
-				Secretario().Editar_Secretario(self.getNombre(),self.getApellido(),self.getUsuario(),self.getPassword(),self.getTelefono())
+				Secretario().Editar_Secretario(self.secretario.getNombre(),self.secretario.getApellido(),self.secretario.getUsuario(),self.secretario.getPassword(),self.secretario.getTelefono())
 				QMessageBox.information(self, "Turno editado", "Turno editado exitosamente.   ",QMessageBox.Ok)
-			else:
-				#QMessageBox.warning(self,"Fallo en la Edicion!!"," :(")
-				print("Error de edicion")
+		else:
+			#QMessageBox.warning(self,"Fallo en la Edicion!!"," :(")
+			print("Error de edicion")
 
 	def closeEvent(self,event):
 		self.close()
