@@ -3,6 +3,7 @@ import sys, re
 from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox
 from PyQt5 import uic
 from Model.secretario import Secretario
+from Model.paciente import Paciente
 #from databaseclinica import *
 
 class VentanaPaciente(QDialog):
@@ -12,20 +13,13 @@ class VentanaPaciente(QDialog):
 
 		self.paciente = paciente
 
-		if self.paciente:
-			dni, nombre, apellido, telefono = self.paciente
-			self.paciente = {
-				'dni': dni,
-				'nombre': nombre,
-				'apellido': apellido,
-				'telefono': telefono
-			}
+		if isinstance(self.paciente, Paciente):
 			self.labelNuevoPaciente.setText('Editar paciente')
 			self.campoDNI.setDisabled(True)
-			self.campoDNI.setText(str(dni))
-			self.campoNombre.setText(str(nombre))
-			self.campoApellido.setText(str(apellido))
-			self.campoTelefono.setText(str(telefono))
+			self.campoDNI.setText(str(self.paciente.dni))
+			self.campoNombre.setText(str(self.paciente.nombre))
+			self.campoApellido.setText(str(self.paciente.apellido))
+			self.campoTelefono.setText(str(self.paciente.telefono))
 
 
 		#Al hacer focus en el campo ejecuta la funcion
@@ -88,14 +82,14 @@ class VentanaPaciente(QDialog):
 	# Guarda los datos correctos en la Base de Datos
 	def validar(self):
 		if self.validar_DNI() and self.validar_nombre() and self.validar_apellido() and self.validar_telefono():
-			if self.paciente:
+			if isinstance(self.paciente, Paciente):
 					nuevosDatos = {
 						'dni': self.campoDNI.text(),
 						'nombre': self.campoNombre.text(),
 						'apellido': self.campoApellido.text(),
 						'telefono': self.campoTelefono.text()
 					}
-					Secretario.modificar_paciente(self.paciente['dni'], nuevosDatos['nombre'], nuevosDatos['apellido'], nuevosDatos['telefono'])
+					Secretario().modificar_paciente(self.paciente.dni, nuevosDatos['nombre'], nuevosDatos['apellido'], nuevosDatos['telefono'])
 					QMessageBox.information(self, "Carga completada.", "Se actualizo un Paciente correctamente.", QMessageBox.Discard)
 					self.close()
 

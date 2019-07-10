@@ -13,10 +13,11 @@ class Secretario(Personal):
 		resultado = pacienteExiste(dni)
 		return resultado
 	
-	def obtener_paciente(dni):
+	def obtener_paciente(self, dni):
 		resultado = getPaciente(dni)
 		return resultado
-	def modificar_paciente(dni, nombre, apellido, telefono):
+	
+	def modificar_paciente(self, dni, nombre, apellido, telefono):
 		modificar_paciente(dni, nombre, apellido, telefono)
 
 

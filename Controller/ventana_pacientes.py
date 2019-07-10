@@ -2,7 +2,9 @@ import sys
 from PyQt5.QtWidgets import QApplication, QDialog, QGridLayout, QMessageBox, QTableWidget, QTableWidgetItem, QPushButton, QHBoxLayout, QWidget  
 from PyQt5 import uic, QtCore, QtGui
 from Model.secretario import Secretario
+from Model.paciente import Paciente
 from Controller.ventana_paciente import VentanaPaciente
+
 class VentanaPacientes(QDialog):
       def __init__(self):
             QDialog.__init__(self)
@@ -36,22 +38,25 @@ class VentanaPacientes(QDialog):
             # Creo el layout que contendra a los botones
             caja = QHBoxLayout()
             # Creo los botones
-            botonEliminar = QPushButton()
+            # botonEliminar = QPushButton()
             botonEditar = QPushButton()
             # Agrega un icono a los botones
             
             estiloBasicoBoton = """
+            .QPushButton{
+                  border:none;
                   background-color: transparent;
+            }
             """
             botonEditar.setStyleSheet(estiloBasicoBoton)
-            botonEliminar.setStyleSheet(estiloBasicoBoton)
+            # botonEliminar.setStyleSheet(estiloBasicoBoton)
             
             botonEditar.setIcon(QtGui.QIcon("./icons/edit.svg"))
-            botonEliminar.setIcon(QtGui.QIcon("./icons/delete.svg"))
+            # botonEliminar.setIcon(QtGui.QIcon("./icons/delete.svg"))
             
             # Da el tamaño de los botones
-            botonEliminar.setMinimumSize(20,20)
-            botonEliminar.setMaximumSize(20,20)
+            # botonEliminar.setMinimumSize(20,20)
+            # botonEliminar.setMaximumSize(20,20)
             botonEditar.setMinimumSize(20,20)
             botonEditar.setMaximumSize(20,20)
 
@@ -60,7 +65,7 @@ class VentanaPacientes(QDialog):
             botonEditar.clicked.connect(self.editarPaciente(paciente))
             
             # Agrego al contenedor los botones creados
-            caja.addWidget(botonEliminar)
+            # caja.addWidget(botonEliminar)
             caja.addWidget(botonEditar)
             # Creo una elemento del tipo celda
             celda = QWidget()
@@ -71,11 +76,10 @@ class VentanaPacientes(QDialog):
       
       def editarPaciente(self, paciente):
             def callback():
-                  dni, nombre, apellido, telefono = paciente
-
-                  pacienteFound = Secretario.obtener_paciente(dni)
-
-                  dialogo = VentanaPaciente(pacienteFound)
+                  # dni, nombre, apellido, telefono = paciente
+                  pacienteFound = Secretario().obtener_paciente(paciente[0])
+                  pac = Paciente(pacienteFound[0],pacienteFound[1],pacienteFound[2],pacienteFound[3] )
+                  dialogo = VentanaPaciente(pac)
                   if dialogo.exec_() == 0:
                         self.cargarPacientesALaTabla()
             return callback
