@@ -13,8 +13,13 @@ class VentanaSecretarios(QDialog):
         self.usuario = usuario
         #CARGO EL FORMULARIO
         uic.loadUi('View/ventanaSecretarios.ui',self)
+
+        for indice, ancho in enumerate((80,150,230,210,50),start=0):
+            self.tableWidget.setColumnWidth(indice,ancho)
+
         self.cargarSecretariosALaTabla()
         self.pb_cargarSecretario.clicked.connect(self.pb_agregarSecretario_on_click)
+
 
     def cargarSecretariosALaTabla(self):
         # como el fin principal de este formulario es el de ver los secretarios del sistema 

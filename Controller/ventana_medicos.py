@@ -20,6 +20,10 @@ class VentanaMedicos(QDialog):
     self.usuario = usuario #deberían de pasarnos un Administrador o secretario
     QDialog.__init__(self)
     uic.loadUi('./View/ventanaMedicos.ui', self)
+
+    for indice, ancho in enumerate((80,180,240,190,50),start=0):
+      self.tableMedicos.setColumnWidth(indice,ancho)
+
     if isinstance(self.usuario, Secretario):
       self.pb_cargarMedico.hide()
       self.tableMedicos.setColumnHidden(4,True)

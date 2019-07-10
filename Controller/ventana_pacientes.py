@@ -9,6 +9,10 @@ class VentanaPacientes(QDialog):
             self.usuario=usuario
             QDialog.__init__(self)
             uic.loadUi('./View/ventanaPacientes.ui', self)
+
+            for indice, ancho in enumerate((80,150,220,210,50),start=0):
+                  self.tablePaciente.setColumnWidth(indice,ancho)
+
             self.cargarPacientesALaTabla()
             self.pb_cargarPaciente.clicked.connect(self.pb_agregarPaciente_on_click)
       
