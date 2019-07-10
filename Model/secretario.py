@@ -1,5 +1,8 @@
-from Model.connection import (select_personal, insert_paciente, pacienteExiste, 
-							obtenerPacientes, existe_personal,insert_turno,existe_turno)
+from Model.connection import (select_personal, insert_paciente, 
+							pacienteExiste,
+							obtenerPacientes, existe_personal,
+							insert_turno, existe_turno, 
+							getPaciente, modificar_paciente)
 from Model.personal import Personal
 
 class Secretario(Personal):
@@ -10,11 +13,14 @@ class Secretario(Personal):
 		insert_paciente(dni,nombre,apellido,telefono)
 
 	def existe_paciente(self,dni):
-		if pacienteExiste(dni)>0:
-			resultado = True
-		else:
-			resultado = False
+		return pacienteExiste (dni) > 0
+
+	def obtener_paciente(self, dni):
+		resultado = getPaciente(dni)
 		return resultado
+	
+	def modificar_paciente(self, dni, nombre, apellido, telefono):
+		modificar_paciente(dni, nombre, apellido, telefono)
 
 	def obtener_medicos(self):
 		return select_personal(3)

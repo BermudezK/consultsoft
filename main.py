@@ -196,32 +196,44 @@ class MainWindow (QMainWindow):
 
     def pb_logOut_on_click(self):
         dialogo = Ventana_logOut()
-        dialogo.exec_()
-        return None
-        self.mdiArea.closeActiveSubWindow()
-        dialogo = Ventana_logOut()
-        dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.mdiArea.addSubWindow(
-            dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
-        dialogo.showMaximized()
-        self.panel.setStyleSheet("""
-            #pb_medicos {
-                background-color: #00796b;
-            }
-            #pb_pacientes,#pb_secretarios, #pb_agenda{
-                background-color: #263238;
-            }
-            #pb_agenda:hover,#pb_pacientes:hover,
-            #pb_secretarios:hover, #pb_agenda:hover{
-                background-color: #00796b;
-            }
-        """)
+        ejecLogout = dialogo.exec_()
+
+        if ejecLogout == QDialog.Accepted:
+            self.mdiArea.close()
+            self.close()
+            # login = VentanaLogin()
+            # ejecLogin = login.exec_()
+            
+        
+        # self.mdiArea.closeActiveSubWindow()
+        # dialogo = Ventana_logOut()
+        # dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        # self.mdiArea.addSubWindow(
+        #     dialogo, QtCore.Qt.Dialog | QtCore.Qt.FramelessWindowHint | QtCore.Qt.CustomizeWindowHint)
+        # dialogo.showMaximized()
+        # self.panel.setStyleSheet("""
+        #     #pb_medicos {
+        #         background-color: #00796b;
+        #     }
+        #     #pb_pacientes,#pb_secretarios, #pb_agenda{
+        #         background-color: #263238;
+        #     }
+        #     #pb_agenda:hover,#pb_pacientes:hover,
+        #     #pb_secretarios:hover, #pb_agenda:hover{
+        #         background-color: #00796b;
+        #     }
+        # """)
 
 if __name__== '__main__':
     app = QApplication(sys.argv)
-    login = VentanaLogin()
-    ejec = login.exec_()
-    if ejec == QDialog.Accepted:
-        window = MainWindow(login.usuario)
-        window.show()
-        app.exec_()
+    ejecLogin = True
+
+    while ejecLogin:
+        login = VentanaLogin()
+        ejecLogin = login.exec_()
+
+        if ejecLogin == QDialog.Accepted:
+            window = MainWindow(login.usuario)
+            window.show()
+            app.exec_()
+            window.close()

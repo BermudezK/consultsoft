@@ -1,8 +1,11 @@
 from Model.personal import Personal
 from Model.connection import (
-	select_secretarias, select_personal,
+	select_personal,
 	insert_usuario,
-	insert_personal, existe_personal
+	insert_personal, 
+	existe_personal, 
+	modificar_personal,
+	modificar_usuario
 )
 class Administrador(Personal):
 	def __init__(self, dni=None,nombre=None,apellido=None,telefono=None,id_usuario=None,usuario=None,password=None):
@@ -12,7 +15,7 @@ class Administrador(Personal):
 	# Este metodo permitirá al administrador obtener una lista de todos los secretarios cargados en el sistema
 	# Retorno: lista de tuplas de secretarios
 	def obtener_secretarios(self):
-		secretarias = select_secretarias()
+		secretarias = select_personal(2)
 		return secretarias
 	
 	def obtener_medicos(self):
@@ -30,3 +33,7 @@ class Administrador(Personal):
 		id_user=insert_usuario(nombre_usuario,contraseña)
 		#personal_DNI, usuario_ID, rol_id, nombre, apellido, telefono
 		insert_personal(dni,id_user, 2, nombre, apellido, telefono)
+	
+	def modificar_medico(self, dni, username, nuevosDatos):
+		modificar_personal(dni, nuevosDatos)
+		modificar_usuario(username, nuevosDatos)

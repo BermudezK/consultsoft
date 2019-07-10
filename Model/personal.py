@@ -1,5 +1,5 @@
 from Model.persona import Persona
-from Model.connection import logIn,  existe_personal, existe_usuario
+from Model.connection import logIn,  existe_personal, existe_usuario, obtener_personal
 
 class Personal (Persona):
 	def __init__(self, dni=None,nombre=None,apellido=None,telefono=None,id_usuario=None,usuario=None,password=None):
@@ -38,7 +38,10 @@ class Personal (Persona):
 			resultado= True
 		else:
 			resultado= False
-		return resultado    
+		return resultado 
+
+	def obtener_personal (self, dni, rol):
+		return obtener_personal(dni,rol)
 	
 	def logIn(userName, password):
 		return logIn(userName, password)

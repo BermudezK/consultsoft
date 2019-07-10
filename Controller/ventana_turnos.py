@@ -26,7 +26,7 @@ class VentanaTurnos(QDialog):
 			self.botonNuevoTurno.hide()
 		
 		self.cargarTurnosALaTabla(mostrar_turnos)
-		self.botonNuevoTurno.clicked.connect(lambda: self.botonNuevoTurno_on_click(self.usuario))
+		self.botonNuevoTurno.clicked.connect(lambda: self.botonNuevoTurno_on_click())
 		self.comboBoxFiltro.currentIndexChanged.connect(self.seleccionarFiltro)
 		self.dateTimeEdit.hide()
 		
@@ -102,7 +102,7 @@ class VentanaTurnos(QDialog):
 	def botonNuevoTurno_on_click(self):
 		dialogo=VentanaTurno(self.usuario)
 		if dialogo.exec_()==0:
-			mostrar_turnos = cargar_turnos()
+			mostrar_turnos = Turno().mostrar_turnos()
 			self.cargarTurnosALaTabla(mostrar_turnos)
 		
 

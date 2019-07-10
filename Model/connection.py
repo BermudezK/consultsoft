@@ -33,13 +33,22 @@ def queryInsert(consulta, values):
 			cursor.close()
 			mydb.close()
 
+def queryModify(consulta):
+	try:
+		mydb= mysql.connector.connect(**mydbCon)		
+		cursor = mydb.cursor()
+		cursor.execute(consulta) 	
+		mydb.commit()
+	except Error as e :
+		print ("Error while connecting to MySQL", e)
+	finally:
+		#closing database connection.
+		if(mydb.is_connected()):
+			cursor.close()
+			mydb.close()
 
 def select_personal(rol):
 	consulta = (f"SELECT personal_DNI,nombre, apellido, telefono FROM personal WHERE rol_id = {rol}")
-	return querySelect(consulta)
-
-def select_secretarias():
-	consulta = 'SELECT personal_DNI,nombre, apellido, telefono FROM personal WHERE rol_id = 2;'
 	return querySelect(consulta)
 
 def select_IDuser(user_name):
@@ -93,7 +102,7 @@ def existe_turno(medico_ID,fecha_Hora):
 	return res[0][0]
 
 def logIn(userName, password):
-      # (dni,nombre,apellido,telefono,id_usuario,usuario,password)
+	  # (dni,nombre,apellido,telefono,id_usuario,usuario,password)
 	consulta = (f"""SELECT  p.personal_dni, p.nombre, p.apellido, p.telefono, u.usuario_id, u.username,u.password, r.rol_id, r.nombre_rol 
 					FROM usuario u 
 					INNER JOIN personal p on u.Usuario_ID = p.Usuario_ID 
@@ -192,3 +201,52 @@ def filtrar_por_fechaHora(fechaHora):
 					order by T.fecha_hora ASC""")
 	resultado = querySelect(consulta)
 	return resultado
+
+def modificar_personal(dni, nuevosDatos):
+	consulta = f"""
+		UPDATE personal
+			SET Personal_DNI = {nuevosDatos['dni']},
+				Nombre = "{nuevosDatos['nombre']}",
+				Apellido = "{nuevosDatos['apellido']}",
+				Telefono = {nuevosDatos['telefono']}
+			WHERE Personal_DNI = {dni};
+	"""
+	queryModify(consulta)
+	pass
+
+def modificar_usuario(username, nuevosDatos):
+	consulta = f"""
+		UPDATE usuario
+			SET userName = "{nuevosDatos['username']}", 
+				password = "{nuevosDatos['password']}"
+			WHERE userName = "{username}";
+	"""
+	queryModify(consulta)
+
+def getPaciente(dni):
+	consulta = (f"SELECT * FROM paciente WHERE Paciente_DNI = {dni}")
+	resultado = querySelect(consulta)
+	return resultado[0]
+
+def modificar_paciente(dni,nombre,apellido,telefono):
+  consulta = f"""
+	  UPDATE paciente
+		  SET paciente_DNI = {dni},
+			  nombre = "{nombre}",
+			  apellido = "{apellido}",
+			  telefono = {telefono}
+		  WHERE paciente_DNI = {dni};
+  """
+  queryModify(consulta)
+
+def obtener_personal(dni,rol):
+  consulta = f"""
+	SELECT p.personal_dni, p.nombre, p.apellido, p.telefono, u.username, u.password
+	  FROM personal AS p 
+	  INNER JOIN usuario AS u ON p.usuario_id = u.usuario_id 
+	  INNER JOIN rol AS r ON p.rol_id = r.rol_id 
+	  WHERE r.rol_id = {rol} AND p.personal_dni = {dni};
+  """
+  resultado=querySelect(consulta)
+  return resultado[0]
+
