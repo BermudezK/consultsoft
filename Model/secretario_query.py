@@ -18,6 +18,28 @@ def pacienteExiste(dni):
 	resultado = cursor.fetchone()
 	return resultado
 
+def getPaciente(dni):
+	sqlGetPaciente = (f"SELECT * FROM paciente WHERE Paciente_DNI = {dni}")
+	cursor = mydb.cursor()
+	cursor.execute(sqlGetPaciente)
+	#Guarda el resultado
+	resultado = cursor.fetchone()
+	return resultado
+
+def modificar_paciente(dni,nombre,apellido,telefono):
+  cursor = mydb.cursor()
+  updatePaciente = f"""
+      UPDATE paciente
+          SET paciente_DNI = {dni},
+              nombre = "{nombre}",
+              apellido = "{apellido}",
+              telefono = {telefono}
+          WHERE paciente_DNI = {dni};
+  """
+  cursor.execute(updatePaciente)
+  mydb.commit()
+  cursor.close()
+
 
 def obtenerMedicos():
   cursor = mydb.cursor()
@@ -29,6 +51,21 @@ def obtenerMedicos():
   WHERE r.rol_id = 3;"""
   cursor.execute(consulta)
   resultado = cursor.fetchall()
+  cursor.close()
+  return resultado
+
+def obtenerMedico(dni):
+  cursor = mydb.cursor()
+
+  consulta = f"""
+    SELECT p.personal_dni, p.nombre, p.apellido, p.telefono, u.username, u.password
+      FROM personal AS p 
+      INNER JOIN usuario AS u ON p.usuario_id = u.usuario_id 
+      INNER JOIN rol AS r ON p.rol_id = r.rol_id 
+      WHERE r.rol_id = 3 AND p.personal_dni = {dni};
+  """
+  cursor.execute(consulta)
+  resultado = cursor.fetchone()
   cursor.close()
   return resultado
 
