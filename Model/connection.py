@@ -259,11 +259,11 @@ def modificar_paciente(dni,nombre,apellido,telefono):
   """
   queryModify(consulta)
 
-def editarTurnoSeleccionado(medico,secretario,fecha,turno):
+def editarTurno(medico,secretario,fecha,turno):
 	consulta = (f"update turno SET medico_ID = {medico}, secretario_ID = {secretario}, fecha_Hora = '{fecha}' where turno_ID = {turno}")       
 	queryModify(consulta)
 
-def EliminarTurno(turno):
+def eliminarTurno(turno):
 	consulta = (f"update turno set estado = false where turno_ID = {turno}")
 	queryModify(consulta)
 

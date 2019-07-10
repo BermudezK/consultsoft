@@ -1,8 +1,12 @@
-from Model.connection import (select_personal, insert_paciente, 
-							pacienteExiste,
+
+from Model.connection import (insert_paciente, pacienteExiste, 
+							select_personal, obtener_personal,
 							obtenerPacientes, existe_personal,
-							insert_turno, existe_turno, EliminarTurno, editarTurnoSeleccionado,
-							getPaciente, modificar_paciente)
+							insert_turno, existe_turno, 
+							eliminarTurno, editarTurno,
+							getPaciente, modificar_paciente, 
+							modificar_usuario,modificar_personal
+							)
 from Model.personal import Personal
 
 class Secretario(Personal):
@@ -34,10 +38,15 @@ class Secretario(Personal):
 
 	def verificar_turno(self,medico_ID,fecha_Hora):
 		return existe_turno(medico_ID,fecha_Hora) > 0
+	
+	def editar_secretario(self,dni,nombre,apellido,telefono,nombreusuario,contraseña,userID):
+		modificar_secretario(nombre,apellido,telefono,dni)
+		modificar_usuario(nombreusuario,contraseña,userID)
+
 # ------ Modificaciones de prueba -----
 	
 	def borrarTurno(self,turno):
-		EliminarTurno(turno)
+		eliminarTurno(turno)
 
 	def editarTurno(self,medico,secretario,fecha,turno):
-		editarTurnoSeleccionado(medico,secretario,fecha,turno)
+		editarTurno(medico,secretario,fecha,turno)

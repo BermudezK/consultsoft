@@ -2,7 +2,9 @@ from Model.personal import Personal
 from Model.connection import (
 	select_personal,
 	insert_usuario,
-	insert_personal, 
+	insert_personal,
+	obtenerPacientes,
+	obtener_personal, 
 	existe_personal, 
 	modificar_personal,
 	modificar_usuario
@@ -37,3 +39,7 @@ class Administrador(Personal):
 	def modificar_medico(self, dni, username, nuevosDatos):
 		modificar_personal(dni, nuevosDatos)
 		modificar_usuario(username, nuevosDatos)
+
+    def traer_secretario(self,usuarioid):
+        return select_secretario(usuarioid) 
+      
