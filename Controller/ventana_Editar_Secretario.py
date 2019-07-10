@@ -33,8 +33,8 @@ class VentanaEditarsecretario(QDialog):
 
 
 	def validar_nombre(self):
-		self.Campo_Nombre.setMaxLength(45)
-		nombre=self.Campo_Nombre.text()
+		self.Campo_Nombre_2.setMaxLength(45)
+		nombre=self.Campo_Nombre_2.text()
 		validar = re.match("^[A-Z\sáéíóúàèìùäëïöüñ]{1,45}$", nombre, re.I)
 		if nombre == "":
 			return False
@@ -44,8 +44,8 @@ class VentanaEditarsecretario(QDialog):
 			return True
 
 	def validar_apellido(self):
-		self.Campo_Apellido.setMaxLength(45)
-		apellido=self.Campo_Apellido.text()
+		self.Campo_Apellido_2.setMaxLength(45)
+		apellido=self.Campo_Apellido_2.text()
 		validar = re.match("^[A-Z\sáéíóúàèìùäëïöüñ]{1,45}$", apellido, re.I)
 		if apellido == "":
 			return False
@@ -57,8 +57,8 @@ class VentanaEditarsecretario(QDialog):
 
 
 	def validar_usuario(self):
-		self.Campo_Usuario.setMaxLength(45)
-		usuario=self.Campo_Usuario.text()
+		self.Campo_Usuario_2.setMaxLength(45)
+		usuario=self.Campo_Usuario_2.text()
 		validar = re.match("^[A-Z\sáéíóúàèìùäëïöüñ]{1,45}$", usuario, re.I)
 		if usuario == "":
 			return False
@@ -68,8 +68,8 @@ class VentanaEditarsecretario(QDialog):
 			return True
 
 	def validar_password(self):
-		self.Campo_Password.setMaxLength(8)
-		password=self.Campo_Password.text()
+		self.Campo_Password_2.setMaxLength(8)
+		password=self.Campo_Password_2.text()
 		validar = re.match("^[0-9A-Z]{8,8}$", password, re.I)
 		if password == "":
 			return False
@@ -79,8 +79,8 @@ class VentanaEditarsecretario(QDialog):
 			return True
 
 	def validar_telefono(self):
-		self.Campo_Telefono.setMaxLength(13)
-		telefono = self.Campo_Telefono.text()
+		self.Campo_Telefono_2.setMaxLength(13)
+		telefono = self.Campo_Telefono_2.text()
 		validar = re.match("^[0-9]{10,13}$", telefono, re.I)
 		if telefono == "":
 			return False
@@ -92,13 +92,14 @@ class VentanaEditarsecretario(QDialog):
 	def botonAceptar(self):
 		if self.validar_telefono() and self.validar_password() and self.validar_usuario() and self.validar_nombre() and self.validar_apellido():
 
-			self.secretario = Secretario(self.Campo_Nombre.text(),self.Campo_Apellido.text(),self.Campo_Usuario.text(),self.Campo_Password.text(),self.Campo_Telefono.text())
 			#Verifica que el medico ingresado exista
 			#resultado = Secretario().existe_medico(self.Campo_DNI_Medico.text())
-			if not Personal().comprobar_existencia(self.Campo_Usuario.text()):
+			if not Personal().comprobar_existencia(self.Campo_Usuario_2.text()):
+				self.secretario = Secretario(self.Campo_Nombre_2.text(),self.Campo_Apellido_2.text(),self.Campo_Usuario_2.text(),self.Campo_Password_2.text(),self.Campo_Telefono_2.text())
 				Secretario().Editar_Secretario(self.getNombre(),self.getApellido(),self.getUsuario(),self.getPassword(),self.getTelefono())
 				QMessageBox.information(self, "Turno editado", "Turno editado exitosamente.   ",QMessageBox.Ok)
 			else:
+				#QMessageBox.warning(self,"Fallo en la Edicion!!"," :(")
 				print("Error de edicion")
 
 	def closeEvent(self,event):
