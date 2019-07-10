@@ -3,7 +3,8 @@ from Model.administrador_query import (
     select_secretarias,
     insertar_usuario,
     insert_personal,
-    select_pacientes
+    select_pacientes,
+    consultasecretario
 )
 
 class Administrador(Personal):
@@ -34,3 +35,7 @@ class Administrador(Personal):
     def obtener_pacientes(self):
         pacientes = select_pacientes()
         return pacientes
+
+
+    def traer_Secretario(self,usuarioid):
+        consultasecretario(usuarioid)

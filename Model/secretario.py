@@ -43,3 +43,12 @@ class Secretario(Personal):
 
 	def verificar_turno(self,medico_ID,fecha_Hora):
 		return int( existe_turno(medico_ID,fecha_Hora)) > 0
+
+	def Borrar_Secretario(self,secretario):
+		eliminar_Secretario(secretario)
+
+
+	def Editar_Secretario(self,nombre,apellido,telefono,nombreusuario,contraseña,secretario):
+		modificar_Secretario(nombre,apellido,telefono,secretario)
+		modificar_Usuario(nombreusuario,contraseña,secretario)
+

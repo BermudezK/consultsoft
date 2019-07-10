@@ -72,4 +72,30 @@ def existe_turno(medico_ID,fecha_Hora):
 	cursor.close()
 	return resultado[0]
 
+def modificar_Secretario(nombre,apellido,telefono):
+  try:        
+    cursor = mydb.cursor()         
+    consulta = (f"update personal SET nombre = {nombre}, apellido = {apellido}, telefono = '{telefono}' where usuario_ID = {secretario}")       
+    cursor.execute(consulta)      
+    mydb.commit()   
+  except Error as e :     
+    print ("Error while connecting to MySQL", e)  
+  finally:
+   #closing database connection.     
+    if(mydb.is_connected()):
+      cursor.close()
+
+def modificar_Usuairo(nombreusuario,contraseña,secretario):
+  try:        
+    cursor = mydb.cursor()         
+    consulta = (f"update usuario SET userName = {nombreusuario}, password = {contraseña}  where usuario_ID = {secretario}")       
+    cursor.execute(consulta)      
+    mydb.commit()   
+  except Error as e :     
+    print ("Error while connecting to MySQL", e)  
+  finally: 
+   #closing database connection.     
+    if(mydb.is_connected()):
+      cursor.close()
+
 
