@@ -27,3 +27,5 @@ class Persona:
     nombre = property(fget=getNombre, fset=setNombre)
     apellido = property(fget=getApellido, fset=setApellido)
     telefono = property(fget=getTelefono, fset=setTelefono)
+
+    

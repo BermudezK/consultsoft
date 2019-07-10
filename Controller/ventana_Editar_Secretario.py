@@ -91,11 +91,19 @@ class VentanaEditarsecretario(QDialog):
 
 	def botonAceptar(self):
 		if self.validar_telefono() and self.validar_password() and self.validar_usuario() and self.validar_nombre() and self.validar_apellido():
-			if (self.secretario.usuario != self.Campo_Usuario_2.text()) and Secretario().comprobar_existencia(self.Campo_Usuario_2.text()):	
+			if (self.secretario.usuario != self.Campo_Usuario_2.text()) and self.usuario.existe_usuario(self.Campo_Usuario_2.text()):	
 				QMessageBox.information(self, "Error al Editar", "El usuario ya se encuentra registrado",QMessageBox.Ok)
 			else:
 				# dni,nombre,apellido,telefono,nombreusuario,contraseña,userID
-				Secretario().editar_secretario(self.secretario.dni,self.Campo_Nombre_2.text(),self.Campo_Apellido_2.text(),self.secretario.getTelefono(),self.Campo_Usuario_2.text(),self.Campo_Password_2.text(), self.secretario.id_usuario)
+				nuevosDatos = {
+                        'dni': self.secretario.dni,
+                        'nombre': self.Campo_Nombre_2.text(),
+                        'apellido': self.Campo_Apellido_2.text(),
+                        'telefono': self.Campo_Telefono_2.text(),
+                        'password': self.Campo_Password_2.text(),
+                        'username': self.Campo_Usuario_2.text(),
+                    }
+				self.usuario.editar_secretario(self.secretario.dni,self.secretario.usuario, nuevosDatos)
 				QMessageBox.information(self, "Secretario editado", "Secretario editado exitosamente.   ",QMessageBox.Ok)
 				self.close()
 		else: 
