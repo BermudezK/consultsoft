@@ -77,8 +77,10 @@ class VentanaSecretarios (QDialog):
 
     def editar(self, secretario,fila):
         item = self.tableWidget.item(fila,0)
+        print("hola item",item.text())
         datossecretario = Administrador().traer_Secretario(item.text())
         #Abre la ventana de edicion de turno
+        print("hola datossecretario",datossecretario)
         dialogo = VentanaEditarsecretario(secretario,datossecretario)
         if dialogo.exec_()==0:
             self.cargarSecretariosALaTabla()

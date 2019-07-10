@@ -10,21 +10,23 @@ from Model.personal import Personal
 class VentanaEditarsecretario(QDialog):
 
 	def __init__(self,secretario,datossecretario):
+		self.usuario=secretario
 		QDialog.__init__(self)
 		uic.loadUi("View/VentanaEditarSecretario.ui",self)
+		print(datossecretario)
 		#Cargar todos los datos del turno para luego editarlo
 		self.secretario = Secretario(datossecretario[0][0],datossecretario[0][2],datossecretario[0][1],datossecretario[0][3],None,datossecretario[0][4],datossecretario[0][5])
-		self.Campo_Nombre.setText(str(self.secretario.getNombre()))
-		self.Campo_Apellido.setText(self.secretario.getApellido())
-		self.Campo_Usuario.setText(str(self.secretario.getUsuario()))
-		self.Campo_Password.setText(str(self.secretario.getPassword()))
-		self.Campo_Telefono.setText(str(self.secretario.getTelefono()))
+		self.Campo_Nombre_2.setText(str(self.secretario.getNombre()))
+		self.Campo_Apellido_2.setText(self.secretario.getApellido())
+		self.Campo_Usuario_2.setText(str(self.secretario.getUsuario()))
+		self.Campo_Password_2.setText(str(self.secretario.getPassword()))
+		self.Campo_Telefono_2.setText(str(self.secretario.getTelefono()))
 
-		self.Campo_Nombre.textChanged.connect(self.validar_nombre)
-		self.Campo_Apellido.textChanged.connect(self.validar_apellido)
-		self.Campo_Usuario.textChanged.connect(self.validar_usuario)
-		self.Campo_Password.textChanged.connect(self.validar_password)
-		self.Campo_Telefono.textChanged.connect(self.validar_telefono)
+		self.Campo_Nombre_2.textChanged.connect(self.validar_nombre)
+		self.Campo_Apellido_2.textChanged.connect(self.validar_apellido)
+		self.Campo_Usuario_2.textChanged.connect(self.validar_usuario)
+		self.Campo_Password_2.textChanged.connect(self.validar_password)
+		self.Campo_Telefono_2.textChanged.connect(self.validar_telefono)
 		self.BotonAceptar_2.clicked.connect(self.botonAceptar)
 		self.BotonCancelar_2.clicked.connect(self.closeEvent)
 

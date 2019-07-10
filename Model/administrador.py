@@ -38,4 +38,4 @@ class Administrador(Personal):
 
 
     def traer_Secretario(self,usuarioid):
-        consultasecretario(usuarioid)
+        return consultasecretario(usuarioid) 

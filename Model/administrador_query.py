@@ -60,9 +60,10 @@ def select_pacientes():
 
 def consultasecretario(usuario_ID):
     cursor = mydb.cursor()
-    consulta = (f'select P.personal_DNI, P.apellido, P.nombre, P.telefono, U.userName, U.password from personal P inner join usuario U on P.usuario_ID = U.usuario_ID where P.usuario_ID = {usuario_ID};')  
+    consulta = (f'select P.personal_DNI, P.apellido, P.nombre, P.telefono, U.userName, U.password from personal P inner join usuario U on P.usuario_ID = U.usuario_ID where P.personal_DNI = {usuario_ID};')  
     cursor.execute(consulta)
     resultado = cursor.fetchall()
+    print(resultado)
     mydb.commit()
     cursor.close()    
     return resultado
