@@ -15,17 +15,23 @@ from Model.medico import Medico
 from Controller.ventana_medico import VentanaMedico
 from Controller.ventana_agenda import VentanaAgenda
 
-
 class VentanaMedicos(QDialog):
-  def __init__(self):
+  def __init__(self, usuario):
+    self.usuario = usuario #deberían de pasarnos un Administrador o secretario
     QDialog.__init__(self)
     uic.loadUi('./View/ventanaMedicos.ui', self)
+    if isinstance(self.usuario, Secretario):
+      self.pb_cargarMedico.hide()
+      self.tableMedicos.setColumnHidden(4,True)
+    else:
+      self.pb_cargarMedico.show()
     self.center()
     self.cargarMedicosALaTabla()
     self.pb_cargarMedico.clicked.connect(self.pb_agregarMedico_on_click)
+
     
   def cargarMedicosALaTabla(self):
-    medicos = Secretario.obtener_medicos()
+    medicos = self.usuario.obtener_medicos()
     self.tableMedicos.setRowCount(len(medicos))
     self.tableMedicos.setEditTriggers(QTableWidget.NoEditTriggers)
     
@@ -80,19 +86,18 @@ class VentanaMedicos(QDialog):
     
   #DEFINIMOS EL METODO PARA QUE ESCUCHE CUANDO Se HAce CLICK EN EL BOTON agregar pacientes
   def pb_agregarMedico_on_click(self):
-    dialogo=VentanaMedico()
-    if dialogo.exec_()==0:
-      self.cargarMedicosALaTabla()
+        dialogo=VentanaMedico(self.usuario)
+        if dialogo.exec_()==0:
+          self.cargarMedicosALaTabla()
         
   # def eliminarMedico(self):
   #   print('Eliminar medico')
 
   def editarMedico(self, medico):
     def callback():      
-      medicoFound = Secretario.obtener_medico(medico[0])
-      
+      medicoFound = self.usuario.obtener_personal(medico[0],3)
       med = Medico(medicoFound[0],medicoFound[1],medicoFound[2],medicoFound[3],None,medicoFound[4],medicoFound[5])
-      dialogo = VentanaMedico(med)
+      dialogo = VentanaMedico(self.usuario,med)
       if dialogo.exec_() == 0:
         self.cargarMedicosALaTabla()
     return callback
@@ -109,6 +114,8 @@ class VentanaMedicos(QDialog):
 
     # top left of rectangle becomes top left of window centering it
     self.move(qr.topLeft())
+
+
 if __name__== '__main__':
   app = QApplication(sys.argv)
   _ventana = VentanaMedicos()

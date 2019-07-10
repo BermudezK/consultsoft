@@ -7,12 +7,12 @@ from Model.paciente import Paciente
 #from databaseclinica import *
 
 class VentanaPaciente(QDialog):
-	def __init__(self, paciente = None):	
+	def __init__(self,usuario, paciente = None):
 		QDialog.__init__(self)
 		uic.loadUi("View/ventanaPaciente.ui",self)
 
+		self.usuario=usuario
 		self.paciente = paciente
-
 		if isinstance(self.paciente, Paciente):
 			self.labelNuevoPaciente.setText('Editar paciente')
 			self.campoDNI.setDisabled(True)
@@ -89,15 +89,15 @@ class VentanaPaciente(QDialog):
 						'apellido': self.campoApellido.text(),
 						'telefono': self.campoTelefono.text()
 					}
-					Secretario().modificar_paciente(self.paciente.dni, nuevosDatos['nombre'], nuevosDatos['apellido'], nuevosDatos['telefono'])
+					self.usuario.modificar_paciente(self.paciente.dni, nuevosDatos['nombre'], nuevosDatos['apellido'], nuevosDatos['telefono'])
 					QMessageBox.information(self, "Carga completada.", "Se actualizo un Paciente correctamente.", QMessageBox.Discard)
 					self.close()
 
-			elif Secretario.existe_paciente(self.campoDNI.text())[0] == 1:
+			elif self.usuario.existe_paciente(self.campoDNI.text()):
 				QMessageBox.warning(self,"Carga Erronea!!","El paciente ya existe")
 				
 			else:
-				Secretario.agregar_paciente(self.campoDNI.text(),self.campoNombre.text(),self.campoApellido.text(),self.campoTelefono.text())
+				self.usuario.agregar_paciente(self.campoDNI.text(),self.campoNombre.text(),self.campoApellido.text(),self.campoTelefono.text())
 				QMessageBox.information(self,"Carga completada.","Se creo un paciente correctamente.",QMessageBox.Ok)
 				self.campoDNI.setText("")
 				self.campoApellido.setText("")
@@ -107,7 +107,7 @@ class VentanaPaciente(QDialog):
 				self.campoApellido.setStyleSheet("border: 1px solid black")
 				self.campoNombre.setStyleSheet("border: 1px solid black")
 				self.campoTelefono.setStyleSheet("border: 1px solid black")
-				
+			
 		else:
 			QMessageBox.warning(self,"Carga Erronea!!","Valor incorrecto o campo vacio.",QMessageBox.Ok)
 			if not self.validar_DNI():
