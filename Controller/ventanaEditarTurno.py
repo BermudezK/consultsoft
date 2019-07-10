@@ -51,14 +51,25 @@ class VentanaEditarTurno(QDialog):
 
 	def botonAceptar(self):
 		if self.validar_dni_medico() and self.validar_fecha():
-			self.turno = Turno(self.turno.nro_turno,self.turno.paciente,self.Campo_DNI_Medico.text(),self.campo_hora_fecha.text())
-			#Verifica que el medico ingresado exista
-			#resultado = Secretario().existe_medico(self.Campo_DNI_Medico.text())
-			if Secretario().existe_medico(self.Campo_DNI_Medico.text()):
-				Secretario().editarTurno(self.turno.getMedico(),self.usuario[2],self.turno.getFechayHora(),self.turno.getNro_Turno())
-				QMessageBox.information(self, "Turno editado", "Turno editado exitosamente.   ",QMessageBox.Ok)
+			#Verificar si la fecha ya esta ocupada
+			existe = Secretario().verificar_turno(self.Campo_DNI_Medico.text(),self.campo_hora_fecha.text())
+			if existe:
+				self.turno = Turno(self.turno.nro_turno,self.turno.paciente,self.Campo_DNI_Medico.text(),self.campo_hora_fecha.text())
+				#Verifica que el medico ingresado exista
+				#resultado = Secretario().existe_medico(self.Campo_DNI_Medico.text())
+				if Secretario().existe_medico(self.Campo_DNI_Medico.text()):
+					Secretario().editarTurno(self.turno.getMedico(),self.usuario[2],self.turno.getFechayHora(),self.turno.getNro_Turno())
+					QMessageBox.information(self, "Turno editado", "Turno editado exitosamente.   ",QMessageBox.Ok)
+				else:
+					QMessageBox.warning(self, "Error!!","Medico no existe.",QMessageBox.Ok)
 			else:
-				print("Error de edicion")
+				"""
+				msgBox = QMessageBox()
+				msgBox.setText("El medico ya tiene una turno asignado en esa fecha.") 
+				msgBox.exec()"""
+				QMessageBox.warning(self, "Error!!","El medico ya tiene una turno asignado en la fecha "+self.campo_hora_fecha.text()+".",QMessageBox.Ok)
+		else:
+			QMessageBox.warning(self,"Error","Medico o fecha invalido.",QMessageBox.Ok)
 
 	def closeEvent(self,event):
 		self.close()
