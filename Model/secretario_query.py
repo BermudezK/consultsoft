@@ -127,7 +127,6 @@ def editarTurnoSeleccionado(medico,secretario,fecha,turno):
   except Error as e :     
     print ("Error while connecting to MySQL", e)  
   finally:
-    print(medico," - ",secretario," - ",fecha," - ",turno)   
    #closing database connection.     
     if(mydb.is_connected()):
       cursor.close()

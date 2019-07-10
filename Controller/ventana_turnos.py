@@ -115,10 +115,14 @@ class VentanaTurnos(QDialog):
 		item = self.tablaTurnos.item(fila,0)
 		datosTurno = Turno().traerTurno(item.text())
 		#Abre la ventana de edicion de turno
-		dialogo = VentanaEditarTurno(usuario,datosTurno)
-		if dialogo.exec_()==0:
-			mostrar_turnos = cargar_turnos()
-			self.cargarTurnosALaTabla(mostrar_turnos)
+		fechaActual = datetime.datetime.today()
+		if datosTurno[0][3] < fechaActual:
+			 QMessageBox.information(self,"Error","No se puede editar un turno con fecha anterior a la actual",QMessageBox.Ok)
+		else:
+			dialogo = VentanaEditarTurno(usuario,datosTurno)
+			if dialogo.exec_()==0:
+				mostrar_turnos = cargar_turnos()
+				self.cargarTurnosALaTabla(mostrar_turnos)
 
 	# Crear funcion para borrar un turno
 	def borrar(self,fila):

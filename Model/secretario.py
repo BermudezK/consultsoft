@@ -58,7 +58,7 @@ class Secretario(Personal):
 		agregar_turno(medicodni,secretariodni,fechayhora,pacientedni,estado)
 
 	def verificar_turno(self,medico_ID,fecha_Hora):
-		return int( existe_turno(medico_ID,fecha_Hora)) > 0
+		return int(existe_turno(medico_ID,fecha_Hora)) > 0
 
 # ------ Modificaciones de prueba -----
 	
