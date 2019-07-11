@@ -42,6 +42,7 @@ class MainWindow (QMainWindow):
         elif usuario[7] == 3: #Medico
             self.usuario = Medico(usuario[0],usuario[1],usuario[2],usuario[3],usuario[4],usuario[5],usuario[6])
             self.pb_turnos.show()
+            self.pb_turnos.setDefault(True)
             self.pb_turnos.setStyleSheet("""
                 #pb_turnos {
                 background-color: #00796b;

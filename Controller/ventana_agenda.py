@@ -5,13 +5,14 @@ from PyQt5.QtWidgets import (
   QApplication, QTableWidgetItem,
   QTableWidget, QPushButton,
   QHBoxLayout, QWidget,
-  QDialog, QDesktopWidget
+  QDialog, QDesktopWidget, QMessageBox
 )
 from PyQt5 import uic, QtCore
 from Model.turno import Turno
 
 from Controller.ventana_turnos import VentanaTurnos
 from Controller.Ventana_turno import VentanaTurno
+
 class VentanaAgenda(QDialog):
 	def __init__(self, usuario):
 		self.usuario=usuario
@@ -35,12 +36,14 @@ class VentanaAgenda(QDialog):
 		columna=self.agenda.currentColumn()
 		hora =self.agenda.currentRow() + 6
 		fechaHora= str(fecha[columna]) + ' '+str(hora)+':00:00'
-		dialogo = VentanaTurno(self.usuario,fechaHora)
-		dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-		if dialogo.exec_()==0:
-			self.cambiarSemana(0)
+		if datetime.date.today() <= fecha[columna]:
+			dialogo = VentanaTurno(self.usuario,fechaHora)
+			dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+			if dialogo.exec_()==0:
+				self.cambiarSemana(0)
+		else:
+			QMessageBox.information(self, "Error", "No es permite agregar un turno una fecha anterior a la actual" , QMessageBox.Discard)
 			
-
 	# esta funcion carga los datos en la tabla
 	def cargarCitas(self):
 		self.agenda.clearContents()
