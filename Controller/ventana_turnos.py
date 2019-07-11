@@ -19,6 +19,8 @@ class VentanaTurnos(QDialog):
 		QDialog.__init__(self)
 		uic.loadUi('./View/vistaTurnos.ui',self)
 		# Se carga en una variable para luego mostrarla
+		for indice, ancho in enumerate((80,150,210,210,50),start=0):
+			self.tablaTurnos.setColumnWidth(indice,ancho)
 		if fechaYHora == None:
 			# ojo acá no respeta la Orientacion a objetos
 			mostrar_turnos = Turno().mostrar_turnos()
@@ -27,8 +29,6 @@ class VentanaTurnos(QDialog):
 			mostrar_turnos = Turno().filtrarFechaHora(fechaYHora)
 			self.botonNuevoTurno.hide()
 
-		for indice, ancho in enumerate((80,150,230,230,50),start=0):
-			self.tablaTurnos.setColumnWidth(indice,ancho)
 		
 		self.cargarTurnosALaTabla(mostrar_turnos)
 		self.botonNuevoTurno.clicked.connect(lambda: self.botonNuevoTurno_on_click())

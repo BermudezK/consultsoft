@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox
 from PyQt5 import uic
 from Model.personal import Personal
 
-
 class VentanaLogin(QDialog):
   def __init__(self):
     QDialog.__init__(self)
@@ -34,6 +33,7 @@ class VentanaLogin(QDialog):
         self.accept() # si lo descomento no funciona
       else:
         QMessageBox.warning(self, "¡Login incorrecto!", "¡El usuario o contraseña es incorrecto!", QMessageBox.Discard)
+        
     else:
       QMessageBox.warning(self, "Error", message, QMessageBox.Discard)
 
