@@ -97,7 +97,7 @@ class VentanaSecretario(QDialog):
 				QMessageBox.warning(self,"Carga Erronea!!","Nombre de Usuario ya existe")
 			else:
 				self.usuario.agregar_secretario(self.Campo_DNI.text(), self.Campo_Nombre.text(), self.Campo_Apellido.text(),self.Campo_Usuario.text(),self.Campo_Password.text(), self.Campo_Telefono.text())
-				QMessageBox.information(self,"Carga completada.","Se creo un Secretario correctamente.",QMessageBox.Discard)
+				QMessageBox.information(self,"Carga completada.","Se creo un Secretario correctamente.",QMessageBox.Ok)
 				self.Campo_DNI.setText("")
 				self.Campo_Apellido.setText("")
 				self.Campo_Nombre.setText("")
@@ -114,7 +114,7 @@ class VentanaSecretario(QDialog):
 				self.Campo_Password.setStyleSheet("border: 1px solid black")
 
 		else:
-			QMessageBox.warning(self,"Carga Erronea!!","Valor incorrecto o campo vacio.",QMessageBox.Discard)
+			QMessageBox.warning(self,"Carga Erronea!!","Valor incorrecto o campo vacio.",QMessageBox.Ok)
 			if not self.validar_dni():
 				self.Campo_DNI.setStyleSheet("border: 1px solid red;")
 			else: 

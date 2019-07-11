@@ -58,24 +58,24 @@ class VentanaTurno(QDialog):
 				self.Campo_DNI_Medico.setStyleSheet("border: 1px solid green;")
 			else:
 				self.Campo_DNI_Medico.setStyleSheet("border: 1px solid red;")
-				QMessageBox.information(self,"Carga incompleta","El Medico no existe.",QMessageBox.Discard)
+				QMessageBox.information(self,"Carga incompleta","El Medico no existe.",QMessageBox.Ok)
 
 			if self.usuario.existe_paciente(self.Campo_DNI_paciente.text()):
 				self.Campo_DNI_paciente.setStyleSheet("border: 1px solid green;")
 			else:
 				self.Campo_DNI_paciente.setStyleSheet("border: 1px solid red;")
-				QMessageBox.information(self,"Carga incompleta","El Paciente no existe.",QMessageBox.Discard)
+				QMessageBox.information(self,"Carga incompleta","El Paciente no existe.",QMessageBox.Ok)
 
 			if not self.usuario.verificar_turno(self.Campo_DNI_Medico.text(), self.campo_hora_fecha.text()):
 				self.campo_hora_fecha.setStyleSheet("border: 1px solid green;")
 			else:
 				self.campo_hora_fecha.setStyleSheet("border: 1px solid red;")
-				QMessageBox.information(self,"Carga incompleta","El turno ya existe",QMessageBox.Discard)
+				QMessageBox.information(self,"Carga incompleta","El turno ya existe",QMessageBox.Ok)
 
 			if self.usuario.existe_paciente(self.Campo_DNI_paciente.text()) and self.usuario.existe_personal(self.Campo_DNI_Medico.text(), 3) and not self.usuario.verificar_turno(self.Campo_DNI_Medico.text(), self.campo_hora_fecha.text()):
 				self.usuario.nuevo_Turno(self.Campo_DNI_Medico.text(),self.usuario.dni,self.campo_hora_fecha.text(),self.Campo_DNI_paciente.text())
 				
-				QMessageBox.information(self,"Carga completa","Se creo un turno correctamente.",QMessageBox.Discard)
+				QMessageBox.information(self,"Carga completa","Se creo un turno correctamente.",QMessageBox.Ok)
 				self.Campo_DNI_paciente.setText("")
 				self.Campo_DNI_Medico.setText("")
 
@@ -84,7 +84,7 @@ class VentanaTurno(QDialog):
 
 				self.campo_hora_fecha.setStyleSheet("border: 1px solid black")
 		else:
-			QMessageBox.warning(self,"Carga Erronea!!","Valor incorrecto o campo vacio.",QMessageBox.Discard)
+			QMessageBox.warning(self,"Carga Erronea!!","Valor incorrecto o campo vacio.",QMessageBox.Ok)
 			if not self.validar_dni_paciente():
 				self.Campo_DNI_paciente.setStyleSheet("border: 1px solid red;")
 			else: 

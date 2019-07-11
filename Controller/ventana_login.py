@@ -32,10 +32,10 @@ class VentanaLogin(QDialog):
       if self.usuario:
         self.accept() # si lo descomento no funciona
       else:
-        QMessageBox.warning(self, "¡Login incorrecto!", "¡El usuario o contraseña es incorrecto!", QMessageBox.Discard)
+        QMessageBox.warning(self, "¡Login incorrecto!", "¡El usuario o contraseña es incorrecto!", QMessageBox.Ok)
         
     else:
-      QMessageBox.warning(self, "Error", message, QMessageBox.Discard)
+      QMessageBox.warning(self, "Error", message, QMessageBox.Ok)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

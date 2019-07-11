@@ -42,7 +42,7 @@ class VentanaAgenda(QDialog):
 			if dialogo.exec_()==0:
 				self.cambiarSemana(0)
 		else:
-			QMessageBox.information(self, "Error", "No es permite agregar un turno una fecha anterior a la actual" , QMessageBox.Discard)
+			QMessageBox.information(self, "Error", "No es permite agregar un turno una fecha anterior a la actual" , QMessageBox.Ok)
 			
 	# esta funcion carga los datos en la tabla
 	def cargarCitas(self):

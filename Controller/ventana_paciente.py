@@ -90,7 +90,7 @@ class VentanaPaciente(QDialog):
 						'telefono': self.campoTelefono.text()
 					}
 					self.usuario.modificar_paciente(self.paciente.dni, nuevosDatos['nombre'], nuevosDatos['apellido'], nuevosDatos['telefono'])
-					QMessageBox.information(self, "Carga completada.", "Se actualizo un Paciente correctamente.", QMessageBox.Discard)
+					QMessageBox.information(self, "Carga completada.", "Se actualizo un Paciente correctamente.", QMessageBox.Ok)
 					self.close()
 
 			elif self.usuario.existe_paciente(self.campoDNI.text()):

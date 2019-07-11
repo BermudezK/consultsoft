@@ -131,7 +131,7 @@ class VentanaMedico(QDialog):
                         'username': self.User.text(),
                     }
                     self.usuario.modificar_medico(self.medico.dni, self.medico.usuario, nuevosDatos)
-                    QMessageBox.information(self, "Carga completada.", "Se actualizo el Medico correctamente.", QMessageBox.Discard)
+                    QMessageBox.information(self, "Carga completada.", "Se actualizo el Medico correctamente.", QMessageBox.Ok)
                     self.close()
             else:
                 if self.usuario.existe_usuario(self.User.text())>0:
@@ -144,7 +144,7 @@ class VentanaMedico(QDialog):
                     self.usuario.agregar_medico(self.campoDNI.text(), self.campoNombre.text(),
                                                 self.campoApellido.text(), self.campoTelefono.text(), self.User.text(), self.Password.text())
                     QMessageBox.information(
-                        self, "Carga completada.", "Se creo un Doctor correctamente.", QMessageBox.Discard)
+                        self, "Carga completada.", "Se creo un Doctor correctamente.", QMessageBox.Ok)
                     self.campoDNI.setText("")
                     self.campoApellido.setText("")
                     self.campoNombre.setText("")
@@ -161,7 +161,7 @@ class VentanaMedico(QDialog):
                     self.Password2.setStyleSheet("border: 1px solid black")
         else:
             QMessageBox.warning(
-                self, "Carga Erronea!!", "Valor incorrecto o campo vacio.", QMessageBox.Discard)
+                self, "Carga Erronea!!", "Valor incorrecto o campo vacio.", QMessageBox.Ok)
             if not self.validar_DNI():
                 self.campoDNI.setStyleSheet("border: 1px solid red;")
             else:

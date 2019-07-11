@@ -13,9 +13,13 @@
   <property name="windowTitle">
    <string>ConsultSoft</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../icons/organize.png</normaloff>../icons/organize.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">#verticalSpacer {
-	height: 30px;
+	height: 50px;
 }
 #panel, #MainWindow{
 	background-color:#263238;
@@ -53,66 +57,18 @@
 #L_userName{
 	font-size: 12px;
 	color: white;
+}
+#logo{
+	min-width:150px;
+	min-height:50px;
+	max-width:150px;
+	max-height:50px;
+	margin-top:5px
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1" alignment="Qt::AlignRight|Qt::AlignTop">
-     <widget class="QWidget" name="w_user" native="true">
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="1" alignment="Qt::AlignHCenter|Qt::AlignTop">
-        <widget class="QLabel" name="L_userPhoto">
-         <property name="minimumSize">
-          <size>
-           <width>50</width>
-           <height>50</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>10</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap>../icons/user.png</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-         <property name="wordWrap">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="L_userName">
-         <property name="text">
-          <string>User name</string>
-         </property>
-         <property name="indent">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="0" rowspan="2">
+    <item row="1" column="0" rowspan="2">
      <widget class="QWidget" name="panel" native="true">
       <property name="styleSheet">
        <string notr="true"/>
@@ -137,17 +93,30 @@
         <number>1</number>
        </property>
        <item>
+        <widget class="QLabel" name="logo">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>../icons/Consultsoft.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
+          <enum>QSizePolicy::Expanding</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>35</height>
+           <height>30</height>
           </size>
          </property>
         </spacer>
@@ -284,7 +253,7 @@
           <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
+          <enum>QSizePolicy::Expanding</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -297,11 +266,66 @@
       </layout>
      </widget>
     </item>
-    <item row="1" column="1">
+    <item row="2" column="1">
      <widget class="QMdiArea" name="mdiArea">
       <property name="styleSheet">
        <string notr="true"/>
       </property>
+     </widget>
+    </item>
+    <item row="1" column="1" alignment="Qt::AlignRight|Qt::AlignTop">
+     <widget class="QWidget" name="w_user" native="true">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="1" alignment="Qt::AlignHCenter|Qt::AlignTop">
+        <widget class="QLabel" name="L_userPhoto">
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>10</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>../icons/user.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+         <property name="wordWrap">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="L_userName">
+         <property name="text">
+          <string>User name</string>
+         </property>
+         <property name="indent">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
