@@ -18,6 +18,9 @@ class VentanaAgenda(QDialog):
 		self.usuario=usuario
 		QDialog.__init__(self)
 		uic.loadUi('./View/ventanaAgenda.ui',self)
+		for indice, ancho in enumerate((130,130,130,130,130,65,65),start=0):
+			self.agenda.setColumnWidth(indice,ancho)
+
 		hoy = datetime.date.today()
 		self.obtenerSemana(hoy)
 		self.cargarHeader(self._semana)
@@ -82,8 +85,8 @@ class VentanaAgenda(QDialog):
 		dia = str(fecha) +' '+ str(hora) +':00:00'
 		dialogo = VentanaTurnos(self.usuario, dia)
 		dialogo.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-		dialogo.show()
-		
+		if dialogo.exec()==0:
+			self.cambiarSemana(0)
 
 	# este metodo me permitirá obtener una lista de tuplas que contendrá los dias de la
 	# semana actual con su fecha, si el dia es domingo me traerá la semana próxima

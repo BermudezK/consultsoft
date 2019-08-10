@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Turnos</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QDialog {

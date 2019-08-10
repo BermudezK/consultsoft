@@ -14,13 +14,14 @@ from Model.secretario import Secretario
 
 
 class VentanaTurnos(QDialog):
-	def __init__(self, usuario, fechaYHora=None):
+	def __init__(self, usuario=None, fechaYHora=None):
 		self.usuario = usuario
 		QDialog.__init__(self)
 		uic.loadUi('./View/vistaTurnos.ui',self)
 		# Se carga en una variable para luego mostrarla
 		for indice, ancho in enumerate((80,150,210,210,50),start=0):
 			self.tablaTurnos.setColumnWidth(indice,ancho)
+		
 		if fechaYHora == None:
 			# ojo acá no respeta la Orientacion a objetos
 			mostrar_turnos = Turno().mostrar_turnos()
@@ -52,8 +53,8 @@ class VentanaTurnos(QDialog):
 				item.setTextAlignment(QtCore.Qt.AlignCenter)
 				self.tablaTurnos.setItem(i,columna,item)
 				#Crea el boton en la fila i
-				self.crearBoton(i)
 				columna = columna + 1
+			self.crearBoton(i)
 
 	def seleccionarFiltro(self,i):
 		# Segun el filtro que eligas traera algunos valores
@@ -158,14 +159,13 @@ class VentanaTurnos(QDialog):
 		# Introduzco el layout con los botones dentro del tipo celda
 		celda.setLayout(caja)
 		# Creo las acciones
-		botonEliminar.clicked.connect(lambda: self.borrar(posicion))
-		botonEditar.clicked.connect(lambda: self.editar(self.usuario,posicion))
 		# Agrego el elemento celda con los botones dentro de la tabpla en la pocicion (pocicion,4)
 		self.tablaTurnos.setCellWidget(posicion,4,celda)
+		botonEliminar.clicked.connect(lambda: self.borrar(posicion))
+		botonEditar.clicked.connect(lambda: self.editar(self.usuario,posicion))
 
 	# Crear funcion para editar un turno
-
-
+	
 
 if __name__ == '__main__':
 	app = QApplication(sys.argv)

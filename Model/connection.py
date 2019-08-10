@@ -150,7 +150,7 @@ def filtrar_por_fechaHora(fechaHora):
 					from turno T 
 					inner join personal P on T.medico_ID = P.personal_DNI
 					inner join paciente PS on T.paciente_DNI = PS.paciente_DNI
-					where fecha_Hora between '{fechaHora}' AND '{fechaHora}' + interval  59 minute
+					where fecha_Hora between '{fechaHora}' AND '{fechaHora}' + interval  59 minute and estado = '1'
 					order by T.fecha_hora ASC""")
 	resultado = querySelect(consulta)
 	return resultado
@@ -168,7 +168,7 @@ def filtrar_para_medico(dniMedico):
 
 def obtenerTurnos(desde,hasta):
 	consulta = (f"""SELECT CAST(fecha_Hora as date) AS 'Dia', HOUR(CAST(fecha_Hora as time)) AS 'Hora', count(*) 'Total' FROM turno
-							WHERE fecha_Hora BETWEEN '{desde}' AND '{hasta}' AND estado = true
+							WHERE fecha_Hora BETWEEN '{desde}' AND '{hasta}' and estado = '1'
 							GROUP BY CAST(fecha_Hora as date), HOUR(CAST(fecha_Hora as time))
 							ORDER BY CAST(fecha_Hora as date), HOUR(CAST(fecha_Hora as time));
 						""")
@@ -179,7 +179,6 @@ def obtener_turno(turno_id):
 	consulta = (f"""SELECT turno_ID, paciente_DNI, medico_ID, fecha_Hora
 	 				from turno 					
 	 				where turno_ID = {turno_id}""")
-	
 	resultado = querySelect(consulta)
 	return resultado
 
